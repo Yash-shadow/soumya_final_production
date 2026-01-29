@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta name="description" content="TGNPDCL Medical Bill Reimbursement System">
+ <title>{% block title %}TGNPDCL{% endblock %}</title>
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="{% load static %}{% static 'css/style.css' %}">
+ {% block extra_css %}{% endblock %}
+ <style>
+ :root {
+ --accent-color: {
+ {
+ config.color|default: "#3b82f6"
+ }
+ }
+
+ ;
+ }
+ </style>
+</head>
+
+<body>
+ {% if messages %}
+ <div class="messages-container" style="position: fixed; top: 1rem; right: 1rem; z-index: 9999; max-width: 400px;">
+ {% for message in messages %}
+ <div class="alert alert-{{ message.tags }} fade-in" style="margin-bottom: 0.5rem;">
+ {{ message }}
+ </div>
+ {% endfor %}
+ </div>
+ {% endif %}
+
+ {% block content %}{% endblock %}
+
+ {% block extra_js %}{% endblock %}
+ <script>
+ // Auto-hide alerts after 5 seconds
+ setTimeout(function () {
+ document.querySelectorAll('.messages-container .alert').forEach(function (el) {
+ el.style.opacity = '0';
+ el.style.transform = 'translateX(100%)';
+ setTimeout(function () { el.remove(); }, 300);
+ });
+ }, 5000);
+ </script>
+</body>
+
+</html>

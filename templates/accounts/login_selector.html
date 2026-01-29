@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Login - TGNPDCL{% endblock %}
+
+{% block content %}
+<div class="login-container">
+ <div style="text-align: center; margin-bottom: 3rem;">
+ <h1 style="font-size: 2rem; margin-bottom: 0.5rem;">⚡ TGNPDCL</h1>
+ <p class="text-muted">Medical Bill Reimbursement System</p>
+ </div>
+
+ <div class="login-selector">
+ <!-- Hospital Login -->
+ <a href="{% url 'hospital_login' %}" class="login-card hospital">
+ <span class="login-card-icon">🏥</span>
+ <h3 class="login-card-title">Hospital</h3>
+ <p class="login-card-desc">Hospital administrators and billing staff</p>
+ </a>
+
+ <!-- JPO Login -->
+ <a href="{% url 'jpo_login' %}" class="login-card jpo">
+ <span class="login-card-icon">👤</span>
+ <h3 class="login-card-title">JPO</h3>
+ <p class="login-card-desc">Junior Personnel Officer</p>
+ </a>
+
+ <!-- APO Login -->
+ <a href="{% url 'apo_login' %}" class="login-card apo">
+ <span class="login-card-icon">👥</span>
+ <h3 class="login-card-title">PO</h3>
+ <p class="login-card-desc">Personnel Officer</p>
+ </a>
+
+ <!-- DPO Login -->
+ <a href="{% url 'dpo_login' %}" class="login-card dpo">
+ <span class="login-card-icon">📋</span>
+ <h3 class="login-card-title">AS</h3>
+ <p class="login-card-desc">Assistant Secretary</p>
+ </a>
+
+ <!-- FA & CAO Login -->
+ <a href="{% url 'fa_cao_login' %}" class="login-card fa-cao">
+ <span class="login-card-icon">💰</span>
+ <h3 class="login-card-title">GMM</h3>
+ <p class="login-card-desc">General Manager Medical & Personnel</p>
+ </a>
+
+ <!-- DE Login -->
+ <a href="{% url 'de_login' %}" class="login-card de">
+ <span class="login-card-icon">⚙️</span>
+ <h3 class="login-card-title">CGM</h3>
+ <p class="login-card-desc">Chief General Manager</p>
+ </a>
+
+ <!-- SE / CGM Login -->
+ <a href="{% url 'se_cgm_login' %}" class="login-card se-cgm">
+ <span class="login-card-icon">👔</span>
+ <h3 class="login-card-title">JS</h3>
+ <p class="login-card-desc">Joint Secretary</p>
+ </a>
+ <a href="{% url 'director_login' %}" class="login-card se-cgm">
+ <span class="login-card-icon">👔</span>
+ <h3 class="login-card-title">Director</h3>
+ <p class="login-card-desc">Director_HRD</p>
+ </a>
+
+ <!-- Customer Admin Login -->
+ <a href="{% url 'customer_admin_login' %}" class="login-card customer-admin" style="--accent: #4b5563;">
+ <span class="login-card-icon">🛡️</span>
+ <h3 class="login-card-title">Customer Admin</h3>
+ <p class="login-card-desc">TGNPDCL System Administrator</p>
+ </a>
+ </div>
+
+</div>
+{% endblock %}

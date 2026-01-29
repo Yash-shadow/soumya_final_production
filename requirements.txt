@@ -1,0 +1,11 @@
+# Django
+Django>=4.2,<5.0
+django-storages>=1.14
+boto3>=1.28
+oracledb>=2.0.0
+dj-database-url>=2.1
+Pillow>=10.0
+
+# Production
+gunicorn>=21.0
+whitenoise>=6.6

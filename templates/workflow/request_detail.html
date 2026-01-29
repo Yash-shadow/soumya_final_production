@@ -1,0 +1,1048 @@
+{% comment %} {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Review Request - SR-{{ sanction_request.id }}{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <span class="sidebar-logo-icon">⚡</span>
+            <span class="sidebar-logo-text">TGNPDCL</span>
+        </div>
+        <nav>
+            <ul class="sidebar-nav">
+                <li class="sidebar-nav-item">
+                    <a href="{% url 'dashboard' %}" class="sidebar-nav-link">📊 Dashboard</a>
+                </li>
+                <li class="sidebar-nav-item">
+                    <a href="{% url 'workflow:approval_queue' %}" class="sidebar-nav-link active">✅ Approval Queue</a>
+                </li>
+                <li class="sidebar-nav-item">
+                    <a href="{% url 'documents:document_list' %}" class="sidebar-nav-link">📁 Documents</a>
+                </li>
+            </ul>
+        </nav>
+        <div style="position: absolute; bottom: 1.5rem; left: 1.5rem; right: 1.5rem;">
+            <a href="{% url 'logout' %}" class="btn btn-secondary btn-block">🚪 Logout</a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <!-- Top Bar with Gross Total -->
+        <div class="page-header"
+            style="background: rgba(31, 41, 55, 0.4); padding: 1.5rem; border-radius: var(--radius-lg); margin-bottom: 2rem; border-bottom: 2px solid var(--primary-600);">
+            <div>
+                <h1 class="page-title" style="margin-bottom: 0.25rem;">Review Request: SR-{{ sanction_request.id }}</h1>
+                <p class="text-muted">Currently with: <strong>{{ sanction_request.current_step.name }}</strong></p>
+            </div>
+            <div style="text-align: right;">
+                <p class="text-muted" style="font-size: 0.875rem;">Calculated Gross Total</p>
+                <p style="font-size: 2.25rem; font-weight: 800; color: var(--primary-400); line-height: 1;">₹{{
+                    total_claimed_amount|floatformat:2 }}</p>
+            </div>
+        </div>
+
+
+        <div class="workflow-grid fade-in">
+            <!-- Left Column: Mandatory Documents -->
+            <div class="workflow-column">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 style="font-size: 1rem;">📋 Mandatory Documents</h3>
+                    </div>
+                    <div class="card-body">
+                        {% if sanction_request.bill.id_card_file %}
+                        <div class="document-card mb-4" style="background: rgba(59, 130, 246, 0.05);">
+                            <div class="document-name" style="font-size: 0.875rem;">Employee / Pensioner ID</div>
+                            <div class="document-meta">{{ sanction_request.bill.id_card_detail|default:"ID Card" }}
+                            </div>
+                            <a href="{{ sanction_request.bill.id_card_file.url }}"
+                                class="btn btn-secondary btn-block mt-2" style="font-size: 0.75rem; padding: 0.5rem;"
+                                target="_blank">📄 View File</a>
+                        </div>
+                        {% endif %}
+
+                        {% if sanction_request.bill.cc_card_file %}
+                        <div class="document-card mb-4" style="background: rgba(59, 130, 246, 0.05);">
+                            <div class="document-name" style="font-size: 0.875rem;">Approved CC Card</div>
+                            <div class="document-meta">{{ sanction_request.bill.cc_card_detail|default:"CC Card" }}
+                            </div>
+                            <a href="{{ sanction_request.bill.cc_card_file.url }}"
+                                class="btn btn-secondary btn-block mt-2" style="font-size: 0.75rem; padding: 0.5rem;"
+                                target="_blank">📄 View File</a>
+                        </div>
+                        {% endif %}
+
+                        {% if sanction_request.bill.discharge_summary_file %}
+                        <div class="document-card" style="background: rgba(59, 130, 246, 0.05);">
+                            <div class="document-name" style="font-size: 0.875rem;">Discharge Summary</div>
+                            <div class="document-meta">{{
+                                sanction_request.bill.discharge_summary_detail|default:"Summary" }}</div>
+                            <a href="{{ sanction_request.bill.discharge_summary_file.url }}"
+                                class="btn btn-secondary btn-block mt-2" style="font-size: 0.75rem; padding: 0.5rem;"
+                                target="_blank">📄 View File</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Center Column: Bill Details & Items -->
+            <div class="workflow-column">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 style="font-size: 1rem;">🏥 Patient & Bill Info</h3>
+                    </div>
+                    <div class="card-body">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem;">
+                            <div>
+                                <label class="text-muted" style="font-size: 0.75rem; display: block;">Hospital</label>
+                                <span style="font-weight: 600;">{{ sanction_request.hospital_name }}</span>
+                            </div>
+                            <div>
+                                <label class="text-muted" style="font-size: 0.75rem; display: block;">Patient
+                                    Name</label>
+                                <span style="font-weight: 600;">{{ sanction_request.patient_name }}</span>
+                            </div>
+                            <div>
+                                <label class="text-muted" style="font-size: 0.75rem; display: block;">Admission
+                                    Date</label>
+                                <span>{{ sanction_request.bill.admission_date }}</span>
+                            </div>
+                            <div>
+                                <label class="text-muted" style="font-size: 0.75rem; display: block;">Discharge
+                                    Date</label>
+                                <span>{{ sanction_request.bill.discharge_date }}</span>
+                            </div>
+                        </div>
+
+                        <h4
+                            style="font-size: 0.875rem; margin-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem;">
+                            Itemized Breakdown</h4>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Service Name</th>
+                                        <th style="text-align: center;">Support Doc</th>
+                                        <th style="text-align: right;">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in sanction_request.bill.items.all %}
+                                    <tr>
+                                        <td>
+                                            <div style="font-weight: 500;">{{ item.service.name }}</div>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            {% if item.supporting_document %}
+                                            <a href="{{ item.supporting_document.url }}" target="_blank"
+                                                style="color: var(--primary-400); font-size: 1.25rem;">📄</a>
+                                            {% else %}
+                                            <span class="text-muted">-</span>
+                                            {% endif %}
+                                        </td>
+                                        <td style="text-align: right; font-weight: 600;">₹{{ item.claimed_amount }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    <td colspan="2" style="text-align: right; font-weight: 700;">TOTAL CLAIMED</td>
+                                    <td style="text-align: right; font-weight: 700; color: var(--primary-400);">₹{{
+                                        total_claimed_amount|floatformat:2 }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Actions & History -->
+            <div class="workflow-column">
+                <div class="card" style="border-top: 4px solid var(--primary-500);">
+                    <div class="card-header">
+                        <h3 style="font-size: 1rem;">✍️ Approval Processing</h3>
+                    </div>
+                    <div class="card-body">
+                        <form action="{% url 'workflow:process_request' sanction_request.id %}" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label class="form-label">Approved Amount</label>
+                                <div style="position: relative;">
+                                    <span
+                                        style="position: absolute; left: 1rem; top: 0.75rem; color: var(--gray-500);">₹</span>
+                                    <input type="number" name="approved_amount" class="form-control"
+                                        style="padding-left: 2rem;" placeholder="0.00" step="0.01"
+                                        value="{{ suggested_amount|floatformat:2 }}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Processing Remarks</label>
+                                <textarea name="comments" class="form-control" rows="3"
+                                    placeholder="Enter your remarks here..." required></textarea>
+                            </div>
+
+                            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                                {% if sanction_request.current_step.order <= 5 %} <!-- Steps 1-5: Recommendations only
+                                    -->
+                                    <button type="submit" name="action" value="FORWARD"
+                                        class="btn btn-primary btn-block">
+                                        Submit
+                                    </button>
+                                    {% elif sanction_request.current_step.order == 6 %}
+                                    <!-- Step 6: Accept or Final Reject -->
+                                    <button type="submit" name="action" value="FORWARD"
+                                        class="btn btn-primary btn-block">
+                                        ✅ Accept & Forward
+                                    </button>
+                                    <button type="submit" name="action" value="REJECT"
+                                        class="btn btn-secondary btn-block"
+                                        style="background: var(--error-500); color: white;">
+                                        ❌ Reject Request
+                                    </button>
+                                    {% else %}
+                                    <!-- Step 7: Final Approval/Reject -->
+                                    <button type="submit" name="action" value="APPROVE"
+                                        class="btn btn-primary btn-block" style="background: var(--success-500);">
+                                        ✅ Final Approval
+                                    </button>
+                                    <button type="submit" name="action" value="REJECT"
+                                        class="btn btn-secondary btn-block"
+                                        style="background: var(--error-500); color: white;">
+                                        ❌ Reject Request
+                                    </button>
+                                    {% endif %}
+                                    <button type="submit" name="action" value="CLARIFY"
+                                        class="btn btn-secondary btn-block">
+                                        ❓ Seek Clarification
+                                    </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Small History List -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 style="font-size: 0.875rem;">📜 Recent History</h3>
+                    </div>
+                    <div class="card-body" style="padding: 1rem;">
+                        {% for log in logs|slice:":5" %}
+                        <div
+                            style="padding-bottom: 0.75rem; margin-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.75rem;">
+                                <strong>{{ log.user.get_full_name|default:log.user.username }}</strong>
+                                <span class="text-muted">{{ log.timestamp|date:"d M, H:i" }}</span>
+                            </div>
+                            <div style="margin-top: 0.25rem;">
+                                <span
+                                    class="badge {% if log.action == 'APPROVE' or log.action == 'FORWARD' %}badge-success{% elif log.action == 'REJECT' or log.action == 'REJECT_RECOMMENDED' %}badge-error{% else %}badge-info{% endif %}"
+                                    style="font-size: 0.65rem;">
+                                    {{ log.get_action_display }}
+                                </span>
+                                <p style="font-size: 0.75rem; margin-top: 0.25rem; color: var(--gray-400);">{{
+                                    log.comments }}</p>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <p class="text-muted text-center" style="font-size: 0.75rem;">No history</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %} {% endcomment %}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Request SR-{{ sanction_request.id }} - NPDCL</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(to right, #003366, #0066cc);
+            padding: 0;
+            color: white;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: white;
+        }
+
+        .header-left,
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .minister-photo {
+            width: 70px;
+            height: 90px;
+            border-radius: 5px;
+            object-fit: cover;
+        }
+
+        .minister-info {
+            color: #003366;
+            font-size: 11px;
+        }
+
+        .minister-info strong {
+            display: block;
+            font-size: 12px;
+            margin-top: 3px;
+        }
+
+        .company-logo {
+            width: 80px;
+            height: 80px;
+        }
+
+        .company-info {
+            text-align: center;
+            flex: 1;
+            padding: 0 20px;
+        }
+
+        .company-title-telugu {
+            font-size: 20px;
+            color: #d32f2f;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .company-title-english {
+            font-size: 16px;
+            color: #d32f2f;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .company-subtitle {
+            font-size: 11px;
+            color: #666;
+            margin-top: 3px;
+        }
+
+        .rising-logo {
+            width: 60px;
+            height: 60px;
+        }
+
+        .header-nav {
+            background-color: #003366;
+            padding: 12px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #0066cc;
+        }
+
+        .user-info {
+            color: white;
+            font-size: 13px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .form-title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            background-color: white;
+            border: 2px solid #000;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Form Sections */
+        .form-section {
+            background: white;
+            border: 2px solid #003366;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .section-header {
+            background-color: #003366;
+            color: white;
+            padding: 10px 15px;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .form-label {
+            background-color: #e3f2fd;
+            padding: 10px 12px;
+            border: 1px solid #b3d9ff;
+            font-weight: bold;
+            color: #003366;
+            font-size: 12px;
+        }
+
+        .form-value {
+            background-color: #fffef0;
+            padding: 10px 12px;
+            border: 1px solid #b3d9ff;
+            font-size: 12px;
+            color: #333;
+        }
+
+        .note-section {
+            background-color: #fff9e6;
+            padding: 12px 15px;
+            border-top: 2px solid #ffd700;
+            font-size: 11px;
+            color: #856404;
+        }
+
+        .note-section strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Claim Details Table */
+        .claim-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .claim-table th {
+            background-color: #0066cc;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 11px;
+            border: 1px solid #003366;
+        }
+
+        .claim-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            background-color: #fffef0;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .claim-table td.text-left {
+            text-align: left;
+        }
+
+        .claim-table td.text-right {
+            text-align: right;
+        }
+
+        .claim-table input {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ccc;
+            font-size: 12px;
+            text-align: right;
+        }
+
+        .claim-table tfoot td {
+            background-color: #e3f2fd;
+            font-weight: bold;
+        }
+
+        /* Editable Section for TGNPDCL Approval */
+        .approval-section {
+            background-color: #e8f5e9;
+            border: 2px solid #4caf50;
+            padding: 15px;
+            margin: 15px;
+        }
+
+        .approval-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .approval-field label {
+            display: block;
+            font-size: 12px;
+            font-weight: bold;
+            color: #003366;
+            margin-bottom: 5px;
+        }
+
+        .approval-field input,
+        .approval-field select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .approval-field input[readonly] {
+            background-color: #f5f5f5;
+        }
+
+        /* Action Buttons */
+        .action-section {
+            background-color: white;
+            border: 2px solid #003366;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .action-section h3 {
+            color: #003366;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .action-field label {
+            display: block;
+            font-size: 13px;
+            font-weight: bold;
+            color: #003366;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .action-field textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 13px;
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-scrutiny {
+            background-color: #0066cc;
+            color: white;
+        }
+
+        .btn-scrutiny:hover {
+            background-color: #0052a3;
+        }
+
+        .btn-rejection {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .btn-rejection:hover {
+            background-color: #c82333;
+        }
+
+        .btn-approve {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-approve:hover {
+            background-color: #218838;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        /* Workflow History */
+        .history-section {
+            background: white;
+            border: 2px solid #003366;
+            margin-bottom: 20px;
+        }
+
+        .history-item {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .history-item:last-child {
+            border-bottom: none;
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .history-action {
+            font-weight: bold;
+            color: #003366;
+            font-size: 13px;
+        }
+
+        .history-date {
+            color: #666;
+            font-size: 11px;
+        }
+
+        .history-details {
+            font-size: 12px;
+            color: #555;
+            margin-top: 5px;
+        }
+
+        .history-comments {
+            margin-top: 8px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-left: 3px solid #0066cc;
+            font-size: 12px;
+            font-style: italic;
+        }
+
+        .minister-photo {
+            height: 180px;
+            width: 100%
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <img src="/static/images/cmimage.png" alt="Deputy Chief Minister" class="minister-photo">
+    <div class="header-nav">
+        <div class="nav-links">
+            <a href="{% url 'workflow:approval_queue' %}">Approval Queue</a>
+            <a href="#">My Approvals History</a>
+        </div>
+        <div class="user-info">
+            {{ sanction_request.current_step.name }} - {{ request.user.get_full_name|default:request.user.username }}
+        </div>
+    </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="form-title">Medical Bill Reimbursement Form</div>
+
+        <!-- Hospital Details -->
+        <div class="form-section">
+            <div class="section-header">HOSPITAL DETAILS</div>
+            <div class="form-grid">
+                <div class="form-label">Name of the Hospital</div>
+                <div class="form-value">{{ sanction_request.bill.hospital.name }}</div>
+                <div class="form-label">Hospital PAN No:</div>
+                <div class="form-value">{{ sanction_request.bill.hospital.pan_number|default:"XXXXXXX" }}</div>
+
+                <div class="form-label">Address:</div>
+                <div class="form-value">{{ sanction_request.bill.hospital.address }}</div>
+                <div class="form-label">GST NO:</div>
+                <div class="form-value">{{ sanction_request.bill.hospital.gst_number|default:"XXXXXXXXX" }}</div>
+
+                <div class="form-label">Phone No:</div>
+                <div class="form-value">{{ sanction_request.bill.hospital.phone }}</div>
+                <div class="form-label">CIN NO:</div>
+                <div class="form-value">{{ sanction_request.bill.hospital.cin_number|default:"XXXXXXXXXX" }}</div>
+
+                <div class="form-label">Hospital Code:</div>
+                <div class="form-value">{{ sanction_request.bill.hospital.code }}</div>
+                <div class="form-label">Category:</div>
+                <div class="form-value">{{ sanction_request.bill.hospital.get_tier_display }}</div>
+            </div>
+            <div class="note-section">
+                <strong>Note:</strong> All the Data taken from Hospital Data Base and Shown here as non-editable
+            </div>
+        </div>
+
+        <!-- Patient Details -->
+        <div class="form-section">
+            <div class="section-header">PATIENT DETAILS</div>
+            <div class="form-grid">
+                <div class="form-label">Name of the Employee:</div>
+                <div class="form-value">{{ sanction_request.patient_name }}</div>
+                <div class="form-label">IP NO:</div>
+                <div class="form-value">{{ sanction_request.bill.ip_number }}</div>
+
+                <div class="form-label">Designation:</div>
+                <div class="form-value">{{ sanction_request.bill.designation }}</div>
+                <div class="form-label">Mobile No:</div>
+                <div class="form-value">{{ sanction_request.bill.mobile_number }}</div>
+
+                <div class="form-label">Employee ID:</div>
+                <div class="form-value">{{ sanction_request.bill.employee_id }}</div>
+                <div class="form-label">SEX:</div>
+                <div class="form-value">{{ sanction_request.bill.sex }}</div>
+
+                <div class="form-label">Type of Employee:</div>
+                <div class="form-value">{{ sanction_request.bill.get_employee_type_display }}</div>
+                <div class="form-label">Date of Admission:</div>
+                <div class="form-value">{{ sanction_request.bill.admission_date|date:"d-m-Y" }}</div>
+
+                <div class="form-label">Relationship:</div>
+                <div class="form-value">{{ sanction_request.bill.get_relationship_display }}</div>
+                <div class="form-label">Date of Discharge:</div>
+                <div class="form-value">{{ sanction_request.bill.discharge_date|date:"d-m-Y" }}</div>
+
+                <div class="form-label">Credit Card Number:</div>
+                <div class="form-value" style="grid-column: span 3;">{{ sanction_request.bill.credit_card_number }}
+                </div>
+
+                <div class="form-label">Disease Details:</div>
+                <div class="form-value" style="grid-column: span 3;">{{ sanction_request.bill.disease_details }}</div>
+            </div>
+            <div class="note-section">
+                <strong>Mandatory Documents:</strong>
+                <div style="margin-top: 10px; display: flex; gap: 15px; flex-wrap: wrap;">
+                    {% if sanction_request.bill.id_card_file %}
+                    <a href="{{ sanction_request.bill.id_card_file.url }}" target="_blank" class="btn btn-primary"
+                        style="padding: 5px 10px; font-size: 11px;">
+                        📄 ID Card
+                    </a>
+                    {% endif %}
+
+                    {% if sanction_request.bill.cc_card_file %}
+                    <a href="{{ sanction_request.bill.cc_card_file.url }}" target="_blank" class="btn btn-primary"
+                        style="padding: 5px 10px; font-size: 11px;">
+                        📄 CC Card
+                    </a>
+                    {% endif %}
+
+                    {% if sanction_request.bill.discharge_summary_file %}
+                    <a href="{{ sanction_request.bill.discharge_summary_file.url }}" target="_blank"
+                        class="btn btn-primary" style="padding: 5px 10px; font-size: 11px;">
+                        📄 Discharge Summary
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Hospital Claim Details -->
+        <div class="form-section">
+            <div class="section-header">HOSPITAL CLAIM DETAILS</div>
+            <div style="padding: 15px;">
+                <div class="form-grid" style="margin-bottom: 15px;">
+                    <div class="form-label">Invoice No:</div>
+                    <div class="form-value">{{ sanction_request.bill.bill_number|default:"-" }}</div>
+                    <div class="form-label">Invoice Date:</div>
+                    <div class="form-value">{{ sanction_request.bill.bill_date|date:"d-m-Y"|default:"-" }}</div>
+                </div>
+
+                <form method="post" action="{% url 'workflow:process_request' sanction_request.id %}" id="approvalForm">
+                    {% csrf_token %}
+                    <table class="claim-table">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">SL NO.</th>
+                                <th rowspan="2">Details of Services</th>
+                                <th rowspan="2">Service Description as per Hospital Rate</th>
+                                <th colspan="4">Hospital Claim Details</th>
+                                <th colspan="4">TGNPDCL Approval Details</th>
+                            </tr>
+                            <tr>
+                                <th>Quantity</th>
+                                <th>Rate</th>
+                                <th>Amount</th>
+                                <th>Item Docs</th>
+                                <th>Qty</th>
+                                <th>Rate</th>
+                                <th>Deemed Amount</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Additional Bill Documents -->
+
+
+                            <!-- Bill Items -->
+                            {% for item in items %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td class="text-left">{{ item.service.name|default:item.hospital_service_name }}</td>
+                                <td class="text-left">{{ item.description|default:"-" }}</td>
+                                <td>{{ item.claimed_quantity }}</td>
+                                <td class="text-right">{{ item.display_rate|floatformat:2 }}</td>
+                                <td class="text-right">{{ item.claimed_amount|floatformat:2 }}</td>
+                                <td>
+                                    {% if item.supporting_document %}
+                                    <a href="{{ item.supporting_document.url }}" target="_blank"
+                                        style="color: #0066cc; text-decoration: underline;">View File</a>
+                                    {% else %}
+                                    -
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <input type="number" name="approved_quantity_{{ item.id }}"
+                                        value="{{ item.approved_quantity|default:item.claimed_quantity }}"
+                                        class="approved-qty" style="width: 60px; text-align: center;">
+                                </td>
+                                <td>
+                                    <input type="number" name="approved_rate_{{ item.id }}" step="0.01"
+                                        value="{{ item.approved_rate|default:item.display_rate }}"
+                                        class="approved-rate">
+                                </td>
+                                <td>
+                                    <input type="number" name="approved_amount_{{ item.id }}" step="0.01"
+                                        value="{{ item.approved_amount|default:item.claimed_amount }}"
+                                        class="approved-amount" readonly>
+                                </td>
+                                <td>
+                                    <input type="text" name="remarks_{{ item.id }}"
+                                        value="{{ item.comments|default:'' }}" placeholder="Remarks">
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5" class="text-right"></td>
+                                <td class="text-right">
+                                    <strong>Gross Total:</strong><br>
+                                    <strong>₹{{ total_claimed_amount|floatformat:2 }}</strong>
+                                </td>
+                                <td>
+                                    {% if bill_documents %}
+                                    <strong>Bill Attachments:</strong><br>
+                                    {% for doc in bill_documents %}
+                                    <div style="margin-bottom: 2px;">
+                                        <a href="{{ doc.file.url }}" target="_blank"
+                                            title="{{ doc.get_document_type_display }}"
+                                            style="color: #0066cc; text-decoration: none; font-size: 0.8rem;">
+                                            📎 {{ doc.get_document_type_display }}
+                                        </a>
+                                    </div>
+                                    {% endfor %}
+                                    {% else %}
+                                    <span class="text-muted">-</span>
+                                    {% endif %}
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td class="text-right">
+                                </td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                    <div class="note-section">
+                        All the fields are Non-Editable | Always Editable till Final Approval
+                        <br><strong>Comments by Asst/JPO:</strong>
+                    </div>
+
+                    <!-- Action Section -->
+                    <div class="action-section">
+                        <h3>Take Action on this Request</h3>
+                        <div class="action-grid">
+                            <div class="action-field">
+                                <label for="comments">Comments / Remarks: <span style="color: red;">*</span></label>
+                                <textarea id="comments" name="comments" placeholder="Enter your comments or remarks..."
+                                    required></textarea>
+                            </div>
+
+                            <div class="action-field">
+                                <label for="approved_amount">Final Approved Amount (₹):</label>
+                                <input type="number" id="approved_amount" name="approved_amount" step="0.01"
+                                    value="{{ suggested_amount|floatformat:2 }}"
+                                    style="padding: 10px; font-size: 14px; text-align: right;">
+                            </div>
+                        </div>
+
+                        <div class="button-group">
+                            {% if sanction_request.current_step.order >= 6 %}
+                            <!-- Step 6 & 7: Approved / Reject -->
+                            <button type="button"
+                                onclick="submitAction('{% if sanction_request.current_step.order == 7 %}APPROVE{% else %}FORWARD{% endif %}')"
+                                class="btn btn-scrutiny">Approved</button>
+                            <button type="button" onclick="submitAction('REJECT')"
+                                class="btn btn-rejection">Reject</button>
+                            {% else %}
+                            <!-- Steps 1-5 -->
+                            <button type="button" onclick="submitAction('FORWARD')"
+                                class="btn btn-scrutiny">Submit</button>
+                            {% endif %}
+
+                            <a href="{% url 'workflow:approval_queue' %}" class="btn btn-secondary">Cancel</a>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="action" id="actionInput">
+                </form>
+            </div>
+        </div>
+
+        <!-- Workflow History -->
+        {% if logs %}
+        <div class="history-section">
+            <div class="section-header">APPROVAL WORKFLOW HISTORY</div>
+            {% for log in logs %}
+            <div class="history-item">
+                <div class="history-header">
+                    <div class="history-action">
+                        {{ log.get_action_display }} by {{ log.user.get_full_name|default:log.user.username }}
+                    </div>
+                    <div class="history-date">
+                        {{ log.timestamp|date:"d M Y, h:i A" }}
+                    </div>
+                </div>
+                <div class="history-details">
+                    Step: {{ log.step.name }} ({{ log.step.role_name }})
+                    {% if log.approved_amount_at_stage %}
+                    | Amount: ₹{{ log.approved_amount_at_stage|floatformat:2 }}
+                    {% endif %}
+                </div>
+                {% if log.comments %}
+                <div class="history-comments">
+                    {{ log.comments }}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function submitAction(action) {
+            const comments = document.getElementById('comments').value;
+
+            if (!comments.trim()) {
+                alert('Please enter comments before submitting.');
+                return;
+            }
+
+            if (action === 'APPROVE' || action === 'REJECT_RECOMMENDED') {
+                const confirmMsg = action === 'APPROVE'
+                    ? 'Are you sure you want to APPROVE this request?'
+                    : 'Are you sure you want to submit this for REJECTION?';
+
+                if (!confirm(confirmMsg)) {
+                    return;
+                }
+            }
+
+            document.getElementById('actionInput').value = action;
+            document.getElementById('approvalForm').submit();
+        }
+
+        // Auto-calculate approved amounts
+        function calculateRow(row) {
+            const qtyInput = row.querySelector('.approved-qty');
+            const rateInput = row.querySelector('.approved-rate');
+            const amountInput = row.querySelector('.approved-amount');
+
+            const qty = parseFloat(qtyInput.value) || 0;
+            const rate = parseFloat(rateInput.value) || 0;
+
+            amountInput.value = (rate * qty).toFixed(2);
+            updateTotal();
+        }
+
+        document.querySelectorAll('.approved-rate').forEach(input => {
+            input.addEventListener('input', function () {
+                calculateRow(this.closest('tr'));
+            });
+        });
+
+        document.querySelectorAll('.approved-qty').forEach(input => {
+            input.addEventListener('input', function () {
+                calculateRow(this.closest('tr'));
+            });
+        });
+
+        function updateTotal() {
+            let total = 0;
+            document.querySelectorAll('.approved-amount').forEach(input => {
+                total += parseFloat(input.value) || 0;
+            });
+            const totalElem = document.getElementById('totalApproved');
+            if (totalElem) {
+                totalElem.textContent = '₹' + total.toFixed(2);
+            }
+            document.getElementById('approved_amount').value = total.toFixed(2);
+        }
+    </script>
+</body>
+
+</html>

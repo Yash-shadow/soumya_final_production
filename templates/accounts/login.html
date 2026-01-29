@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ config.title }} - TGNPDCL{% endblock %}
+
+{% block extra_css %}
+<style>
+  :root {
+    --accent-color: {
+        {
+        config.color
+      }
+    }
+
+    ;
+  }
+
+  .login-box .card {
+    border-top: 4px solid var(--accent-color);
+  }
+
+  .login-icon {
+    background: linear-gradient(135deg, {
+        {
+        config.color
+      }
+    }
+
+    33 0%, {
+      {
+      config.color
+    }
+  }
+
+  1a 100%);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  font-size: 2.5rem;
+  }
+
+  .btn-login {
+    background: linear-gradient(135deg, {
+        {
+        config.color
+      }
+    }
+
+    0%, {
+      {
+      config.color
+    }
+  }
+
+  cc 100%);
+  }
+
+  .btn-login:hover {
+    background: linear-gradient(135deg, {
+        {
+        config.color
+      }
+    }
+
+    0%, {
+      {
+      config.color
+    }
+  }
+
+  100%);
+
+  box-shadow: 0 8px 25px -5px {
+      {
+      config.color
+    }
+  }
+
+  80;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="login-container">
+  <div class="login-box fade-in">
+    <div class="card">
+      <div class="card-body" style="padding: 2.5rem;">
+        <div class="login-header">
+          <div class="login-icon">{{ config.icon }}</div>
+          <h1 class="login-title">{{ config.title }}</h1>
+          <p class="login-subtitle">TGNPDCL Medical Bill System</p>
+        </div>
+
+        <form method="post" novalidate>
+          {% csrf_token %}
+
+          {% if form.non_field_errors %}
+          <div class="alert alert-error mb-4">
+            {% for error in form.non_field_errors %}
+            {{ error }}
+            {% endfor %}
+          </div>
+          {% endif %}
+
+          <div class="form-group">
+            <label for="id_username" class="form-label">User ID</label>
+            <input type="text" name="username" id="id_username" class="form-control" placeholder="Enter your User ID"
+              required autofocus>
+            {% if form.username.errors %}
+            <small class="text-muted" style="color: #fca5a5 !important;">
+              {{ form.username.errors.0 }}
+            </small>
+            {% endif %}
+          </div>
+
+          <div class="form-group">
+            <label for="id_password" class="form-label">Password</label>
+            <input type="password" name="password" id="id_password" class="form-control"
+              placeholder="Enter your password" required>
+            {% if form.password.errors %}
+            <small class="text-muted" style="color: #fca5a5 !important;">
+              {{ form.password.errors.0 }}
+            </small>
+            {% endif %}
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg btn-block btn-login mt-4">
+            Sign In
+          </button>
+        </form>
+
+        <div class="text-center mt-4" style="display: flex; flex-direction: column; gap: 0.75rem;">
+          <a href="{% url 'login_selector' %}" class="text-muted" style="font-size: 0.875rem;">
+            ← Back to login selection
+          </a>
+          <a href="{% url 'register' %}"
+            style="color: var(--accent-color); font-size: 0.875rem; text-decoration: none; font-weight: 500;">
+            Don't have an account? Register here
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,90 @@
+{% extends 'hospitals/base_header.html' %}
+
+{% block title %}Hospital Dashboard - NPDCL{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="page-title">Medical Bill Reimbursement System - Hospital Dashboard</h1>
+
+    <!-- Hospital Details Section -->
+    <div class="info-section">
+        <div class="section-header">HOSPITAL DETAILS</div>
+        <div class="info-grid">
+            <div class="info-label">Name of the Hospital</div>
+            <div class="info-value">{{ hospital.name }}</div>
+            <div class="info-label">Hospital PAN No:</div>
+            <div class="info-value">{{ hospital.pan_number|default:"XXXXXXX" }}</div>
+
+            <div class="info-label">Address:</div>
+            <div class="info-value">{{ hospital.address }}</div>
+            <div class="info-label">GST NO:</div>
+            <div class="info-value">{{ hospital.gst_number|default:"XXXXXXXXX" }}</div>
+
+            <div class="info-label">Phone No:</div>
+            <div class="info-value">{{ hospital.phone }}</div>
+            <div class="info-label">CIN NO:</div>
+            <div class="info-value">{{ hospital.cin_number|default:"XXXXXXXXXX" }}</div>
+
+            <div class="info-label">Hospital Code:</div>
+            <div class="info-value">{{ hospital.code }}</div>
+            <div class="info-label">Category:</div>
+            <div class="info-value">{{ hospital.get_tier_display }}</div>
+        </div>
+    </div>
+
+    <!-- Claims Summary Section -->
+    <div class="info-section">
+        <div class="section-header">Claim Summary</div>
+        {% if bills %}
+        <table class="claims-table">
+            <thead>
+                <tr>
+                    <th>SL. No.</th>
+                    <th>Claim ID</th>
+                    <th>Patient Name</th>
+                    <th>Employee ID</th>
+                    <th>IP NO.</th>
+                    <th>Credit Card Number</th>
+                    <th>Invoice No</th>
+                    <th>Invoice Date</th>
+                    <th>Gross Total Amount</th>
+                    <th>Current Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for bill in bills %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ bill.claim_id }}</td>
+                    <td>{{ bill.patient_name }}</td>
+                    <td>{{ bill.employee_id }}</td>
+                    <td>{{ bill.ip_number }}</td>
+                    <td>{{ bill.credit_card_number }}</td>
+                    <td>{{ bill.bill_number|default:"-" }}</td>
+                    <td>{{ bill.bill_date|date:"d-m-Y"|default:"-" }}</td>
+                    <td>₹{{ bill.gross_claimed_amount|floatformat:2 }}</td>
+                    <td>
+                        <span class="status-badge status-{{ bill.status|lower }}">
+                            {{ bill.get_status_display }}
+                        </span>
+                    </td>
+                    <td>
+                        <a href="{% url 'hospitals:bill_detail' bill.id %}" class="btn btn-primary" style="padding: 6px 12px; font-size: 12px;">View</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="no-data">No claims submitted yet.</div>
+        {% endif %}
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+        <a href="{% url 'hospitals:submit_bill' %}" class="btn btn-success">Add New Claim</a>
+        <a href="{% url 'hospitals:bill_list' %}" class="btn btn-primary">View All Claims</a>
+    </div>
+</div>
+{% endblock %}

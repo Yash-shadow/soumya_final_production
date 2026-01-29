@@ -1,0 +1,347 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Hospital Portal - NPDCL{% endblock %}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(to right, #003366, #0066cc);
+            padding: 0;
+            color: white;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: white;
+        }
+
+        .company-info {
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .company-logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+
+        .company-title-telugu {
+            font-size: 20px;
+            color: #d32f2f;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .company-title-english {
+            font-size: 16px;
+            color: #d32f2f;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .company-subtitle {
+            font-size: 11px;
+            color: #666;
+            margin-top: 3px;
+        }
+
+        .header-nav {
+            background-color: #003366;
+            padding: 12px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background-color: #0066cc;
+        }
+
+        .user-info {
+            color: white;
+            font-size: 13px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 24px;
+            color: #003366;
+            margin-bottom: 30px;
+            font-weight: bold;
+            border-bottom: 3px solid #0066cc;
+            padding-bottom: 10px;
+        }
+
+        /* Info Sections */
+        .info-section {
+            background: white;
+            border: 2px solid #003366;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .section-header {
+            background-color: #003366;
+            color: white;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-collapse: collapse;
+        }
+
+        .info-label {
+            background-color: #e3f2fd;
+            padding: 12px 15px;
+            border: 1px solid #b3d9ff;
+            font-weight: bold;
+            color: #003366;
+            font-size: 13px;
+        }
+
+        .info-value {
+            background-color: white;
+            padding: 12px 15px;
+            border: 1px solid #b3d9ff;
+            color: #333;
+            font-size: 13px;
+        }
+
+        /* Tables */
+        .claims-table {
+            width: 100%;
+            background: white;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .claims-table th {
+            background-color: #003366;
+            color: white;
+            padding: 12px;
+            text-align: center;
+            font-size: 13px;
+            border: 1px solid #002244;
+        }
+
+        .claims-table td {
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+            font-size: 12px;
+            background-color: #fffef0;
+        }
+
+        .claims-table tbody tr:hover {
+            background-color: #e3f2fd;
+        }
+
+        /* Status Badges */
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .status-draft {
+            background-color: #e0e0e0;
+            color: #424242;
+        }
+
+        .status-submitted {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .status-under_review {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .status-approved {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status-rejected {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: #0066cc;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #0052a3;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .action-buttons {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .action-buttons .btn {
+            margin: 0 10px;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Messages */
+        .messages {
+            margin: 20px auto;
+            max-width: 1400px;
+            padding: 0 20px;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .alert-warning {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+        }
+
+        .alert-info {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+        .minister-photo {
+            height:180px;
+            width:100%
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+    
+<img src="/static/images/cmimage.png" alt="Deputy Chief Minister" class="minister-photo">
+        <div class="header-nav">
+            <div class="nav-links">
+                <a href="{% url 'hospitals:dashboard' %}" {% if request.resolver_match.url_name == 'dashboard' %}class="active"{% endif %}>Dashboard</a>
+                <a href="{% url 'hospitals:submit_bill' %}" {% if request.resolver_match.url_name == 'submit_bill' %}class="active"{% endif %}>Submit New Claim</a>
+                <a href="{% url 'hospitals:bill_list' %}" {% if request.resolver_match.url_name == 'bill_list' %}class="active"{% endif %}>View All Claims</a>
+            </div>
+            <div class="user-info">
+                {{ request.user.profile.hospital.name }} | {{ request.user.get_full_name|default:request.user.username }} | <a href="{% url 'logout' %}" style="color: #ffcc00;">Logout</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Messages -->
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+</body>
+</html>

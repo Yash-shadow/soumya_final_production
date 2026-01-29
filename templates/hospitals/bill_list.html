@@ -1,0 +1,241 @@
+{% extends 'hospitals/base_header.html' %}
+
+{% block title %}All Claims - NPDCL{% endblock %}
+
+{% block extra_css %}
+<style>
+    .filter-section {
+        background-color: white;
+        padding: 20px;
+        border: 2px solid #003366;
+        margin-bottom: 20px;
+    }
+
+    .filter-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+        margin-top: 15px;
+    }
+
+    .filter-group label {
+        display: block;
+        font-size: 12px;
+        font-weight: bold;
+        color: #003366;
+        margin-bottom: 5px;
+    }
+
+    .filter-group input,
+    .filter-group select {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 13px;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .stat-card {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        border-left: 5px solid #0066cc;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .stat-card.draft {
+        border-left-color: #6c757d;
+    }
+
+    .stat-card.submitted {
+        border-left-color: #ffc107;
+    }
+
+    .stat-card.approved {
+        border-left-color: #28a745;
+    }
+
+    .stat-card.rejected {
+        border-left-color: #dc3545;
+    }
+
+    .stat-number {
+        font-size: 36px;
+        font-weight: bold;
+        color: #003366;
+        margin-bottom: 5px;
+    }
+
+    .stat-label {
+        font-size: 13px;
+        color: #666;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="page-title">All Medical Bill Claims - {{ hospital.name }}</h1>
+
+    <!-- Statistics Cards -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-number">{{ bills.count }}</div>
+            <div class="stat-label">Total Claims</div>
+        </div>
+        <div class="stat-card draft">
+            <div class="stat-number">{{ bills|length|default:0 }}</div>
+            <div class="stat-label">Draft</div>
+        </div>
+        <div class="stat-card submitted">
+            <div class="stat-number">{{ bills|length|default:0 }}</div>
+            <div class="stat-label">Submitted</div>
+        </div>
+        <div class="stat-card approved">
+            <div class="stat-number">0</div>
+            <div class="stat-label">Approved</div>
+        </div>
+        <div class="stat-card rejected">
+            <div class="stat-number">0</div>
+            <div class="stat-label">Rejected</div>
+        </div>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="filter-section">
+        <div class="section-header" style="margin: -20px -20px 15px -20px; padding: 10px 20px;">🔍 Search & Filter Claims</div>
+        <form method="get" action="">
+            <div class="filter-grid">
+                <div class="filter-group">
+                    <label for="claim_id">Claim ID</label>
+                    <input type="text" id="claim_id" name="claim_id" placeholder="Enter Claim ID" value="{{ request.GET.claim_id }}">
+                </div>
+                <div class="filter-group">
+                    <label for="patient_name">Patient Name</label>
+                    <input type="text" id="patient_name" name="patient_name" placeholder="Enter Patient Name" value="{{ request.GET.patient_name }}">
+                </div>
+                <div class="filter-group">
+                    <label for="employee_id">Employee ID</label>
+                    <input type="text" id="employee_id" name="employee_id" placeholder="Enter Employee ID" value="{{ request.GET.employee_id }}">
+                </div>
+                <div class="filter-group">
+                    <label for="status">Status</label>
+                    <select id="status" name="status">
+                        <option value="">All Status</option>
+                        <option value="DRAFT" {% if request.GET.status == 'DRAFT' %}selected{% endif %}>Draft</option>
+                        <option value="SUBMITTED" {% if request.GET.status == 'SUBMITTED' %}selected{% endif %}>Submitted</option>
+                        <option value="UNDER_REVIEW" {% if request.GET.status == 'UNDER_REVIEW' %}selected{% endif %}>Under Review</option>
+                        <option value="APPROVED" {% if request.GET.status == 'APPROVED' %}selected{% endif %}>Approved</option>
+                        <option value="REJECTED" {% if request.GET.status == 'REJECTED' %}selected{% endif %}>Rejected</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="date_from">From Date</label>
+                    <input type="date" id="date_from" name="date_from" value="{{ request.GET.date_from }}">
+                </div>
+                <div class="filter-group">
+                    <label for="date_to">To Date</label>
+                    <input type="date" id="date_to" name="date_to" value="{{ request.GET.date_to }}">
+                </div>
+                <div class="filter-group">
+                    <label for="ip_number">IP Number</label>
+                    <input type="text" id="ip_number" name="ip_number" placeholder="Enter IP Number" value="{{ request.GET.ip_number }}">
+                </div>
+                <div class="filter-group">
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 24px;">Apply Filter</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Claims Table -->
+    <div class="info-section">
+        <div class="section-header">📋 Claims List ({{ bills.count }} records)</div>
+        
+        {% if bills %}
+        <table class="claims-table">
+            <thead>
+                <tr>
+                    <th style="width: 50px;">SL No.</th>
+                    <th style="width: 180px;">Claim ID</th>
+                    <th>Patient Name</th>
+                    <th>Employee ID</th>
+                    <th>IP Number</th>
+                    <th>Credit Card No.</th>
+                    <th>Bill Number</th>
+                    <th>Bill Date</th>
+                    <th>Admission Date</th>
+                    <th>Discharge Date</th>
+                    <th>Claimed Amount (₹)</th>
+                    <th>Approved Amount (₹)</th>
+                    <th>Status</th>
+                    <th>Submitted On</th>
+                    <th style="width: 150px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for bill in bills %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td style="font-family: monospace; font-size: 11px;">{{ bill.claim_id }}</td>
+                    <td>{{ bill.patient_name }}</td>
+                    <td>{{ bill.employee_id }}</td>
+                    <td>{{ bill.ip_number }}</td>
+                    <td>{{ bill.credit_card_number }}</td>
+                    <td>{{ bill.bill_number|default:"-" }}</td>
+                    <td>{{ bill.bill_date|date:"d-m-Y"|default:"-" }}</td>
+                    <td>{{ bill.admission_date|date:"d-m-Y" }}</td>
+                    <td>{{ bill.discharge_date|date:"d-m-Y" }}</td>
+                    <td style="text-align: right; font-weight: bold;">{{ bill.gross_claimed_amount|floatformat:2 }}</td>
+                    <td style="text-align: right; font-weight: bold; color: #28a745;">
+                        {% if bill.gross_approved_amount > 0 %}
+                            {{ bill.gross_approved_amount|floatformat:2 }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                    <td>
+                        <span class="status-badge status-{{ bill.status|lower }}">
+                            {{ bill.get_status_display }}
+                        </span>
+                    </td>
+                    <td>
+                        {% if bill.submitted_at %}
+                            {{ bill.submitted_at|date:"d-m-Y H:i" }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'hospitals:bill_detail' bill.id %}" class="btn btn-primary" style="padding: 6px 12px; font-size: 11px;">View</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="no-data">
+            <div style="font-size: 64px; margin-bottom: 20px; opacity: 0.5;">📄</div>
+            <div>No claims found matching your criteria.</div>
+            <div style="margin-top: 20px;">
+                <a href="{% url 'hospitals:submit_bill' %}" class="btn btn-success">Submit Your First Claim</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+        <a href="{% url 'hospitals:submit_bill' %}" class="btn btn-success">+ Submit New Claim</a>
+        <a href="{% url 'hospitals:dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+</div>
+{% endblock %}

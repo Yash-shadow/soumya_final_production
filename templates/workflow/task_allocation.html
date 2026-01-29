@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Task Allocation - Customer Admin{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+ <aside class="sidebar">
+ <div class="sidebar-logo">
+ <span class="sidebar-logo-icon">🛡️</span>
+ <span class="sidebar-logo-text">TGNPDCL Admin</span>
+ </div>
+ <nav>
+ <ul class="sidebar-nav">
+ <li class="sidebar-nav-item">
+ <a href="{% url 'dashboard' %}" class="sidebar-nav-link">📊 Dashboard</a>
+ </li>
+ <li class="sidebar-nav-item">
+ <a href="{% url 'workflow:customer_admin_allocation' %}" class="sidebar-nav-link active">🎯 Task
+ Allocation</a>
+ </li>
+ <li class="sidebar-nav-item">
+ <a href="{% url 'register' %}" class="sidebar-nav-link">✨ Create User Account</a>
+ </li>
+ <li class="sidebar-nav-item">
+ <a href="{% url 'documents:document_list' %}" class="sidebar-nav-link">📁 All Documents</a>
+ </li>
+ </ul>
+ </nav>
+ <div style="position: absolute; bottom: 1.5rem; left: 1.5rem; right: 1.5rem;">
+ <a href="{% url 'logout' %}" class="btn btn-secondary btn-block">🚪 Logout</a>
+ </div>
+ </aside>
+
+ <main class="main-content">
+ <div class="page-header">
+ <h1 class="page-title">🎯 Task Allocation</h1>
+ <span class="badge badge-info">{{ requests.count }} Active Requests</span>
+ </div>
+
+ <div class="card fade-in">
+ <div class="card-body">
+ {% if requests %}
+ <div class="table-responsive">
+ <table class="table">
+ <thead>
+ <tr>
+ <th>ID</th>
+ <th>Hospital</th>
+ <th>Patient</th>
+ <th>Amount</th>
+ <th>Current Stage</th>
+ <th>Assigned To</th>
+ <th>Action</th>
+ </tr>
+ </thead>
+ <tbody>
+ {% for req in requests %}
+ <tr>
+ <td>SR-{{ req.id }}</td>
+ <td>{{ req.hospital_name }}</td>
+ <td>{{ req.patient_name }}</td>
+ <td>₹{{ req.claimed_amount }}</td>
+ <td><span class="badge badge-info">{{ req.current_step.name }}</span></td>
+ <td>
+ {% if req.assigned_to %}
+ <span class="text-success" style="font-weight: 600;">👤 {{ req.assigned_to.username }}</span>
+ {% else %}
+ <span class="text-error" style="font-weight: 600;">🔴 Unassigned</span>
+ {% endif %}
+ </td>
+ <td>
+ <form action="{% url 'workflow:allocate_task' req.id %}" method="post"
+ style="display: flex; gap: 0.5rem;">
+ {% csrf_token %}
+ <select name="assignee_id" class="form-control"
+ style="font-size: 0.8rem; padding: 0.3rem;">
+ <option value="">-- Assign To --</option>
+ {% for user in assignees %}
+ {% if user.profile.role == req.current_step.role_name %}
+ <option value="{{ user.id }}" {% if user == req.assigned_to %}selected{% endif %}>
+ {{ user.username }} ({{ user.profile.role }})
+ </option>
+ {% endif %}
+ {% endfor %}
+ </select>
+ <button type="submit" class="btn btn-primary"
+ style="font-size: 0.75rem; padding: 0.3rem 0.6rem;">Assign</button>
+ </form>
+ </td>
+ </tr>
+ {% endfor %}
+ </tbody>
+ </table>
+ </div>
+ {% else %}
+ <div class="text-center text-muted" style="padding: 4rem;">
+ <span style="font-size: 4rem; opacity: 0.5;">✅</span>
+ <p style="margin-top: 1rem;">All tasks are completed!</p>
+ </div>
+ {% endif %}
+ </div>
+ </div>
+ </main>
+</div>
+{% endblock %}

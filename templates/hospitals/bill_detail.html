@@ -1,0 +1,338 @@
+{% extends 'hospitals/base_header.html' %}
+
+{% block title %}Claim Details - {{ bill.claim_id }} - NPDCL{% endblock %}
+
+{% block extra_css %}
+<style>
+    .status-banner {
+        background-color: #fff3cd;
+        border: 2px solid #ffc107;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .status-banner.approved {
+        background-color: #d4edda;
+        border-color: #28a745;
+    }
+
+    .status-banner.rejected {
+        background-color: #f8d7da;
+        border-color: #dc3545;
+    }
+
+    .status-info {
+        font-size: 14px;
+    }
+
+    .status-info strong {
+        font-size: 16px;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .items-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 15px 0;
+    }
+
+    .items-table th {
+        background-color: #003366;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        font-size: 12px;
+        border: 1px solid #002244;
+    }
+
+    .items-table td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        background-color: #fffef0;
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .items-table td.text-left {
+        text-align: left;
+    }
+
+    .items-table td.text-right {
+        text-align: right;
+    }
+
+    .items-table tfoot td {
+        background-color: #e3f2fd;
+        font-weight: bold;
+        font-size: 13px;
+    }
+
+    .documents-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .document-card {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 15px;
+        background-color: #f9f9f9;
+        text-align: center;
+    }
+
+    .document-icon {
+        font-size: 48px;
+        color: #0066cc;
+        margin-bottom: 10px;
+    }
+
+    .document-title {
+        font-weight: bold;
+        font-size: 13px;
+        margin-bottom: 10px;
+        color: #003366;
+    }
+
+    .document-link {
+        display: inline-block;
+        padding: 8px 15px;
+        background-color: #0066cc;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        font-size: 12px;
+    }
+
+    .document-link:hover {
+        background-color: #0052a3;
+    }
+
+    .no-document {
+        color: #999;
+        font-style: italic;
+        font-size: 12px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="page-title">Medical Bill Claim Details - {{ bill.claim_id }}</h1>
+
+    <!-- Status Banner -->
+    <div class="status-banner {% if bill.status == 'APPROVED' %}approved{% elif bill.status == 'REJECTED' %}rejected{% endif %}">
+        <div class="status-info">
+            <strong>Current Status: {{ bill.get_status_display }}</strong>
+            {% if bill.submitted_at %}
+            Submitted on: {{ bill.submitted_at|date:"d M Y, h:i A" }}
+            {% endif %}
+        </div>
+        <div>
+            {% if bill.status == 'APPROVED' %}
+                <span style="font-size: 48px; color: #28a745;">✓</span>
+            {% elif bill.status == 'REJECTED' %}
+                <span style="font-size: 48px; color: #dc3545;">✗</span>
+            {% else %}
+                <span style="font-size: 48px; color: #ffc107;">⏳</span>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Hospital Details -->
+    <div class="info-section">
+        <div class="section-header">HOSPITAL DETAILS</div>
+        <div class="info-grid">
+            <div class="info-label">Name of the Hospital</div>
+            <div class="info-value">{{ bill.hospital.name }}</div>
+            <div class="info-label">Hospital PAN No:</div>
+            <div class="info-value">{{ bill.hospital.pan_number|default:"XXXXXXX" }}</div>
+
+            <div class="info-label">Address:</div>
+            <div class="info-value">{{ bill.hospital.address }}</div>
+            <div class="info-label">GST NO:</div>
+            <div class="info-value">{{ bill.hospital.gst_number|default:"XXXXXXXXX" }}</div>
+
+            <div class="info-label">Phone No:</div>
+            <div class="info-value">{{ bill.hospital.phone }}</div>
+            <div class="info-label">CIN NO:</div>
+            <div class="info-value">{{ bill.hospital.cin_number|default:"XXXXXXXXXX" }}</div>
+
+            <div class="info-label">Hospital Code:</div>
+            <div class="info-value">{{ bill.hospital.code }}</div>
+            <div class="info-label">Category:</div>
+            <div class="info-value">{{ bill.hospital.get_tier_display }}</div>
+        </div>
+    </div>
+
+    <!-- Patient Details -->
+    <div class="info-section">
+        <div class="section-header">PATIENT DETAILS</div>
+        <div class="info-grid">
+            <div class="info-label">Patient Name</div>
+            <div class="info-value">{{ bill.patient_name }}</div>
+            <div class="info-label">Employee ID</div>
+            <div class="info-value">{{ bill.employee_id }}</div>
+
+            <div class="info-label">Designation</div>
+            <div class="info-value">{{ bill.designation }}</div>
+            <div class="info-label">Mobile Number</div>
+            <div class="info-value">{{ bill.mobile_number }}</div>
+
+            <div class="info-label">Employee Type</div>
+            <div class="info-value">{{ bill.get_employee_type_display }}</div>
+            <div class="info-label">Relationship</div>
+            <div class="info-value">{{ bill.get_relationship_display }}</div>
+
+            <div class="info-label">Age / Sex</div>
+            <div class="info-value">{{ bill.age|default:"N/A" }} </div>
+            <div class="info-label">Admission Date</div>
+            <div class="info-value">{{ bill.admission_date|date:"d M Y" }}</div>
+
+            <div class="info-label">Discharge Date</div>
+            <div class="info-value">{{ bill.discharge_date|date:"d M Y" }}</div>
+            <div class="info-label">IP Number</div>
+            <div class="info-value">{{ bill.ip_number }}</div>
+
+            <div class="info-label">Credit Card Number</div>
+            <div class="info-value">{{ bill.credit_card_number }}</div>
+            <div class="info-label" style="grid-column: span 1;">Disease Details</div>
+
+            <div class="info-value" style="grid-column: span 3;">{{ bill.disease_details }}</div>
+        </div>
+    </div>
+
+    <!-- Claim Details -->
+    <div class="info-section">
+        <div class="section-header">CLAIM INFORMATION</div>
+        <div class="info-grid">
+            <div class="info-label">Claim ID</div>
+            <div class="info-value">{{ bill.claim_id }}</div>
+            <div class="info-label">Scheme</div>
+            <div class="info-value">{{ bill.scheme.name }}</div>
+
+            <div class="info-label">Bill/Invoice Number</div>
+            <div class="info-value">{{ bill.bill_number|default:"Not Provided" }}</div>
+            <div class="info-label">Bill Date</div>
+            <div class="info-value">{{ bill.bill_date|date:"d M Y"|default:"Not Provided" }}</div>
+
+            <div class="info-label">TGNPDCL ID</div>
+            <div class="info-value">{{ bill.tgnpdcl_id|default:"Not Assigned" }}</div>
+            <div class="info-label">Submitted At</div>
+            <div class="info-value">{{ bill.submitted_at|date:"d M Y, h:i A"|default:"Not Submitted" }}</div>
+        </div>
+    </div>
+
+    <!-- Service Items Table -->
+    <div class="info-section">
+        <div class="section-header">CLAIMED SERVICES & ITEMS</div>
+        <div style="overflow-x: auto; padding: 15px;">
+            <table class="items-table">
+                <thead>
+                    <tr>
+                        <th style="width: 50px;">SL No.</th>
+                        <th style="width: 20%;">Service Name</th>
+                        <th>Description</th>
+                        <th style="width: 100px;">Rate (₹)</th>
+                        <th style="width: 80px;">Quantity</th>
+                        <th style="width: 120px;">Claimed Amount (₹)</th>
+                        <th style="width: 100px;">Approved Rate (₹)</th>
+                        <th style="width: 80px;">Approved Qty</th>
+                        <th style="width: 120px;">Approved Amount (₹)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in bill.items.all %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td class="text-left">{{ item.hospital_service_name|default:item.service.name }}</td>
+                        <td class="text-left">{{ item.description|default:"-" }}</td>
+                        <td class="text-right">{{ item.claimed_rate|floatformat:2 }}</td>
+                        <td>{{ item.claimed_quantity }}</td>
+                        <td class="text-right">{{ item.claimed_amount|floatformat:2 }}</td>
+                        <td class="text-right">{{ item.approved_rate|floatformat:2|default:"-" }}</td>
+                        <td>{{ item.approved_quantity|default:"-" }}</td>
+                        <td class="text-right">{{ item.approved_amount|floatformat:2|default:"-" }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="9" style="text-align: center; padding: 20px; color: #999;">No items found for this claim.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="5" style="text-align: right;">TOTAL:</td>
+                        <td class="text-right">₹{{ bill.gross_claimed_amount|floatformat:2 }}</td>
+                        <td colspan="2"></td>
+                        <td class="text-right">₹{{ bill.gross_approved_amount|floatformat:2 }}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+    <!-- Documents Section -->
+    <div class="info-section">
+        <div class="section-header">UPLOADED DOCUMENTS</div>
+        <div class="documents-grid">
+            <!-- ID Card -->
+            <div class="document-card">
+                <div class="document-icon">📄</div>
+                <div class="document-title">Employee/Pensioner ID Card</div>
+                {% if bill.id_card_file %}
+                    <a href="{{ bill.id_card_file.url }}" target="_blank" class="document-link">View Document</a>
+                {% else %}
+                    <div class="no-document">{{ bill.id_card_detail|default:"Not uploaded" }}</div>
+                {% endif %}
+            </div>
+
+            <!-- CC Card -->
+            <div class="document-card">
+                <div class="document-icon">💳</div>
+                <div class="document-title">Approved CC Card</div>
+                {% if bill.cc_card_file %}
+                    <a href="{{ bill.cc_card_file.url }}" target="_blank" class="document-link">View Document</a>
+                {% else %}
+                    <div class="no-document">{{ bill.cc_card_detail|default:"Not uploaded" }}</div>
+                {% endif %}
+            </div>
+
+            <!-- Discharge Summary -->
+            <div class="document-card">
+                <div class="document-icon">🏥</div>
+                <div class="document-title">Discharge Summary</div>
+                {% if bill.discharge_summary_file %}
+                    <a href="{{ bill.discharge_summary_file.url }}" target="_blank" class="document-link">View Document</a>
+                {% else %}
+                    <div class="no-document">{{ bill.discharge_summary_detail|default:"Not uploaded" }}</div>
+                {% endif %}
+            </div>
+
+            <!-- Additional Documents -->
+            {% for doc in documents %}
+            <div class="document-card">
+                <div class="document-icon">📎</div>
+                <div class="document-title">{{ doc.get_document_type_display }}</div>
+                <a href="{{ doc.file.url }}" target="_blank" class="document-link">View Document</a>
+                <div style="margin-top: 5px; font-size: 10px; color: #666;">
+                    Uploaded: {{ doc.uploaded_at|date:"d M Y" }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+        <a href="{% url 'hospitals:bill_list' %}" class="btn btn-secondary">← Back to Claims List</a>
+        <button onclick="window.print()" class="btn btn-primary">🖨️ Print Claim</button>
+    </div>
+</div>
+{% endblock %}

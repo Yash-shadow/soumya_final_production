@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Documents - TGNPDCL{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+ <!-- Sidebar -->
+ <aside class="sidebar">
+ <div class="sidebar-logo">
+ <span class="sidebar-logo-icon">⚡</span>
+ <span class="sidebar-logo-text">TGNPDCL</span>
+ </div>
+
+ <nav>
+ <ul class="sidebar-nav">
+ <li class="sidebar-nav-item">
+ <a href="{% url 'dashboard' %}" class="sidebar-nav-link">
+ 📊 Dashboard
+ </a>
+ </li>
+ <li class="sidebar-nav-item">
+ <a href="{% url 'documents:document_list' %}" class="sidebar-nav-link active">
+ 📁 Documents
+ </a>
+ </li>
+ </ul>
+ </nav>
+
+ <div style="position: absolute; bottom: 1.5rem; left: 1.5rem; right: 1.5rem;">
+ <a href="{% url 'logout' %}" class="btn btn-secondary btn-block">
+ 🚪 Logout
+ </a>
+ </div>
+ </aside>
+
+ <!-- Main Content -->
+ <main class="main-content">
+ <div class="page-header">
+ <h1 class="page-title">📁 All Documents</h1>
+ </div>
+
+ <div class="card fade-in">
+ <div class="card-body">
+ {% if documents %}
+ <div class="documents-grid">
+ {% for doc in documents %}
+ <div class="document-card">
+ <div class="document-icon">
+ {% if 'pdf' in doc.content_type %}📕
+ {% elif 'image' in doc.content_type %}🖼️
+ {% elif 'word' in doc.content_type %}📘
+ {% elif 'excel' in doc.content_type %}📗
+ {% else %}📄{% endif %}
+ </div>
+ <div class="document-name">{{ doc.original_filename }}</div>
+ <div class="document-meta">
+ {{ doc.file_size_display }} • {{ doc.uploaded_at|date:"M d, Y H:i" }}
+ </div>
+ <div class="document-meta" style="margin-top: 0.25rem;">
+ {% if doc.uploaded_by %}Uploaded by: {{ doc.uploaded_by.username }}{% endif %}
+ </div>
+ <div style="margin-top: 0.75rem;">
+ <a href="{% url 'documents:document_view' doc.id %}" class="btn btn-primary"
+ style="font-size: 0.8125rem; padding: 0.5rem 1rem;" target="_blank">
+ View / Download
+ </a>
+ </div>
+ </div>
+ {% endfor %}
+ </div>
+ {% else %}
+ <div class="text-center text-muted" style="padding: 4rem;">
+ <span style="font-size: 4rem; opacity: 0.5;">📭</span>
+ <p style="margin-top: 1rem; font-size: 1.125rem;">No documents uploaded yet.</p>
+ <p style="color: var(--gray-500);">Documents uploaded by hospitals will appear here.</p>
+ </div>
+ {% endif %}
+ </div>
+ </div>
+ </main>
+</div>
+{% endblock %}

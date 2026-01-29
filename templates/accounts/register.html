@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Create New Account - TGNPDCL{% endblock %}
+
+{% block content %}
+<div class="login-selector-container">
+ <div class="card fade-in" style="max-width: 500px; width: 100%; padding: 2.5rem;">
+ <div class="text-center mb-8">
+ <h1 class="page-title" style="margin-bottom: 0.5rem;">🛡️ Create Account</h1>
+ <p class="text-muted">Register for the Medical Bill Reimbursement System</p>
+ </div>
+
+ <form method="post" novalidate>
+ {% csrf_token %}
+
+ {% if form.non_field_errors %}
+ <div class="alert alert-error mb-4">
+ {% for error in form.non_field_errors %}
+ {{ error }}
+ {% endfor %}
+ </div>
+ {% endif %}
+
+ {% for field in form %}
+ <div class="form-group" id="group_{{ field.name }}">
+ <label class="form-label">{{ field.label }}</label>
+ {{ field }}
+ {% if field.help_text %}
+ <p class="text-muted" style="font-size: 0.75rem; margin-top: 0.25rem;">{{ field.help_text }}</p>
+ {% endif %}
+ {% if field.errors %}
+ <div class="text-error" style="font-size: 0.8rem; margin-top: 0.25rem;">{{ field.errors.0 }}</div>
+ {% endif %}
+ </div>
+ {% endfor %}
+
+ <div class="mt-8">
+ <button type="submit" class="btn btn-primary btn-block">Register & Login</button>
+ </div>
+ </form>
+
+ <div class="text-center mt-6">
+ <p class="text-muted">Already have an account? <a href="{% url 'login_selector' %}"
+ style="color: var(--primary); text-decoration: none; font-weight: 500;">Back to Login</a></p>
+ </div>
+ </div>
+</div>
+
+<script>
+ document.addEventListener('DOMContentLoaded', function () {
+ const roleSelect = document.querySelector('select[name="role"]');
+ const hospitalGroup = document.getElementById('group_hospital');
+
+ function toggleHospitalField() {
+ if (roleSelect.value === 'HOSPITAL') {
+ hospitalGroup.style.display = 'block';
+ } else {
+ hospitalGroup.style.display = 'none';
+ document.querySelector('select[name="hospital"]').value = '';
+ }
+ }
+
+ if (roleSelect && hospitalGroup) {
+ roleSelect.addEventListener('change', toggleHospitalField);
+ toggleHospitalField(); // Initial state
+ }
+ });
+</script>
+{% endblock %}
