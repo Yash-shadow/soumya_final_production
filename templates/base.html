@@ -12,6 +12,10 @@
  <link rel="stylesheet" href="{% load static %}{% static 'css/style.css' %}">
  {% block extra_css %}{% endblock %}
  <style>
+.minister-photo {
+  width:100%;
+  height:180px;
+}
  :root {
  --accent-color: {
  {
@@ -25,6 +29,7 @@
 </head>
 
 <body>
+    <img src="{% static 'images/cmimage.png' %}" alt="Deputy Chief Minister" class="minister-photo">
  {% if messages %}
  <div class="messages-container" style="position: fixed; top: 1rem; right: 1rem; z-index: 9999; max-width: 400px;">
  {% for message in messages %}

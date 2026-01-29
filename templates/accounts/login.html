@@ -5,87 +5,18 @@
 
 {% block extra_css %}
 <style>
-  :root {
-    --accent-color: {
-        {
-        config.color
-      }
-    }
 
-    ;
-  }
+.login-container {
 
-  .login-box .card {
-    border-top: 4px solid var(--accent-color);
-  }
+  justify-content:center;
+  align-items:center;
+}
 
-  .login-icon {
-    background: linear-gradient(135deg, {
-        {
-        config.color
-      }
-    }
-
-    33 0%, {
-      {
-      config.color
-    }
-  }
-
-  1a 100%);
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 1rem;
-  font-size: 2.5rem;
-  }
-
-  .btn-login {
-    background: linear-gradient(135deg, {
-        {
-        config.color
-      }
-    }
-
-    0%, {
-      {
-      config.color
-    }
-  }
-
-  cc 100%);
-  }
-
-  .btn-login:hover {
-    background: linear-gradient(135deg, {
-        {
-        config.color
-      }
-    }
-
-    0%, {
-      {
-      config.color
-    }
-  }
-
-  100%);
-
-  box-shadow: 0 8px 25px -5px {
-      {
-      config.color
-    }
-  }
-
-  80;
-  }
 </style>
 {% endblock %}
 
 {% block content %}
+{% comment %} <img src="{% static 'images/cmimage.png' %}" alt="Deputy Chief Minister" class="minister-photo"> {% endcomment %}
 <div class="login-container">
   <div class="login-box fade-in">
     <div class="card">
@@ -93,7 +24,7 @@
         <div class="login-header">
           <div class="login-icon">{{ config.icon }}</div>
           <h1 class="login-title">{{ config.title }}</h1>
-          <p class="login-subtitle">TGNPDCL Medical Bill System</p>
+          
         </div>
 
         <form method="post" novalidate>

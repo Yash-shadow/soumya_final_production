@@ -258,7 +258,6 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -281,80 +280,10 @@
             }
         }
 
-        /* Header */
-        .header {
-            background: linear-gradient(to right, #003366, #0066cc);
-            padding: 0;
-            color: white;
-        }
-
-        .header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 30px;
-            background-color: white;
-        }
-
-        .header-left,
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
         .minister-photo {
-            width: 70px;
-            height: 90px;
-            border-radius: 5px;
+            height: 180px;
+            width: 100%;
             object-fit: cover;
-        }
-
-        .minister-info {
-            color: #003366;
-            font-size: 11px;
-        }
-
-        .minister-info strong {
-            display: block;
-            font-size: 12px;
-            margin-top: 3px;
-        }
-
-        .company-logo {
-            width: 80px;
-            height: 80px;
-        }
-
-        .company-info {
-            text-align: center;
-            flex: 1;
-            padding: 0 20px;
-        }
-
-        .company-title-telugu {
-            font-size: 20px;
-            color: #d32f2f;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .company-title-english {
-            font-size: 16px;
-            color: #d32f2f;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
-
-        .company-subtitle {
-            font-size: 11px;
-            color: #666;
-            margin-top: 3px;
-        }
-
-        .rising-logo {
-            width: 60px;
-            height: 60px;
         }
 
         .header-nav {
@@ -388,7 +317,6 @@
             font-size: 13px;
         }
 
-        /* Container */
         .container {
             max-width: 1400px;
             margin: 30px auto;
@@ -405,7 +333,6 @@
             margin-bottom: 20px;
         }
 
-        /* Form Sections */
         .form-section {
             background: white;
             border: 2px solid #003366;
@@ -457,7 +384,6 @@
             margin-bottom: 5px;
         }
 
-        /* Claim Details Table */
         .claim-table {
             width: 100%;
             border-collapse: collapse;
@@ -489,7 +415,8 @@
             text-align: right;
         }
 
-        .claim-table input {
+        .claim-table input,
+        .claim-table select {
             width: 100%;
             padding: 6px;
             border: 1px solid #ccc;
@@ -502,43 +429,6 @@
             font-weight: bold;
         }
 
-        /* Editable Section for TGNPDCL Approval */
-        .approval-section {
-            background-color: #e8f5e9;
-            border: 2px solid #4caf50;
-            padding: 15px;
-            margin: 15px;
-        }
-
-        .approval-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-
-        .approval-field label {
-            display: block;
-            font-size: 12px;
-            font-weight: bold;
-            color: #003366;
-            margin-bottom: 5px;
-        }
-
-        .approval-field input,
-        .approval-field select {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 12px;
-        }
-
-        .approval-field input[readonly] {
-            background-color: #f5f5f5;
-        }
-
-        /* Action Buttons */
         .action-section {
             background-color: white;
             border: 2px solid #003366;
@@ -580,11 +470,21 @@
             min-height: 80px;
         }
 
+        .action-field input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            text-align: right;
+        }
+
         .button-group {
             display: flex;
             justify-content: center;
             gap: 15px;
             margin-top: 20px;
+            flex-wrap: wrap;
         }
 
         .btn {
@@ -597,31 +497,31 @@
             transition: all 0.3s;
         }
 
-        .btn-scrutiny {
+        .btn-primary {
             background-color: #0066cc;
             color: white;
         }
 
-        .btn-scrutiny:hover {
+        .btn-primary:hover {
             background-color: #0052a3;
         }
 
-        .btn-rejection {
-            background-color: #dc3545;
-            color: white;
-        }
-
-        .btn-rejection:hover {
-            background-color: #c82333;
-        }
-
-        .btn-approve {
+        .btn-success {
             background-color: #28a745;
             color: white;
         }
 
-        .btn-approve:hover {
+        .btn-success:hover {
             background-color: #218838;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
         }
 
         .btn-secondary {
@@ -633,7 +533,6 @@
             background-color: #5a6268;
         }
 
-        /* Workflow History */
         .history-section {
             background: white;
             border: 2px solid #003366;
@@ -681,30 +580,65 @@
             font-style: italic;
         }
 
-        .minister-photo {
-            height: 180px;
-            width: 100%
+        .messages {
+            margin-bottom: 20px;
+        }
+
+        .alert {
+            padding: 12px 20px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .required {
+            color: #d32f2f;
         }
     </style>
 </head>
-
 <body>
-    <!-- Header -->
-    <img src="/static/images/cmimage.png" alt="Deputy Chief Minister" class="minister-photo">
-    <div class="header-nav">
-        <div class="nav-links">
-            <a href="{% url 'workflow:approval_queue' %}">Approval Queue</a>
-            <a href="#">My Approvals History</a>
+    <div class="no-print">
+        <img src="{% static 'images/cmimage.png' %}" alt="Deputy Chief Minister" class="minister-photo">
+        
+        <div class="header-nav">
+            <div class="nav-links">
+                <a href="{% url 'workflow:approval_queue' %}">Approval Queue</a>
+            </div>
+            <div class="user-info">
+                {{ sanction_request.current_step.name }} - {{ request.user.get_full_name|default:request.user.username }}
+            </div>
         </div>
-        <div class="user-info">
-            {{ sanction_request.current_step.name }} - {{ request.user.get_full_name|default:request.user.username }}
-        </div>
-    </div>
     </div>
 
-    <!-- Main Content -->
     <div class="container">
-        <div class="form-title">Medical Bill Reimbursement Form</div>
+        {% if messages %}
+        <div class="messages no-print">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="form-title">Medical Bill Reimbursement Form - Review</div>
 
         <!-- Hospital Details -->
         <div class="form-section">
@@ -713,25 +647,22 @@
                 <div class="form-label">Name of the Hospital</div>
                 <div class="form-value">{{ sanction_request.bill.hospital.name }}</div>
                 <div class="form-label">Hospital PAN No:</div>
-                <div class="form-value">{{ sanction_request.bill.hospital.pan_number|default:"XXXXXXX" }}</div>
+                <div class="form-value">{{ sanction_request.bill.hospital.pan_number|default:"N/A" }}</div>
 
                 <div class="form-label">Address:</div>
                 <div class="form-value">{{ sanction_request.bill.hospital.address }}</div>
                 <div class="form-label">GST NO:</div>
-                <div class="form-value">{{ sanction_request.bill.hospital.gst_number|default:"XXXXXXXXX" }}</div>
+                <div class="form-value">{{ sanction_request.bill.hospital.gst_number|default:"N/A" }}</div>
 
                 <div class="form-label">Phone No:</div>
                 <div class="form-value">{{ sanction_request.bill.hospital.phone }}</div>
                 <div class="form-label">CIN NO:</div>
-                <div class="form-value">{{ sanction_request.bill.hospital.cin_number|default:"XXXXXXXXXX" }}</div>
+                <div class="form-value">{{ sanction_request.bill.hospital.cin_number|default:"N/A" }}</div>
 
                 <div class="form-label">Hospital Code:</div>
                 <div class="form-value">{{ sanction_request.bill.hospital.code }}</div>
                 <div class="form-label">Category:</div>
                 <div class="form-value">{{ sanction_request.bill.hospital.get_tier_display }}</div>
-            </div>
-            <div class="note-section">
-                <strong>Note:</strong> All the Data taken from Hospital Data Base and Shown here as non-editable
             </div>
         </div>
 
@@ -765,8 +696,7 @@
                 <div class="form-value">{{ sanction_request.bill.discharge_date|date:"d-m-Y" }}</div>
 
                 <div class="form-label">Credit Card Number:</div>
-                <div class="form-value" style="grid-column: span 3;">{{ sanction_request.bill.credit_card_number }}
-                </div>
+                <div class="form-value" style="grid-column: span 3;">{{ sanction_request.bill.credit_card_number }}</div>
 
                 <div class="form-label">Disease Details:</div>
                 <div class="form-value" style="grid-column: span 3;">{{ sanction_request.bill.disease_details }}</div>
@@ -775,22 +705,19 @@
                 <strong>Mandatory Documents:</strong>
                 <div style="margin-top: 10px; display: flex; gap: 15px; flex-wrap: wrap;">
                     {% if sanction_request.bill.id_card_file %}
-                    <a href="{{ sanction_request.bill.id_card_file.url }}" target="_blank" class="btn btn-primary"
-                        style="padding: 5px 10px; font-size: 11px;">
+                    <a href="{{ sanction_request.bill.id_card_file.url }}" target="_blank" class="btn btn-primary" style="padding: 5px 10px; font-size: 11px;">
                         📄 ID Card
                     </a>
                     {% endif %}
 
                     {% if sanction_request.bill.cc_card_file %}
-                    <a href="{{ sanction_request.bill.cc_card_file.url }}" target="_blank" class="btn btn-primary"
-                        style="padding: 5px 10px; font-size: 11px;">
+                    <a href="{{ sanction_request.bill.cc_card_file.url }}" target="_blank" class="btn btn-primary" style="padding: 5px 10px; font-size: 11px;">
                         📄 CC Card
                     </a>
                     {% endif %}
 
                     {% if sanction_request.bill.discharge_summary_file %}
-                    <a href="{{ sanction_request.bill.discharge_summary_file.url }}" target="_blank"
-                        class="btn btn-primary" style="padding: 5px 10px; font-size: 11px;">
+                    <a href="{{ sanction_request.bill.discharge_summary_file.url }}" target="_blank" class="btn btn-primary" style="padding: 5px 10px; font-size: 11px;">
                         📄 Discharge Summary
                     </a>
                     {% endif %}
@@ -800,7 +727,7 @@
 
         <!-- Hospital Claim Details -->
         <div class="form-section">
-            <div class="section-header">HOSPITAL CLAIM DETAILS</div>
+            <div class="section-header">HOSPITAL CLAIM DETAILS - APPROVAL REVIEW</div>
             <div style="padding: 15px;">
                 <div class="form-grid" style="margin-bottom: 15px;">
                     <div class="form-label">Invoice No:</div>
@@ -811,139 +738,117 @@
 
                 <form method="post" action="{% url 'workflow:process_request' sanction_request.id %}" id="approvalForm">
                     {% csrf_token %}
+                    
                     <table class="claim-table">
                         <thead>
                             <tr>
                                 <th rowspan="2">SL NO.</th>
-                                <th rowspan="2">Details of Services</th>
-                                <th rowspan="2">Service Description as per Hospital Rate</th>
-                                <th colspan="4">Hospital Claim Details</th>
-                                <th colspan="4">TGNPDCL Approval Details</th>
+                                <th rowspan="2">Service Name</th>
+                                <th rowspan="2">Description</th>
+                                <th colspan="3">Hospital Claim</th>
+                                <th colspan="4">Your Approval Decision</th>
                             </tr>
                             <tr>
-                                <th>Quantity</th>
-                                <th>Rate</th>
-                                <th>Amount</th>
-                                <th>Item Docs</th>
                                 <th>Qty</th>
                                 <th>Rate</th>
-                                <th>Deemed Amount</th>
+                                <th>Amount</th>
+                                <th>Qty</th>
+                                <th>Rate</th>
+                                <th>Amount</th>
                                 <th>Remarks</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Additional Bill Documents -->
-
-
-                            <!-- Bill Items -->
                             {% for item in items %}
                             <tr>
                                 <td>{{ forloop.counter }}</td>
                                 <td class="text-left">{{ item.service.name|default:item.hospital_service_name }}</td>
                                 <td class="text-left">{{ item.description|default:"-" }}</td>
                                 <td>{{ item.claimed_quantity }}</td>
-                                <td class="text-right">{{ item.display_rate|floatformat:2 }}</td>
-                                <td class="text-right">{{ item.claimed_amount|floatformat:2 }}</td>
+                                <td class="text-right">₹{{ item.display_rate|floatformat:2 }}</td>
+                                <td class="text-right">₹{{ item.claimed_amount|floatformat:2 }}</td>
                                 <td>
-                                    {% if item.supporting_document %}
-                                    <a href="{{ item.supporting_document.url }}" target="_blank"
-                                        style="color: #0066cc; text-decoration: underline;">View File</a>
-                                    {% else %}
-                                    -
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    <input type="number" name="approved_quantity_{{ item.id }}"
-                                        value="{{ item.approved_quantity|default:item.claimed_quantity }}"
-                                        class="approved-qty" style="width: 60px; text-align: center;">
+                                    <input type="number" name="approved_quantity_{{ item.id }}" 
+                                           value="{{ item.approved_quantity|default:item.claimed_quantity }}"
+                                           class="approved-qty" style="width: 60px; text-align: center;">
                                 </td>
                                 <td>
                                     <input type="number" name="approved_rate_{{ item.id }}" step="0.01"
-                                        value="{{ item.approved_rate|default:item.display_rate }}"
-                                        class="approved-rate">
+                                           value="{{ item.approved_rate|default:item.display_rate }}"
+                                           class="approved-rate">
                                 </td>
                                 <td>
                                     <input type="number" name="approved_amount_{{ item.id }}" step="0.01"
-                                        value="{{ item.approved_amount|default:item.claimed_amount }}"
-                                        class="approved-amount" readonly>
+                                           value="{{ item.approved_amount|default:item.claimed_amount }}"
+                                           class="approved-amount" readonly style="background-color: #e9ecef;">
                                 </td>
                                 <td>
                                     <input type="text" name="remarks_{{ item.id }}"
-                                        value="{{ item.comments|default:'' }}" placeholder="Remarks">
+                                           value="{{ item.comments|default:'' }}" placeholder="Your remarks">
                                 </td>
                             </tr>
                             {% endfor %}
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="5" class="text-right"></td>
+                                <td colspan="5" class="text-right"><strong>Total Claimed:</strong></td>
+                                <td class="text-right"><strong>₹{{ total_claimed_amount|floatformat:2 }}</strong></td>
+                                <td colspan="2" class="text-right"><strong>Total Approved:</strong></td>
                                 <td class="text-right">
-                                    <strong>Gross Total:</strong><br>
-                                    <strong>₹{{ total_claimed_amount|floatformat:2 }}</strong>
-                                </td>
-                                <td>
-                                    {% if bill_documents %}
-                                    <strong>Bill Attachments:</strong><br>
-                                    {% for doc in bill_documents %}
-                                    <div style="margin-bottom: 2px;">
-                                        <a href="{{ doc.file.url }}" target="_blank"
-                                            title="{{ doc.get_document_type_display }}"
-                                            style="color: #0066cc; text-decoration: none; font-size: 0.8rem;">
-                                            📎 {{ doc.get_document_type_display }}
-                                        </a>
-                                    </div>
-                                    {% endfor %}
-                                    {% else %}
-                                    <span class="text-muted">-</span>
-                                    {% endif %}
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td class="text-right">
+                                    <strong id="totalApproved">₹{{ suggested_amount|floatformat:2 }}</strong>
                                 </td>
                                 <td></td>
                             </tr>
                         </tfoot>
                     </table>
 
-                    <div class="note-section">
-                        All the fields are Non-Editable | Always Editable till Final Approval
-                        <br><strong>Comments by Asst/JPO:</strong>
-                    </div>
-
                     <!-- Action Section -->
-                    <div class="action-section">
+                    <div class="action-section no-print">
                         <h3>Take Action on this Request</h3>
                         <div class="action-grid">
                             <div class="action-field">
-                                <label for="comments">Comments / Remarks: <span style="color: red;">*</span></label>
-                                <textarea id="comments" name="comments" placeholder="Enter your comments or remarks..."
-                                    required></textarea>
+                                <label for="comments">Comments / Remarks: <span class="required">*</span></label>
+                                <textarea id="comments" name="comments" placeholder="Enter your comments or remarks..." required></textarea>
                             </div>
 
                             <div class="action-field">
                                 <label for="approved_amount">Final Approved Amount (₹):</label>
                                 <input type="number" id="approved_amount" name="approved_amount" step="0.01"
-                                    value="{{ suggested_amount|floatformat:2 }}"
-                                    style="padding: 10px; font-size: 14px; text-align: right;">
+                                       value="{{ suggested_amount|floatformat:2 }}">
                             </div>
                         </div>
 
                         <div class="button-group">
-                            {% if sanction_request.current_step.order >= 6 %}
-                            <!-- Step 6 & 7: Approved / Reject -->
-                            <button type="button"
-                                onclick="submitAction('{% if sanction_request.current_step.order == 7 %}APPROVE{% else %}FORWARD{% endif %}')"
-                                class="btn btn-scrutiny">Approved</button>
-                            <button type="button" onclick="submitAction('REJECT')"
-                                class="btn btn-rejection">Reject</button>
+                            {% if sanction_request.current_step.order >= 7 %}
+                            <!-- Final approval step -->
+                            <button type="button" onclick="submitAction('APPROVE')" class="btn btn-success">
+                                ✅ Final Approval
+                            </button>
+                            <button type="button" onclick="submitAction('REJECT')" class="btn btn-danger">
+                                ❌ Reject Request
+                            </button>
+                            {% elif sanction_request.current_step.order == 6 %}
+                            <!-- Step 6: Can accept or reject -->
+                            <button type="button" onclick="submitAction('FORWARD')" class="btn btn-success">
+                                ✅ Accept & Forward
+                            </button>
+                            <button type="button" onclick="submitAction('REJECT')" class="btn btn-danger">
+                                ❌ Reject Request
+                            </button>
                             {% else %}
-                            <!-- Steps 1-5 -->
-                            <button type="button" onclick="submitAction('FORWARD')"
-                                class="btn btn-scrutiny">Submit</button>
+                            <!-- Steps 1-5: Forward only -->
+                            <button type="button" onclick="submitAction('FORWARD')" class="btn btn-primary">
+                                ➡️ Forward to Next Step
+                            </button>
                             {% endif %}
+                            
+                            <button type="button" onclick="submitAction('CLARIFY')" class="btn btn-secondary">
+                                ❓ Request Clarification
+                            </button>
 
-                            <a href="{% url 'workflow:approval_queue' %}" class="btn btn-secondary">Cancel</a>
+                            <a href="{% url 'workflow:approval_queue' %}" class="btn btn-secondary">
+                                ← Back to Queue
+                            </a>
                         </div>
                     </div>
 
@@ -992,14 +897,17 @@
                 return;
             }
 
-            if (action === 'APPROVE' || action === 'REJECT_RECOMMENDED') {
-                const confirmMsg = action === 'APPROVE'
-                    ? 'Are you sure you want to APPROVE this request?'
-                    : 'Are you sure you want to submit this for REJECTION?';
+            let confirmMsg = '';
+            if (action === 'APPROVE') {
+                confirmMsg = 'Are you sure you want to give FINAL APPROVAL to this request?';
+            } else if (action === 'REJECT') {
+                confirmMsg = 'Are you sure you want to REJECT this request? This action cannot be undone.';
+            } else if (action === 'FORWARD') {
+                confirmMsg = 'Are you sure you want to forward this request to the next step?';
+            }
 
-                if (!confirm(confirmMsg)) {
-                    return;
-                }
+            if (confirmMsg && !confirm(confirmMsg)) {
+                return;
             }
 
             document.getElementById('actionInput').value = action;
@@ -1012,6 +920,8 @@
             const rateInput = row.querySelector('.approved-rate');
             const amountInput = row.querySelector('.approved-amount');
 
+            if (!qtyInput || !rateInput || !amountInput) return;
+
             const qty = parseFloat(qtyInput.value) || 0;
             const rate = parseFloat(rateInput.value) || 0;
 
@@ -1020,13 +930,13 @@
         }
 
         document.querySelectorAll('.approved-rate').forEach(input => {
-            input.addEventListener('input', function () {
+            input.addEventListener('input', function() {
                 calculateRow(this.closest('tr'));
             });
         });
 
         document.querySelectorAll('.approved-qty').forEach(input => {
-            input.addEventListener('input', function () {
+            input.addEventListener('input', function() {
                 calculateRow(this.closest('tr'));
             });
         });
@@ -1040,9 +950,16 @@
             if (totalElem) {
                 totalElem.textContent = '₹' + total.toFixed(2);
             }
-            document.getElementById('approved_amount').value = total.toFixed(2);
+            const approvedAmountInput = document.getElementById('approved_amount');
+            if (approvedAmountInput) {
+                approvedAmountInput.value = total.toFixed(2);
+            }
         }
+
+        // Initialize total on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTotal();
+        });
     </script>
 </body>
-
 </html>
