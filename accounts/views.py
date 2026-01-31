@@ -90,6 +90,7 @@ def login_selector(request):
 
 def role_login_view(request, role_key):
     """Generic login view for any role."""
+    print("I am here ")
     if role_key not in ROLE_CONFIG:
         messages.error(request, 'Invalid login portal.')
         return redirect('login_selector')
