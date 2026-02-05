@@ -1,0 +1,170 @@
+Watching for file changes with StatReloader
+[31/Jan/2026 16:15:35] "GET /workflow/request/2/ HTTP/1.1" 302 0
+[31/Jan/2026 16:15:35] "GET /login/?next=/workflow/request/2/ HTTP/1.1" 200 3268
+[31/Jan/2026 16:15:37] "GET /login/hospital/ HTTP/1.1" 200 3689
+[31/Jan/2026 16:15:49] "POST /login/hospital/ HTTP/1.1" 302 0
+[31/Jan/2026 16:15:49] "GET /dashboard/ HTTP/1.1" 302 0
+[31/Jan/2026 16:15:49] "GET /hospitals/ HTTP/1.1" 200 25289
+[31/Jan/2026 16:16:09] "GET /hospitals/bills/1/ HTTP/1.1" 200 18238
+[31/Jan/2026 16:16:17] "GET /media/medical_bills/final_bill_1.txt HTTP/1.1" 200 37
+[31/Jan/2026 16:16:22] "GET /hospitals/ HTTP/1.1" 200 25139
+[31/Jan/2026 16:16:35] "GET /hospitals/submit-bill/ HTTP/1.1" 200 30836
+[31/Jan/2026 16:16:59] "GET /hospitals/ HTTP/1.1" 200 25139
+[31/Jan/2026 16:17:01] "GET /logout/ HTTP/1.1" 302 0
+[31/Jan/2026 16:17:01] "GET / HTTP/1.1" 200 3520
+[31/Jan/2026 16:17:03] "GET /login/jpo/ HTTP/1.1" 200 3707
+[31/Jan/2026 16:17:12] "POST /login/jpo/ HTTP/1.1" 302 0
+[31/Jan/2026 16:17:12] "GET /dashboard/ HTTP/1.1" 200 16788
+[31/Jan/2026 16:17:20] "GET /workflow/queue/ HTTP/1.1" 200 28092
+[31/Jan/2026 16:17:29] "GET /workflow/request/20/ HTTP/1.1" 200 23529
+[31/Jan/2026 16:17:43] "GET /media/bills/supporting_docs/WhatsApp_Image_2026-01-27_at_6.28.06_AM_ohwJ3mV.jpeg HTTP/1.1" 200 201995
+[31/Jan/2026 16:17:59] "GET /workflow/queue/ HTTP/1.1" 200 28092
+[31/Jan/2026 16:18:09] "GET /logout/ HTTP/1.1" 302 0
+[31/Jan/2026 16:18:09] "GET / HTTP/1.1" 200 3627
+[31/Jan/2026 16:18:13] "GET /login/se-cgm/ HTTP/1.1" 200 3677
+[31/Jan/2026 16:18:22] "POST /login/se-cgm/ HTTP/1.1" 302 0
+[31/Jan/2026 16:18:22] "GET /dashboard/ HTTP/1.1" 200 16092
+[31/Jan/2026 16:18:26] "GET /workflow/queue/ HTTP/1.1" 200 8699
+[31/Jan/2026 16:18:33] "GET /workflow/queue/ HTTP/1.1" 200 8699
+[31/Jan/2026 16:18:47] "GET /workflow/queue/ HTTP/1.1" 200 8699
+[31/Jan/2026 16:18:49] "GET /logout/ HTTP/1.1" 302 0
+[31/Jan/2026 16:18:49] "GET / HTTP/1.1" 200 3631
+[31/Jan/2026 16:18:52] "GET /login/Director/ HTTP/1.1" 200 3671
+[31/Jan/2026 16:19:03] "POST /login/Director/ HTTP/1.1" 302 0
+[31/Jan/2026 16:19:03] "GET /dashboard/ HTTP/1.1" 200 14611
+[31/Jan/2026 16:19:08] "GET /workflow/queue/ HTTP/1.1" 200 13264
+[31/Jan/2026 16:19:13] "GET /workflow/request/11/ HTTP/1.1" 200 28939
+Watching for file changes with StatReloader
+[04/Feb/2026 10:16:25] "HEAD / HTTP/1.1" 200 0
+[04/Feb/2026 10:17:08] "GET / HTTP/1.1" 302 0
+[04/Feb/2026 10:17:09] "GET /dashboard/ HTTP/1.1" 200 16788
+[04/Feb/2026 10:17:09] "GET /static/images/cmimage.png HTTP/1.1" 304 0
+[04/Feb/2026 10:17:13] "GET /workflow/queue/ HTTP/1.1" 200 39891
+[04/Feb/2026 10:17:18] "GET /workflow/request/31/ HTTP/1.1" 200 24163
+[04/Feb/2026 10:28:43] "GET /workflow/queue/ HTTP/1.1" 200 39891
+[04/Feb/2026 10:28:45] "GET /logout/ HTTP/1.1" 302 0
+[04/Feb/2026 10:28:45] "GET / HTTP/1.1" 200 3520
+[04/Feb/2026 10:28:45] "GET /static/css/style.css HTTP/1.1" 304 0
+[04/Feb/2026 10:28:47] "GET /login/hospital/ HTTP/1.1" 200 3689
+[04/Feb/2026 10:29:00] "POST /login/hospital/ HTTP/1.1" 302 0
+[04/Feb/2026 10:29:00] "GET /dashboard/ HTTP/1.1" 302 0
+[04/Feb/2026 10:29:00] "GET /hospitals/ HTTP/1.1" 200 25997
+[04/Feb/2026 10:32:04] "GET /hospitals/submit-bill/ HTTP/1.1" 200 30372
+[04/Feb/2026 10:36:08] "GET /hospitals/ HTTP/1.1" 200 25847
+/home/vboxuser/.gemini/antigravity/scratch/soumya-production/hospitals/models.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+February 04, 2026 - 10:15:47
+Django version 4.2.27, using settings 'project.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+DEBUG: Processing Request 31
+DEBUG: Found 1 items
+DEBUG: Item 22 Rate 2500.00 -> Display 2500.00
+DEBUG: Total Claimed calculated: 7500.00
+DEBUG: Stored Claimed: 7500.00
+DEBUG: Login - User: hospital1, Expected: 'HOSPITAL', Actual: 'HOSPITAL'
+Watching for file changes with StatReloader
+[04/Feb/2026 11:04:36] "GET /hospitals/submit-bill/ HTTP/1.1" 200 30372
+[04/Feb/2026 11:10:05] "GET /hospitals/submit-bill/ HTTP/1.1" 200 30372
+[04/Feb/2026 11:10:07] "GET /hospitals/submit-bill/ HTTP/1.1" 200 30372
+[04/Feb/2026 11:10:07] "GET /hospitals/submit-bill/ HTTP/1.1" 200 30372
+[04/Feb/2026 11:10:08] "GET /hospitals/submit-bill/ HTTP/1.1" 200 30372
+[04/Feb/2026 11:13:15] "GET /hospitals/submit-bill/ HTTP/1.1" 200 30528
+/home/vboxuser/.gemini/antigravity/scratch/soumya-production/hospitals/views.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+February 04, 2026 - 11:03:15
+Django version 4.2.27, using settings 'project.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+Watching for file changes with StatReloader
+[04/Feb/2026 11:16:42] "GET /hospitals/submit-bill/ HTTP/1.1" 200 30559
+[04/Feb/2026 11:19:06] "POST /hospitals/submit-bill/ HTTP/1.1" 302 0
+[04/Feb/2026 11:19:06] "GET /hospitals/ HTTP/1.1" 200 26022
+[04/Feb/2026 11:19:09] "GET /hospitals/submit-bill/ HTTP/1.1" 200 30559
+[04/Feb/2026 11:19:10] "GET /hospitals/ HTTP/1.1" 200 25829
+[04/Feb/2026 11:19:24] "GET /logout/ HTTP/1.1" 302 0
+[04/Feb/2026 11:19:24] "GET / HTTP/1.1" 200 3520
+[04/Feb/2026 11:19:26] "GET /login/jpo/ HTTP/1.1" 200 3707
+[04/Feb/2026 11:19:36] "POST /login/jpo/ HTTP/1.1" 302 0
+[04/Feb/2026 11:19:36] "GET /dashboard/ HTTP/1.1" 200 16788
+[04/Feb/2026 11:19:39] "GET /workflow/queue/ HTTP/1.1" 200 41872
+[04/Feb/2026 11:19:43] "GET /workflow/request/32/ HTTP/1.1" 200 24176
+[04/Feb/2026 11:19:48] "GET /media/medical_bills/WhatsApp_Image_2026-01-27_at_6.28.06_AM_2MCJLt3.jpeg HTTP/1.1" 200 201995
+[04/Feb/2026 11:19:48] "GET /media/medical_bills/WhatsApp_Image_2026-01-27_at_6.28.06_AM_2MCJLt3.jpeg HTTP/1.1" 200 201995
+[04/Feb/2026 11:19:55] "GET /media/bills/id_cards/WhatsApp_Image_2026-01-27_at_6.28.06_AM_AlDYmLf.jpeg HTTP/1.1" 200 201995
+[04/Feb/2026 11:19:55] "GET /media/bills/id_cards/WhatsApp_Image_2026-01-27_at_6.28.06_AM_AlDYmLf.jpeg HTTP/1.1" 200 201995
+[04/Feb/2026 14:50:01] "GET /workflow/request/32/ HTTP/1.1" 200 24176
+[04/Feb/2026 14:50:07] "GET /workflow/queue/ HTTP/1.1" 200 41872
+[04/Feb/2026 14:50:18] "GET /logout/ HTTP/1.1" 302 0
+[04/Feb/2026 14:50:18] "GET / HTTP/1.1" 200 3627
+[04/Feb/2026 14:50:18] "GET /logout/ HTTP/1.1" 302 0
+[04/Feb/2026 14:50:18] "GET /login/?next=/logout/ HTTP/1.1" 200 3627
+[04/Feb/2026 14:50:19] "GET /login/hospital/ HTTP/1.1" 200 3689
+[04/Feb/2026 14:50:34] "POST /login/hospital/ HTTP/1.1" 302 0
+[04/Feb/2026 14:50:34] "GET /dashboard/ HTTP/1.1" 302 0
+[04/Feb/2026 14:50:35] "GET /hospitals/ HTTP/1.1" 200 25979
+[04/Feb/2026 14:50:49] "GET /hospitals/submit-bill/ HTTP/1.1" 200 30559
+[04/Feb/2026 15:16:57] "GET /hospitals/ HTTP/1.1" 200 25829
+[04/Feb/2026 15:17:09] "GET /hospitals/submit-bill/ HTTP/1.1" 200 30559
+[04/Feb/2026 15:26:27] "GET /hospitals/ HTTP/1.1" 200 25829
+[04/Feb/2026 15:27:17] "GET /logout/ HTTP/1.1" 302 0
+[04/Feb/2026 15:27:17] "GET / HTTP/1.1" 200 3520
+[04/Feb/2026 15:27:19] "GET /login/hospital/ HTTP/1.1" 200 3689
+[04/Feb/2026 15:27:30] "POST /login/hospital/ HTTP/1.1" 302 0
+[04/Feb/2026 15:27:30] "GET /dashboard/ HTTP/1.1" 302 0
+[04/Feb/2026 15:27:30] "GET /hospitals/ HTTP/1.1" 200 25979
+[04/Feb/2026 15:27:36] "GET /hospitals/submit-bill/ HTTP/1.1" 200 30559
+[04/Feb/2026 15:44:38] "POST /hospitals/submit-bill/ HTTP/1.1" 302 0
+[04/Feb/2026 15:44:38] "GET /hospitals/ HTTP/1.1" 200 26014
+[04/Feb/2026 15:45:04] "GET /hospitals/bills/39/ HTTP/1.1" 200 18566
+[04/Feb/2026 15:45:32] "GET /hospitals/ HTTP/1.1" 200 25821
+[04/Feb/2026 15:45:40] "GET /hospitals/submit-bill/ HTTP/1.1" 200 30559
+[04/Feb/2026 15:45:44] "GET /hospitals/ HTTP/1.1" 200 25821
+[04/Feb/2026 15:45:48] "GET /hospitals/bills/39/ HTTP/1.1" 200 18566
+[04/Feb/2026 15:45:50] "GET /media/bills/cc_cards/WhatsApp_Image_2026-01-27_at_6.28.06_AM_EdzFXue.jpeg HTTP/1.1" 200 201995
+[04/Feb/2026 15:46:12] "GET /media/medical_bills/WhatsApp_Image_2026-01-27_at_6.28.06_AM_Zy1iboI.jpeg HTTP/1.1" 200 201995
+[04/Feb/2026 15:46:26] "GET /media/bills/discharge_summaries/WhatsApp_Image_2026-01-27_at_6.28.06_AM_xY1FZve.jpeg HTTP/1.1" 200 201995
+[04/Feb/2026 15:46:59] "GET /logout/ HTTP/1.1" 302 0
+[04/Feb/2026 15:46:59] "GET / HTTP/1.1" 200 3520
+[04/Feb/2026 15:47:00] "GET /login/jpo/ HTTP/1.1" 200 3707
+[04/Feb/2026 15:47:12] "POST /login/jpo/ HTTP/1.1" 302 0
+[04/Feb/2026 15:47:12] "GET /dashboard/ HTTP/1.1" 200 16788
+[04/Feb/2026 15:47:14] "GET /workflow/queue/ HTTP/1.1" 200 43848
+[04/Feb/2026 15:47:21] "GET /workflow/request/33/ HTTP/1.1" 200 25713
+[04/Feb/2026 15:47:29] "GET /media/medical_bills/WhatsApp_Image_2026-01-27_at_6.28.06_AM_Zy1iboI.jpeg HTTP/1.1" 304 0
+[04/Feb/2026 15:49:20] "POST /workflow/request/33/process/ HTTP/1.1" 302 0
+[04/Feb/2026 15:49:20] "GET /workflow/queue/ HTTP/1.1" 200 41872
+[04/Feb/2026 15:49:24] "GET /logout/ HTTP/1.1" 302 0
+[04/Feb/2026 15:49:24] "GET / HTTP/1.1" 200 3745
+[04/Feb/2026 15:49:25] "GET /login/po/ HTTP/1.1" 200 3713
+[04/Feb/2026 15:49:36] "POST /login/po/ HTTP/1.1" 302 0
+[04/Feb/2026 15:49:36] "GET /dashboard/ HTTP/1.1" 200 16774
+[04/Feb/2026 15:49:38] "GET /workflow/queue/ HTTP/1.1" 200 17392
+[04/Feb/2026 15:49:41] "GET /workflow/request/33/ HTTP/1.1" 200 26607
+[04/Feb/2026 15:50:12] "POST /workflow/request/33/process/ HTTP/1.1" 302 0
+[04/Feb/2026 15:50:12] "GET /workflow/queue/ HTTP/1.1" 200 15409
+[04/Feb/2026 15:50:14] "GET /logout/ HTTP/1.1" 302 0
+[04/Feb/2026 15:50:14] "GET / HTTP/1.1" 200 3745
+[04/Feb/2026 15:50:15] "GET /login/dpo/ HTTP/1.1" 200 3697
+[04/Feb/2026 15:50:25] "POST /login/dpo/ HTTP/1.1" 302 0
+[04/Feb/2026 15:50:25] "GET /dashboard/ HTTP/1.1" 200 16796
+[04/Feb/2026 15:50:27] "GET /workflow/queue/ HTTP/1.1" 200 13206
+[04/Feb/2026 15:50:35] "GET /workflow/request/33/ HTTP/1.1" 200 27331
+[04/Feb/2026 15:51:57] "POST /workflow/request/33/process/ HTTP/1.1" 302 0
+[04/Feb/2026 15:51:57] "GET /workflow/queue/ HTTP/1.1" 200 11223
+[04/Feb/2026 15:52:11] "GET /workflow/queue/ HTTP/1.1" 200 11223
+[04/Feb/2026 15:52:31] "GET /workflow/queue/ HTTP/1.1" 200 11223
+[04/Feb/2026 15:52:58] "GET /logout/ HTTP/1.1" 302 0
+[04/Feb/2026 15:52:58] "GET / HTTP/1.1" 200 3762
+[04/Feb/2026 15:53:00] "GET /login/fa-cao/ HTTP/1.1" 200 3713
+[04/Feb/2026 15:53:18] "POST /login/fa-cao/ HTTP/1.1" 302 0
+[04/Feb/2026 15:53:19] "GET /dashboard/ HTTP/1.1" 200 16848
+[04/Feb/2026 15:53:24] "GET /workflow/queue/ HTTP/1.1" 200 13235
+[04/Feb/2026 15:56:06] "GET /workflow/request/33/ HTTP/1.1" 200 28045
+[04/Feb/2026 15:56:43] "GET /workflow/queue/ HTTP/1.1" 200 13235
