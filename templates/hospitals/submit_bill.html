@@ -197,7 +197,9 @@
 
         .form-input textarea {
             resize: vertical;
-            min-height: 60px;
+            min-height: 30px;
+            /* Reduced from 60px */
+            height: 30px;
         }
 
         .full-width {
@@ -252,6 +254,16 @@
 
         .claim-table input[type="number"] {
             text-align: right;
+        }
+
+        .claim-table textarea {
+            width: 100%;
+            border: 1px solid #ccc;
+            padding: 4px;
+            font-size: 11px;
+            height: 30px;
+            min-height: 30px;
+            resize: vertical;
         }
 
         /* Buttons */
@@ -391,7 +403,7 @@
                     <div class="form-input">
                         {{ bill_form.patient_name }}
                     </div>
-                    <div class="form-label">LF NO:</div>
+                    <div class="form-label">Employee ID:</div>
                     <div class="form-input">
                         {{ bill_form.employee_id }}
                     </div>
@@ -406,50 +418,54 @@
                     </div>
 
                     <div class="form-label">Name of the Patient:</div>
-                    <div class="form-input half-width">
+                    <div class="form-input" style="grid-column: span 3;">
                         {{ bill_form.patient_name }}
                     </div>
+                </div>
+
+                <!-- Custom Grid for 3-item rows -->
+                <div style="display: grid; grid-template-columns: repeat(6, 1fr); border-top: 1px solid #b3d9ff;">
+                    <!-- Row 1: Age, Sex, Employee Type -->
                     <div class="form-label">AGE:</div>
-                    <div class="form-input">
-                        {{ bill_form.age }}
-                    </div>
+                    <div class="form-input">{{ bill_form.age }}</div>
 
                     <div class="form-label">Sex:</div>
-                    <div class="form-input">
-                        {{ bill_form.sex }}
-                    </div>
+                    <div class="form-input">{{ bill_form.sex }}</div>
+
                     <div class="form-label">Employee Type:</div>
-                    <div class="form-input">
-                        {{ bill_form.employee_type }}
-                    </div>
+                    <div class="form-input">{{ bill_form.employee_type }}</div>
+
+                    <!-- Row 2: Relationship, Date of Admission, Date of Discharge (Logical grouping) -->
+                    <!-- or "employee ype, relationship and date of admission" as user said? 
+                         Assuming user repeated 'employee type' by mistake and meant:
+                         Relationship, Admission Date, Discharge Date/Disease Details -->
 
                     <div class="form-label">Relationship:</div>
-                    <div class="form-input">
-                        {{ bill_form.relationship }}
-                    </div>
-                    <div class="form-label">Date of Admission:</div>
-                    <div class="form-input">
-                        {{ bill_form.admission_date }}
-                    </div>
+                    <div class="form-input">{{ bill_form.relationship }}</div>
 
-                    <div class="form-label">Name of Disease:</div>
-                    <div class="form-input half-width">
-                        {{ bill_form.disease_details }}
-                    </div>
+                    <div class="form-label">Date of Admission:</div>
+                    <div class="form-input">{{ bill_form.admission_date }}</div>
+
+                    <!-- Fitting one more item to make it 3 -->
                     <div class="form-label">Date of Discharge:</div>
-                    <div class="form-input">
-                        {{ bill_form.discharge_date }}
-                    </div>
+                    <div class="form-input">{{ bill_form.discharge_date }}</div>
+
+                    <!-- Row 3: Remaining items -->
+                    <!-- Row 3: Credit Card and IP Number -->
+                    <div class="form-label">Credit Card Number:</div>
+                    <div class="form-input" style="grid-column: span 2;">{{ bill_form.credit_card_number }}</div>
 
                     <div class="form-label">IP Number:</div>
-                    <div class="form-input">
-                        {{ bill_form.ip_number }}
-                    </div>
-                    <div class="form-label">Credit Card Number:</div>
-                    <div class="form-input">
-                        {{ bill_form.credit_card_number }}
-                    </div>
+                    <div class="form-input" style="grid-column: span 2;">{{ bill_form.ip_number }}</div>
+
+                    <!-- Row 4: Name of Disease (Full Width) -->
+                    <div class="form-label">Name of Disease:</div>
+                    <div class="form-input" style="grid-column: span 5;">{{ bill_form.disease_details }}</div>
                 </div>
+
+                <!-- Resume original grid for any footer items if needed, but we closed the div above -->
+                <div class="form-grid" style="display: none;"></div>
+
                 <div class="note-text">
                     <strong>Patient Header Data:</strong> Remain Fixed Irrespective of Any Patient <br>
                     <strong>Patient Transactional Data:</strong> To be Filled Manually by Logged-In Hospital <br>
@@ -485,13 +501,14 @@
                             {{ bill_form.bill_date }}
                         </div>
 
-                        <div class="form-label">Scheme: <span class="required">*</span></div>
-                        <div class="form-input half-width">
-                            {{ bill_form.scheme }}
-                        </div>
-
                         <div class="form-label">Gross Total:</div>
-                        <div class="form-input">
+                        <div class="form-input" style="grid-column: span 3;">
+                            <small class="text-muted"
+                                style="display: block; font-size: 0.7rem; margin-bottom: 3px;">Attach supporting doc
+                                (Mandatory)</small>
+                            <input type="file" name="bill_attachment" class="form-control"
+                                style="font-size: 0.8rem; margin-bottom: 5px;" required>
+
                             <input type="number" id="grossTotal" value="0" readonly style="background-color: #e9ecef;">
                         </div>
                     </div>
@@ -500,15 +517,15 @@
                         <thead style="background-color: #0066cc; color: white;">
                             <tr>
                                 <th style="width: 50px;">SL NO.</th>
-                                <th style="width: 15%;">Service Category <span class="required">*</span></th>
+                                <th style="width: 15%;">Service Description as per Rate <span class="required">*</span>
+                                </th>
                                 <th style="width: 20%;">Details of Services (Hospital)</th>
-                                <th style="width: 15%;">Service Description as per Rate</th>
                                 <th style="width: 10%;">Rate</th>
                                 <th style="width: 8%;">Quantity</th>
                                 <th style="width: 10%;">Amount</th>
                                 <th style="width: 10%;">Attachments</th>
-                                <th style="width: 10%;">Remarks</th>
-                                <th style="width: 8%;">Action</th>
+                                <th style="width: 5%;">Remarks</th>
+                                <th style="width: 13%;">Action</th>
                             </tr>
                         </thead>
                         <tbody id="itemsTableBody">
@@ -518,24 +535,13 @@
                             <tr class="item-row">
                                 <td>{{ forloop.counter }}</td>
                                 <td>
-                                    <select name="{{ form.prefix }}-service_category" class="service-category-select"
-                                        onchange="updateServiceName(this)">
-                                        <option value="">Select Category</option>
-                                        <option value="Emergency">Emergency</option>
-                                        <option value="Hospital Services">Hospital Services</option>
-                                        <option value="Pharmacy/Drugs/Medicine Charges">Pharmacy/Drugs/Medicine Charges
-                                        </option>
-                                        <option value="Other Hospital Services">Other Hospital Services</option>
-                                    </select>
+                                    {{ form.service }}
                                     {{ form.id }}
                                 </td>
                                 <td>
                                     <input type="text" name="{{ form.prefix }}-hospital_service_name"
                                         class="hospital-service-input" placeholder="Enter service name"
                                         style="width: 100%; padding: 6px; font-size: 12px;">
-                                </td>
-                                <td>
-                                    {{ form.service }}
                                 </td>
                                 <td>
                                     {{ form.claimed_rate }}
@@ -567,23 +573,12 @@
                             <tr class="item-row">
                                 <td>#</td>
                                 <td>
-                                    <select name="form-__prefix__-service_category" class="service-category-select"
-                                        onchange="updateServiceName(this)">
-                                        <option value="">Select Category</option>
-                                        <option value="Emergency">Emergency</option>
-                                        <option value="Hospital Services">Hospital Services</option>
-                                        <option value="Pharmacy/Drugs/Medicine Charges">Pharmacy/Drugs/Medicine Charges
-                                        </option>
-                                        <option value="Other Hospital Services">Other Hospital Services</option>
-                                    </select>
+                                    {{ formset.empty_form.service }}
                                 </td>
                                 <td>
                                     <input type="text" name="form-__prefix__-hospital_service_name"
                                         class="hospital-service-input" placeholder="Enter service name"
                                         style="width: 100%; padding: 6px; font-size: 12px;">
-                                </td>
-                                <td>
-                                    {{ formset.empty_form.service }}
                                 </td>
                                 <td>
                                     {{ formset.empty_form.claimed_rate }}
@@ -628,14 +623,6 @@
     </div>
 
     <script>
-        function updateServiceName(selectElement) {
-            const row = selectElement.closest('tr');
-            const hospitalServiceInput = row.querySelector('.hospital-service-input');
-            if (selectElement.value && !hospitalServiceInput.value) {
-                hospitalServiceInput.value = selectElement.value;
-            }
-        }
-
         function addRow() {
             const formIdx = document.getElementById('id_form-TOTAL_FORMS').value;
             const emptyFormHtml = document.getElementById('empty-form').innerHTML;
@@ -762,6 +749,27 @@
                 document.querySelectorAll('.item-row').forEach(row => {
                     attachRowListeners(row);
                 });
+            }
+
+            // Date Validation
+            const admissionDateInput = document.getElementById('id_admission_date');
+            const dischargeDateInput = document.getElementById('id_discharge_date');
+
+            function validateDates() {
+                const admissionDate = new Date(admissionDateInput.value);
+                const dischargeDate = new Date(dischargeDateInput.value);
+
+                if (admissionDateInput.value && dischargeDateInput.value) {
+                    if (dischargeDate < admissionDate) {
+                        alert('please choose correct date'); // As requested by user
+                        dischargeDateInput.value = ''; // Clear invalid date
+                    }
+                }
+            }
+
+            if (admissionDateInput && dischargeDateInput) {
+                admissionDateInput.addEventListener('change', validateDates);
+                dischargeDateInput.addEventListener('change', validateDates);
             }
         });
     </script>

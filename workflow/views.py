@@ -6,6 +6,7 @@ from django.contrib import messages
 
 from accounts.decorators import approver_required, role_required
 from .models import SanctionRequest, ApprovalLog, WorkflowStep
+from hospitals.models import BillDocument
 
 
 @login_required
@@ -159,6 +160,15 @@ def process_request(request, request_id):
         action = request.POST.get('action')
         comments = request.POST.get('comments', '')
         amount = request.POST.get('approved_amount')
+        
+        # Handle Attachment Upload
+        if 'approval_attachment' in request.FILES:
+            attachment = request.FILES['approval_attachment']
+            BillDocument.objects.create(
+                bill=sanction_request.bill,
+                document_type='OTHER',
+                file=attachment
+            )
         
         # Update Bill Items (Remarks and Approved Amounts)
         for item in sanction_request.bill.items.all():

@@ -431,7 +431,7 @@
                 <thead>
                     <tr>
                         <th style="width: 50px;">SL No.</th>
-                        <th>Request ID</th>
+                        <th>Claim ID</th>
                         <th>Hospital Name</th>
                         <th>Patient Name</th>
                         <th>Employee ID</th>
@@ -448,7 +448,7 @@
                     {% for req in pending_requests %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td style="font-family: monospace;">SR-{{ req.id }}</td>
+                        <td style="font-family: monospace;">{{ req.bill.claim_id }}</td>
                         <td>{{ req.hospital_name }}</td>
                         <td>{{ req.patient_name }}</td>
                         <td>{{ req.bill.employee_id }}</td>

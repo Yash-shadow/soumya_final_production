@@ -104,10 +104,10 @@ class Bill(models.Model):
         ('Other', 'Other'),
     )
 
-    claim_id = models.UUIDField(
-        default=uuid.uuid4,
-        editable=False,
-        unique=True
+    claim_id = models.CharField(
+        max_length=50,
+        unique=True,
+        editable=False
     )
 
     hospital = models.ForeignKey(
@@ -185,6 +185,35 @@ class Bill(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.PROTECT, null=True, blank=True, related_name='created_bills')
+
+    def save(self, *args, **kwargs):
+        if not self.claim_id and self.hospital:
+            prefix = self.hospital.code.upper()
+            # Find the last bill with this prefix to determine the next sequence number
+            last_bill = Bill.objects.filter(claim_id__startswith=prefix).order_by('claim_id').last()
+            
+            if last_bill:
+                try:
+                    # Extract the numeric part (assuming format PREFIXnnn)
+                    # We take the last 3 characters if the length matches expected format
+                    # Or simpler: strip the prefix.
+                    # Be robust against old data (UUIDs)
+                    if len(last_bill.claim_id) >= len(prefix) + 3 and last_bill.claim_id.startswith(prefix):
+                         last_number = int(last_bill.claim_id[len(prefix):])
+                         next_number = last_number + 1
+                    else:
+                        # Fallback if the last found ID doesn't match the pattern (e.g. UUID)
+                        # Try to find max number by iterating? No, too expensive.
+                        # Using count as a fallback estimate.
+                        next_number = Bill.objects.filter(hospital=self.hospital).count() + 1
+                except ValueError:
+                    next_number = Bill.objects.filter(hospital=self.hospital).count() + 1
+            else:
+                next_number = 1
+            
+            self.claim_id = f"{prefix}{next_number:04d}"
+            
+        super().save(*args, **kwargs)
 
     def submit_claim(self):
         self.status = 'SUBMITTED'
