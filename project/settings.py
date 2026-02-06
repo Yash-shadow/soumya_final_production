@@ -4,13 +4,14 @@ Django settings for TGNPDCL Monolithic Application.
 from pathlib import Path
 import os
 import dj_database_url
-
+# from dotenv import load_dotenv
+# load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-dev-key-change-in-production')
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
-CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS', 'http://localhost:8000,http://127.0.0.1:8000,http://0.0.0.0:8000').split(',')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1,hospital.localhost').split(',')
+CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS','http://localhost:8000,http://127.0.0.1:8000,http://0.0.0.0:8000').split(',')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -67,6 +68,12 @@ ORACLE_HOST = os.environ.get('ORACLE_HOST')
 ORACLE_PORT = os.environ.get('ORACLE_PORT', '1521')
 ORACLE_SERVICE_NAME = os.environ.get('ORACLE_SERVICE_NAME')
 
+POSTGRES_USER           =   os.environ.get('POSTGRES_USER') 
+POSTGRES_PASSWORD       =   os.environ.get('POSTGRES_PASSWORD') 
+POSTGRES_HOST           =   os.environ.get('POSTGRES_HOST') 
+POSTGRES_PORT           =   os.environ.get('POSTGRES_PORT') 
+POSTGRES_DATABASE       =   os.environ.get('POSTGRES_DATABASE') 
+
 if ORACLE_USER and ORACLE_PASSWORD and ORACLE_HOST and ORACLE_SERVICE_NAME:
     DATABASES = {
         'default': {
@@ -76,6 +83,18 @@ if ORACLE_USER and ORACLE_PASSWORD and ORACLE_HOST and ORACLE_SERVICE_NAME:
             'PASSWORD': ORACLE_PASSWORD,
         }
     }
+elif (POSTGRES_USER and POSTGRES_PASSWORD and POSTGRES_HOST and POSTGRES_DATABASE):
+    DATABASES = { 
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': f'{POSTGRES_DATABASE}',
+            'USER': f'{POSTGRES_USER}',
+            'PASSWORD': f'{POSTGRES_PASSWORD}',
+            'HOST': f'{POSTGRES_HOST}',
+            'PORT': f'{POSTGRES_PORT}',
+        }
+    }
+
 else:
     DATABASES = {
         'default': dj_database_url.config(
@@ -142,9 +161,45 @@ else:
         },
     }
 
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': '/MEDICALAPP/NEEPMEDBILL/soumya_final_production/django_errors.log',
+        },
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['file', 'console'],
+        'level': 'ERROR',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file', 'console'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+    },
+}
+
+
 # Login settings
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/dashboard/'
 LOGOUT_REDIRECT_URL = '/login/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# SECURE_SSL_REDIRECT = os.environ.get('SECURE_SSL_REDIRECT')
+# SESSION_COOKIE_SECURE = os.environ.get('SESSION_COOKIE_SECURE')
+# CSRF_COOKIE_SECURE = os.environ.get('CSRF_COOKIE_SECURE')
+# SECURE_BROWSER_XSS_FILTER = os.environ.get('SECURE_BROWSER_XSS_FILTER')
+# SECURE_CONTENT_TYPE_NOSNIFF = os.environ.get('SECURE_CONTENT_TYPE_NOSNIFF')

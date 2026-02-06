@@ -3,6 +3,13 @@
 import os
 import sys
 
+# import oracledb
+# import sys
+
+# # This creates a "fake" cx_Oracle module using oracledb
+# oracledb.version = "8.3.0"
+# sys.modules["cx_Oracle"] = oracledb
+
 
 def main():
     """Run administrative tasks."""
