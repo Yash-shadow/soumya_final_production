@@ -3,6 +3,62 @@ import os
 import django
 import sys
 
+# Initialize Oracle client before Django setup (for Linux)
+try:
+    import oracledb
+    import sys as sys_module
+    import os
+    oracledb.version = "8.3.0"
+    sys_module.modules["cx_Oracle"] = oracledb
+    
+    # Try multiple common Oracle Instant Client paths on Linux
+    oracle_paths = [
+        "/MEDICALAPP/NEEPMEDBILL/soumya_final_production/instantclient_21_12",  # Project-specific location
+        "/opt/oracle/instantclient_21_12",
+        "/opt/oracle/instantclient_19_8",
+        "/opt/oracle/instantclient_19_3",
+        "/opt/oracle/instantclient_18_5",
+        "/usr/lib/oracle/21/client64/lib",
+        "/usr/lib/oracle/19/client64/lib",
+        "/usr/lib/oracle/18/client64/lib",
+        "/opt/oracle/instantclient",
+        os.environ.get("ORACLE_HOME", ""),
+        os.environ.get("LD_LIBRARY_PATH", "").split(":")[0] if os.environ.get("LD_LIBRARY_PATH") else "",
+    ]
+    
+    # Also try Windows path if running on Windows
+    if os.name == 'nt':
+        oracle_paths.insert(1, r"D:\HR_Ubuntu\MEDICALAPP\NEEPPRODAPP\HR_M\instantclient_21_12")
+    
+    oracle_initialized = False
+    for lib_dir in oracle_paths:
+        if not lib_dir or not os.path.exists(lib_dir):
+            continue
+        try:
+            oracledb.init_oracle_client(lib_dir=lib_dir)
+            print(f"✓ Oracle thick mode initialized successfully: {lib_dir}")
+            oracle_initialized = True
+            break
+        except Exception as e:
+            continue
+    
+    if not oracle_initialized:
+        print("⚠ Warning: Could not initialize Oracle thick mode with any known path")
+        print("   Searched paths:")
+        for path in oracle_paths:
+            if path:
+                exists = "✓" if os.path.exists(path) else "✗"
+                print(f"     {exists} {path}")
+        print("   Oracle 11g requires thick mode - please install Oracle Instant Client")
+        print("   or set ORACLE_HOME environment variable")
+        raise Exception("Oracle thick mode initialization failed - Oracle 11g requires thick mode")
+        
+except ImportError:
+    print("⚠ Warning: oracledb not available, will try to continue...")
+except Exception as e:
+    print(f"❌ Error: {e}")
+    raise
+
 # Add project root to path
 sys.path.append(os.getcwd())
 
@@ -69,34 +125,40 @@ roles = [
 ]
 
 for username, first_name, last_name, role, designation, hosp in roles:
-    user, created = User.objects.get_or_create(
-        username=username,
-        defaults={
-            'email': f'{username}@tgnpdcl.com',
-            'first_name': first_name,
-            'last_name': last_name,
-        }
-    )
-    user.set_password('password123')
-    user.save()
-    
-    profile, created = UserProfile.objects.get_or_create(
-        user=user,
-        defaults={
-            'role': role,
-            'designation': designation,
-            'hospital': hosp
-        }
-    )
-    
-    # FORCE UPDATE to ensure existing broken roles are fixed
-    if profile.role != role:
-        print(f"⚠️ Updating role for {username}: {profile.role} -> {role}")
-        profile.role = role
-        profile.designation = designation
-        profile.save()
+    try:
+        user, created = User.objects.get_or_create(
+            username=username,
+            defaults={
+                'email': f'{username}@tgnpdcl.com',
+                'first_name': first_name,
+                'last_name': last_name,
+            }
+        )
+        user.set_password('password123')
+        user.save()
         
-    print(f"✅ {username} ({designation}) - Role: {profile.role}")
+        profile, created = UserProfile.objects.get_or_create(
+            user=user,
+            defaults={
+                'role': role,
+                'designation': designation,
+                'hospital': hosp
+            }
+        )
+        
+        # FORCE UPDATE to ensure existing broken roles are fixed
+        if profile.role != role:
+            print(f"⚠️ Updating role for {username}: {profile.role} -> {role}")
+            profile.role = role
+            profile.designation = designation
+            profile.save()
+            
+        print(f"✅ {username} ({designation}) - Role: {profile.role}")
+    except Exception as e:
+        print(f"❌ Error creating user {username}: {e}")
+        import traceback
+        traceback.print_exc()
+        continue
 
 print("\n🎉 All test users created/updated!")
 print("\nLogin credentials:")
