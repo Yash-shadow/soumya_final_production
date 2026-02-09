@@ -3,10 +3,24 @@
 import os
 import sys
 
+import dotenv
+from dotenv import load_dotenv
+load_dotenv()
 
 def main():
+    
+    try:
+        from oracle11g_patch import apply_oracle11g_patches
+        apply_oracle11g_patches()
+    except ImportError:
+        pass  # Patches not available, continue normally
+    except Exception as e:
+        print(f"Warning: Could not apply Oracle 11g patches: {e}")
+        
+        
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings')
+        
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
