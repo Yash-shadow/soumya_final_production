@@ -1,0 +1,1000 @@
+  495  sudo systemctl stope gunicorn
+  496  sudo systemctl stop gunicorn
+  497  sudo systemctl status gunicorn
+  498  sudo systemctl gunicorn
+  499  watch sudo systemctl status gunicorn-medicalapp
+  500  sudo vi /etc/systemd/system/gunicorn.service
+  501  sudo rm /etc/systemd/system/gunicorn.service
+  502  clearwatch sudo systemctl status gunicorn-medicalapp
+  503  clear
+  504  ckear'
+  505  clear
+  506  sudo systemctl disable gunicorn.service
+  507  sudo vi /etc/systemd/system/gunicorn-medicalapp.service
+  508  sudo systemctl restart gunicorn-medicalapp
+  509  watch sudo systemctl status gunicorn-medicalapp
+  510  sudo systemctl restart gunicorn-medicalapp
+  511  watch sudo systemctl status gunicorn-medicalapp
+  512  clear
+  513  ls
+  514  cd 
+  515  cd /
+  516  cd MEDICALAPP/
+  517  l
+  518  cd NEEPMEDBILL/
+  519  ls
+  520  venv/bin/activate
+  521  . venv/bin/activate
+  522  python 
+  523  cd /
+  524  ls
+  525  cd ~
+  526  ls
+  527  cd ..
+  528  ls
+  529  cd medical_filstorage
+  530  ls
+  531  clear
+  532  cd /
+  533  ls
+  534  cd MEDICALAPP/
+  535  ls
+  536  cd NEEM
+  537  cd NEEPMEDBILL/
+  538  ls
+  539  cd soumya_final_production/
+  540  ks
+  541  ls
+  542  -h
+  543  nproc
+  544  pip install cx_Oracle
+  545  sudo apt update
+  546  sudo apt install build-essential python3-dev
+  547  pip install python-oracledb
+  548  pip 
+  549  pip install --upgrade pip~
+  550  pip install --upgrade pip
+  551  pip install python-oracledb
+  552  pip install oracledb
+  553  ls
+  554  clear
+  555  ls
+  556  cd project/
+  557  ls
+  558  vi wsgi.py
+  559  clearclearsudo systemctl daemon-reload
+  560  clear
+  561  sudo systemctl daemon-reload
+  562  sudo systemctl restart gunicorn-medicalapp.service
+  563  sudo systemctl status gunicorn
+  564  ls
+  565  vi wsgi.py 
+  566  watch sudo systemctl status ngnix
+  567  sudo systemctl status nginx
+  568  watch sudo systemctl status nginx
+  569  watch sudo systemctl restart nginx
+  570  sudo systemctl restart nginx
+  571  watch sudo systemctl status nginx
+  572  sudo systemctl restart nginx
+  573  watch sudo systemctl restart nginx
+  574  watch sudo systemctl status nginx
+  575  ls -l /etc/nginx/sites-enabled/
+  576  sudo systemctl stop nginx
+  577  sudo systemctl restart nginx
+  578  watch sudo systemctl status nginx
+  579  cd ..
+  580  pip clear
+  581  c;ear
+  582  clear
+  583  ls 
+  584  sudo systemctl daemon-reload
+  585  sudo systemctl restart gunicorn-medicalapp
+  586  sudo systemctl restart nginx
+  587  sudo systemctl restart gunicorn-medicalapp
+  588  sudo systemctl daemon-reload
+  589  sudo systemctl restart gunicorn-medicalapp
+  590  sudo systemctl restart nginx
+  591  sudo vi /etc/nginx/sites-available/medicalapp
+  592  sudo systemctl status nginx
+  593  sudo systemctl restart nginx
+  594  sudo ufw statussudo ufw status
+  595  sudo ufw status
+  596  ls -l /MEDICALAPP/NEEPMEDBILL/soumya_final_production/gunicorn.sock
+  597  ip -br a
+  598  sudo ss -tulpn | grep nginx
+  599  sudo ss -tulpn | grep :80
+  600  sudo tail -n 20 /var/log/nginx/error.log
+  601  sudo vi /etc/nginx/sites-available/medicalapp
+  602  ls -l /MEDICALAPP/NEEPMEDBILL/soumya_final_production/gunicorn.sock
+  603  curl -I http://127.0.0.1
+  604  sudo ufw allow 80/tcp
+  605  sudo ufw reload
+  606  sudo vi /etc/nginx/sites-available/medicalapp
+  607  hostname -I
+  608  curl -I http://10.48.49.26
+  609  sudo tail -n 50 /var/log/nginx/error.log
+  610  python manage.py collectstatic
+  611  sudo systemctl restart gunicorn-medicalapp
+  612  git pull
+  613  curl -I http://10.48.49.26
+  614  curl -I http://10.48.49.26/login
+  615  curl -I http://127.0.0.1
+  616  ls
+  617  sudo vi /etc/systemd/system/gunicorn.service
+  618  vi /etc/nginx/sites-enabled/
+  619  vi /etc/nginx/sites-available/medicalapp 
+  620  sudo nginx -t
+  621  sudo vi /etc/nginx/sites-available/medicalapp 
+  622  sudo su
+  623  sudo vi /etc/nginx/sites-available/medicalapp 
+  624  sudo systemd daemon-reload
+  625  sudo systemctl daemon-reload
+  626  ls /etc/nginx/sites-enabled/
+  627  vi /etc/nginx/sites-available/medicalapp 
+  628  sudo nginx -t
+  629  vi /etc/nginx/sites-available/medicalapp 
+  630  sudo systemctl daemon-reload
+  631  sudo nginx -t
+  632  sudo systemctl restart nginx
+  633  sudo ufw status
+  634  sudo ufw allow 'Nginx Full'
+  635  ls -l /MEDICALAPP/NEEPMEDBILL/soumya_final_production/gunicorn.sock
+  636  cd /
+  637  cd MEDICALAPP/
+  638  cd NEEPMEDBILL/
+  639  ls
+  640  cd soumya_final_production/
+  641  vi .env
+  642  sudo systemctl restart gunicorn-medicalapp
+  643  curl -I http://10.48.49.26
+  644  sudo journalctl -u gunicorn-medicalapp -f
+  645  cat /etc/systemd/system/gunicorn-medicalapp.service
+  646  vi /etc/nginx/sites-available/medicalapp 
+  647  vi .env
+  648  sudo systemctl restart gunicorn-medicalapp
+  649  sudo journalctl -u gunicorn-medicalapp -f
+  650  sudo journalctl -u gunicorn-medicalapp -n 50 --no-pager
+  651  sudo tail -n 50 /var/log/nginx/error.log
+  652  vi .env
+  653  sudo systemctl restart gunicorn-medicalapp
+  654  sudo systemctl stop gunicorn-medicalapp
+  655  /MEDICALAPP/NEEPMEDBILL/venv/bin/gunicorn --workers 3 --bind unix:/MEDICALAPP/NEEPMEDBILL/soumya_final_production/gunicorn.sock project.wsgi:application[B
+  656  sudo systemctl restart gunicorn-medicalapp
+  657  sudo systemctl status gunicorn-medicalapp
+  658  sudo systemctl stop gunicorn-medicalapp
+  659  sudo systemctl restart gunicorn-medicalapp
+  660  sudo systemctl stop gunicorn-medicalapp
+  661  sudo systemctl restart gunicorn-medicalapp
+  662  sudo systemctl stop gunicorn-medicalapp
+  663  sudo systemctl restart gunicorn-medicalapp
+  664  sqlplus ESSDEV/ESSDEV@10.48.49.105:1521/POSITION_ASSIGNMENTS
+  665  sqlplus
+  666  sudo apt install sqlplus
+  667  clear
+  668  vi /etc/nginx/sites-available/medicalapp
+  669  sudo rm /etc/nginx/sites-enabled/medicalapp
+  670  vi /etc/nginx/sites-available/medicalapp
+  671  sudo rm /etc/nginx/sites-available/medicalapp
+  672  sudo vi /etc/nginx/sites-available/medicalapp
+  673  sudo ln -s /etc/nginx/sites-available/medicalapp /etc/nginx/sites-enabled/
+  674  sudo nginx -t
+  675  sudo vi /etc/nginx/sites-available/medicalapp
+  676  sudo vi /etc/nginx/nginx.conf
+  677  sudo nginx -t
+  678  sudo systemctl restart nginx
+  679  sudo systemctl restart gunicorn-medicalapp
+  680  sudo tail -n 10 /var/log/nginx/error.log
+  681  sudo vi /etc/nginx/nginx.conf
+  682  sudo vi /etc/nginx/sites-available/medicalapp
+  683  sudo nginx -t
+  684  sudo systemctl restart nginx
+  685  sudo systemctl restart gunicorn-medicalapp
+  686  sudo systemctl restart nginx
+  687  sudo rm /etc/nginx/sites-available/medicalapp
+  688  sudo rm /etc/nginx/sites-enabled/medicalapp
+  689  sudo nginx -t
+  690  sudo vi /etc/nginx/sites-available/medicalapp
+  691  ls /etc/nginx/sites-available/
+  692  rm /etc/nginx/sites-available/your_project
+  693  vi  /etc/nginx/sites-available/your_project
+  694  rm  /etc/nginx/sites-available/your_project
+  695  sudo rm  /etc/nginx/sites-available/your_project
+  696  ls /etc/nginx/sites-enabled/
+  697  ls -l  /etc/nginx/sites-enabled/
+  698  sudo vi /etc/nginx/nginx.conf
+  699  sudo nginx -t
+  700  sudo vi /etc/nginx/sites-available/medicalapp
+  701  sudo nginx -t
+  702  sudo ln -s /etc/nginx/sites-available/medicalapp /etc/nginx/sites-enabled/
+  703  sudo nginx -t
+  704  sudo systemctl restart nginx
+  705  sudo tail -n 10 /var/log/nginx/error.log
+  706  vi /var/log/nginx/error.log
+  707  sudo journalctl -u gunicorn-medicalapp -f
+  708  sudo systemctl restart gunicorn-medicalapp
+  709  sudo journalctl -u gunicorn-medicalapp -f
+  710  sudo systemctl restart gunicorn-medicalapp
+  711  sudo systemctl status gunicorn-medicalapp
+  712  sudo systemctl restart gunicorn-medicalapp
+  713  sudo systemctl status gunicorn-medicalapp
+  714  sudo journalctl -u gunicorn-medicalapp -f
+  715  sudo vi /etc/nginx/sites-available/medicalapp
+  716  sudo vi /etc/systemd/system/gunicorn-medicalapp.service
+  717  sudo systemctl daemon-reload
+  718  sudo systemctl restart gunicorn
+  719  sudo vi /etc/systemd/system/gunicorn-medicalapp.service
+  720  sudo systemctl daemon-reload
+  721  sudo systemctl restart gunicorn-medicalapp
+  722  python manage.py collectstatic 
+  723  . ../venv/bin/activate
+  724  python manage.py collectstatic 
+  725  sudo chown -R tgnpdcl:tgnpdcl /MEDICALAPP/NEEPMEDBILL/soumya_final_production
+  726  chmod -R 755 /MEDICALAPP/NEEPMEDBILL/soumya_final_production
+  727  sudo systemctl restart gunicorn-medicalapp
+  728  sudo systemctl status gunicorn-medicalapp
+  729  sudo journalctl -u gunicorn-medicalapp -f
+  730  cd ..
+  731  . venv/bin/activate
+  732  cd soumya_final_production/
+  733  ls
+  734  /MEDICALAPP/NEEPMEDBILL/venv/bin/python manage.py shell
+  735  find /MEDICALAPP/NEEPMEDBILL/soumya_final_production -name "*.log"
+  736  sudo vi /etc/systemd/system/gunicorn.service
+  737  sudo vi /etc/systemd/system/gunicorn-medicalapp.service
+  738  /bin/python3.11
+  739  tail -f /MEDICALAPP/NEEPMEDBILL/soumya_final_production/gunicorn_error.log
+  740  /bin/python3.11
+  741  clear
+  742  sudo vi /etc/systemd/system/gunicorn-medicalapp.service 
+  743  cd /MEDICALAPP/NEEPMEDBILL/soumya_final_production
+  744  source /MEDICALAPP/NEEPMEDBILL/venv/bin/activate
+  745  export LD_LIBRARY_PATH=/opt/oracle/instantclient_11_2:$LD_LIBRARY_PATH
+  746  python << 'EOF'
+  747  import oracledb
+  748  try:
+  749      oracledb.init_oracle_client(lib_dir="/opt/oracle/instantclient_11_2")
+  750      print("✓ Oracle thick mode initialized successfully")
+  751  except Exception as e:
+  752      print(f"✗ Failed to initialize thick mode: {e}")
+  753      exit(1)
+  754  # Test database connection (replace with your actual credentials)
+  755  try:
+  756      conn = oracledb.connect(
+  757          user='YOUR_USERNAME',
+  758          password='YOUR_PASSWORD',
+  759          dsn='10.48.49.105:1521/NPDCLDB112'
+  760      )
+  761      print("✓ Database connection successful!")
+  762      
+  763      cursor = conn.cursor()
+  764      cursor.execute("SELECT * FROM v$version WHERE ROWNUM = 1")
+  765      version = cursor.fetchone()
+  766      print(f"✓ Oracle version: {version[0]}")
+  767      
+  768      cursor.close()
+  769      conn.close()
+  770  except Exception as e:
+  771      print(f"✗ Connection failed: {e}")
+  772  EOF
+  773  python << 'EOF'
+  774  import oracledb
+  775  try:
+  776      oracledb.init_oracle_client(lib_dir="/opt/oracle/instantclient_11_2")
+  777      print("✓ Oracle thick mode initialized successfully")
+  778  except Exception as e:
+  779      print(f"✗ Failed to initialize thick mode: {e}")
+  780      exit(1)
+  781  # Test database connection (replace with your actual credentials)
+  782  try:
+  783      conn = oracledb.connect(
+  784          user='NEEPMEDBILL',
+  785          password='NEEPMEDBILL',
+  786          dsn='10.48.49.105:1521/NPDCLDB112'
+  787      )
+  788      print("✓ Database connection successful!")
+  789      
+  790      cursor = conn.cursor()
+  791      cursor.execute("SELECT * FROM v$version WHERE ROWNUM = 1")
+  792      version = cursor.fetchone()
+  793      print(f"✓ Oracle version: {version[0]}")
+  794      
+  795      cursor.close()
+  796      conn.close()
+  797  except Exception as e:
+  798      print(f"✗ Connection failed: {e}")
+  799  EOF
+  800  clear
+  801  sudo systemctl daemon-reload
+  802  sudo systemctl restart gunicorn
+  803  sudo systemctl restart gunicorn-medicalapp.service 
+  804  sudo systemctl status gunicorn
+  805  sudo systemctl status gunicorn-medicalapp.service 
+  806  sudo systemctl restart gunicorn-medicalapp.service 
+  807  sudo systemctl status gunicorn-medicalapp.service 
+  808  sudo systemctl restart gunicorn-medicalapp.service 
+  809  sudo systemctl status gunicorn-medicalapp.service 
+  810  clear
+  811  cd /
+  812  cd MEDICALAPP/
+  813  ls
+  814  cd NEEPMEDBILL/
+  815  ls
+  816  . venv/bin/activate
+  817  ls
+  818  clear
+  819  cd soumya_final_production/
+  820  python manage.py shell < create_test_users.py
+  821  ls
+  822  sudo vi /etc/nginx/sites-available/medicalapp
+  823  clear
+  824  sudo systemctl restart gunicorn-medicalapp
+  825  sudo systemctl status gunicorn-medicalapp
+  826  sudo systemctl restart gunicorn-medicalapp
+  827  sudo systemctl status gunicorn-medicalapp
+  828  sudo systemctl restart gunicorn-medicalapp
+  829  sudo systemctl status gunicorn-medicalapp
+  830  sudo systemctl restart gunicorn-medicalapp
+  831  sudo systemctl status gunicorn-medicalapp
+  832  sudo systemctl restart gunicorn-medicalapp
+  833  sudo systemctl status gunicorn-medicalapp
+  834  sudo systemctl restart gunicorn-medicalapp
+  835  sudo systemctl status gunicorn-medicalapp
+  836  sudo systemctl restart gunicorn-medicalapp
+  837  sudo systemctl status gunicorn-medicalapp
+  838  sudo systemctl restart gunicorn-medicalapp
+  839  sudo systemctl status gunicorn-medicalapp
+  840  sudo systemctl restart gunicorn-medicalapp
+  841  sudo systemctl status gunicorn-medicalapp
+  842  sudo systemctl restart gunicorn-medicalapp
+  843  sudo systemctl status gunicorn-medicalapp
+  844  sudo systemctl restart gunicorn-medicalapp
+  845  udo systemctl restart gunicorn-medicalapp
+  846  clear
+  847  udo systemctl restart gunicorn-medicalapp
+  848  sudo systemctl restart gunicorn-medicalapp
+  849  sudo systemctl status gunicorn-medicalapp
+  850  sudo vi /etc/nginx/sites-available/medicalapp
+  851  sudo nginx -t
+  852  sudo systemctl daemon-reload
+  853  sudo systemctl restart nginx
+  854  sudo systemctl restart gunicorn-medicalapp
+  855  sudo systemctl status gunicorn-medicalapp
+  856  sudo systemctl restart gunicorn-medicalapp
+  857  sudo systemctl status gunicorn-medicalapp
+  858  sudo nginx -t
+  859  sudo vi /etc/nginx/sites-available/medicalapp
+  860  sudo nginx -t
+  861  sudo systemctl daemon-reload
+  862  sudo systemctl restart gunicorn-medicalapp
+  863  sudo systemctl restart nginx
+  864  curl medicalapp.tgnpdcl.com
+  865  curl medicalapp.tgnpdcl.com -I
+  866  sudo systemctl start postgresql
+  867  sudo systemctl enable postgresql
+  868  sudo -u postgres psql
+  869  psql -U lcdpn_bd_user -d tgnpdcl_medapp -c "\dt"
+  870  sudo -u postgres psql
+  871  psql -U lcdpn_bd_user -d tgnpdcl_medapp 
+  872  psql -U lcdpn_bd_user -d tgnpdcl_medapp -h localhost
+  873  python manage.py shell < create_test_users.py"
+  874  psql -U lcdpn_bd_user -d tgnpdcl_medapp -h localhost
+  875  sudo apt install certbot pyton3.11-certbot-nginix 
+  876  sudo apt install certbot
+  877  sudo install python3-certbot-nginx 
+  878  sudo install python3-certbot-nginx --help
+  879  git add .
+  880  git commit -m "Settings modified for the production"
+  881  git commit -m "Settings modified for the production" --author="Yash-Shadow <yasagabo@gmail.com>"
+  882  git config user.name "Yash-Shadow"
+  883  git config user.email "yasagabo@gmail.com"
+  884  git checkout -b tgnpdcl_production
+  885  git status
+  886  git add .
+  887  git commit -m "settings and wsgi modified for production"
+  888  git push origin tgnpdcl_production
+  889  git remote set-url origin https://github.com/Yash-shadow/soumya_final_production.git
+  890  git remote add upstream https://github.com/soumyaranjansq/soumya_final_production.git
+  891  git remote -v
+  892  git push origin tgnpdcl_production
+  893  df -h
+  894  cd /home
+  895  ls -ltr
+  896  cd MEDICAL_FILESTORAGE
+  897  ls -ltr
+  898  cd ..
+  899  cd /home
+  900  ls -ltr
+  901  cd MEDICAL_FILESTORAGE
+  902  ls -ltr
+  903  cd ..
+  904  cd /
+  905  ls -ltr
+  906  exit
+  907  df -h
+  908  exit
+  909  /MEDICALAPP/NEEPPRODAPP/HR_M/main.py
+  910  [200~cd /MEDICALAPP/NEEPPRODAPP/HR_M
+  911  ~
+  912  cd /MEDICALAPP/NEEPPRODAPP/HR_M
+  913  uvicorn main:app --host 0.0.0.0 --port 8000
+  914  cd /MEDICALAPP/NEEPPRODAPP/HR_M
+  915  source venv/bin/activate
+  916  [200~cd /MEDICALAPP/NEEPPRODAPP/HR_M
+  917  rm -rf venv
+  918  [200~python3 --version
+  919  ~python3 --version
+  920  python3 --version
+  921  python3 -m venv venv
+  922  sudo apt update
+  923  cd /MEDICALAPP/NEEPPRODAPP/HR_M
+  924  pip install --user -r requirements.txt
+  925  clear
+  926  python3 --version
+  927  python3 -m venv venv
+  928  apt install python3.10-venv
+  929  sudo apt update
+  930  sudo apt install -y software-properties-common
+  931  sudo add-apt-repository ppa:deadsnakes/ppa
+  932  sudo apt update
+  933  sudo apt install -y python3.11 python3.11-venv python3.11-dev
+  934  python3.11 --version
+  935  cd /MEDICALAPP/NEEPPRODAPP/HR_M
+  936  rm -rf venv
+  937  python3.11 -m venv venv
+  938  ls venv/bin
+  939  source venv/bin/activate
+  940  python --version
+  941  pip install --upgrade pip setuptools wheel
+  942  pip install -r requirements.txt
+  943  uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+  944  pip install pydantic-settings
+  945  pip install "pydantic>=2.0"
+  946  uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+  947  app/core/oracle_database.py
+  948  nano app/core/oracle_database.py
+  949  nano app/core/oracle.database.py
+  950  nano app/core/oracle_database.py
+  951  cat app/core/oracle_database.py
+  952  nano app/core/config.py
+  953  cd /MEDICALAPP/NEEPPRODAPP/HR_M
+  954  nano app/core/oracle_database.py
+  955  (venv) tgnpdcl@medical:/MEDICALAPP/NEEPPRODAPP/HR_M$
+  956  source venv/bin/activate
+  957  uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+  958  pip install requests
+  959  uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+  960  pip install reportlab
+  961  uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+  962  ip a
+  963  hostname -I
+  964  uvicorn main:app --host 0.0.0.0 --port 8000
+  965  [200~ls /opt/oracle
+  966  ~ls /opt/oracle
+  967  ls/opt/oracle
+  968  ls /opt/oracle
+  969  sudo nano /etc/profile.d/oracle.sh
+  970  source /etc/profile.d/oracle.sh
+  971  echo $ORACLE_HOME
+  972  ldd $ORACLE_HOME/libclntsh.so
+  973  ls /opt/oracle/instantclient_11_2 | grep libclntsh
+  974  sudo ln -s /opt/oracle/instantclient_11_2/libclntsh.so.11.1 /opt/oracle/instantclient_11_2/libclntsh.so
+  975  ldd /opt/oracle/instantclient_11_2/libclntsh.so
+  976  python - <<EOF
+  977  import oracledb
+  978  print("oracledb loaded OK")
+  979  EOF
+  980  nano test_oracle.py
+  981  python test_oracle.py
+  982  nano test_oracle.py
+  983  python test_oracle.py
+  984  cd /MEDICALAPP/NEEPPRODAPP/HR_M
+  985  source venv/bin/activate
+  986  uvicorn main:app --host 0.0.0.0 --port 8000
+  987  nano app/core/oracle_database.py
+  988  cat app/core/oracle_database.py
+  989  nano app/core/oracle_database.py
+  990  [200~source venv/bin/activate
+  991  uvicorn main:app --host 0.0.0.0 --port 8000
+  992  source venv/bin/activate
+  993  uvicorn main:app --host 0.0.0.0 --port 8000
+  994  cat app/core/oracle_database.py
+  995  nano app/core/oracle_database.py
+  996  df -h
+  997  cd /MEDICALAPP
+  998  ls -ltr
+  999  cd NEEPPRODAPP
+ 1000  ls -ltr
+ 1001  cd /
+ 1002  exit
+ 1003  echo $XDG_CURRENT_DESKTOP
+ 1004  echo $DESKTOP_SESSION
+ 1005  which gnome-terminal
+ 1006  which xterm
+ 1007  sudo apt update
+ 1008  sudo apt install xfce4 xfce4-terminal -y
+ 1009  echo "startxfce4" > ~/.xsession
+ 1010  chmod +x ~/.xsession
+ 1011  sudo systemctl restart xrdp
+ 1012  startxfce4
+ 1013  cd etc
+ 1014  cd /etc
+ 1015  ls -ltr
+ 1016  cd xrdp
+ 1017  ls -ltr
+ 1018  cat startwm.sh
+ 1019  cd /
+ 1020  exit
+ 1021  xrdp --version
+ 1022  systemctl status xrdp
+ 1023  systemctl status xrdp-sesman
+ 1024  dpkg -l | grep xfce4
+ 1025  dpkg -l | grep gnome-session
+ 1026  sudo apt install dbus-x11 -y
+ 1027  which startxfce4
+ 1028  cat /etc/xrdp/startwm.sh
+ 1029  vi /etc/xrdp/startwm.sh
+ 1030  cd /
+ 1031  pwd
+ 1032  vi /etc/xrdp/startwm.sh
+ 1033  sudo vim /etc/xrdp/startwm.sh
+ 1034  pwd
+ 1035  cd /etc/xrdp
+ 1036  ls -ltr
+ 1037  cat startwm.sh
+ 1038  cd ..
+ 1039  sudo systemctl restart xrdp xrdp-sesman
+ 1040  systemctl status xrdp
+ 1041  systemctl status xrdp-sesman
+ 1042  cd /etc/xrdp
+ 1043  ls -ltr
+ 1044  chmod -R 777 startwm.sh
+ 1045  pwd
+ 1046  cd /
+ 1047  ls -l ~/.xsession
+ 1048  cat ~/.xsession
+ 1049  sudo systemctl restart xrdp xrdp-sesman
+ 1050  cat ~/.xsession-errors
+ 1051  sudo apt install --reinstall dbus-x11 -y
+ 1052  echo "xfce4-session" > ~/.xsession
+ 1053  chmod +x ~/.xsession
+ 1054  cat /etc/xrdp/startwm.sh
+ 1055  sudo systemctl restart xrdp xrdp-sesman
+ 1056  xfconf-query -c xfwm4 -p /general/use_compositing -s false
+ 1057  dpkg -l | grep xfce4-session
+ 1058  cat ~/.xsession-errors
+ 1059  exit
+ 1060  sudo tee /etc/xrdp/startwm.sh > /dev/null <<'EOF'
+ 1061  #!/bin/sh
+ 1062  if test -r /etc/profile; then
+ 1063      . /etc/profile
+ 1064  fi
+ 1065  xfce4-session
+ 1066  exit 0
+ 1067  EOF
+ 1068  sudo chmod +x /etc/xrdp/startwm.sh
+ 1069  echo "xfce4-session" > ~/.xsession
+ 1070  chmod +x ~/.xsession
+ 1071  mkdir -p ~/.config/xfce4/xfconf/xfce-perchannel-xml
+ 1072  tee ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml > /dev/null <<'EOF'
+ 1073  <?xml version="1.0" encoding="UTF-8"?>
+ 1074  <channel name="xfwm4" version="1.0">
+ 1075    <property name="general" type="empty">
+ 1076      <property name="use_compositing" type="bool" value="false"/>
+ 1077    </property>
+ 1078  </channel>
+ 1079  EOF
+ 1080  sudo systemctl restart xrdp xrdp-sesman
+ 1081  cat ~/.xsession-errors
+ 1082  /usr/bin/startxfce4: X server already running on display :11.0
+ 1083  xfce4-session
+ 1084  exit
+ 1085  cd /MEDICALAPP/NEEPPRODAPP/HR_M
+ 1086  source venv/bin/activate
+ 1087  uvicorn main:app --host 0.0.0.0 --port 8000 --log-level debug
+ 1088  find /MEDICALAPP/NEEPPRODAPP/HR_M/app -name "*.py" -exec sed -i '...' {} \;
+ 1089  find /MEDICALAPP/NEEPPRODAPP/HR_M/app -name "*.py" -exec sed -i 's/\x96/-/g; s/\x93/"/g; s/\x94/"/g; s/\x91/'"'"'/g; s/\x92/'"'"'/g; s/\x97/-/g' {} \;
+ 1090  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1091  find /MEDICALAPP/NEEPPRODAPP/HR_M/app -name "*~" -o -name "*.bak"
+ 1092  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1093  cd /MEDICALAPP/NEEPPRODAPP/HR_M
+ 1094  git checkout app/
+ 1095  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1096  nano /MEDICALAPP/NEEPPRODAPP/HR_M/app/services/sms_otp_service.py
+ 1097  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1098  cd /MEDICALAPP/NEEPPRODAPP/HR_M
+ 1099  # Fix all encoding issues in all Python files
+ 1100  find . -name "*.py" -type f -exec sed -i 's/\x96/-/g; s/\x93/"/g; s/\x94/"/g; s/\x91/'"'"'/g; s/\x92/'"'"'/g; s/\x97/-/g; s/\xef\xbf\xbd/?/g' {} \;
+ 1101  # Convert all files to UTF-8
+ 1102  find . -name "*.py" -type f -exec sh -c 'iconv -f ISO-8859-1 -t UTF-8 "$1" > /tmp/tempfile && mv /tmp/tempfile "$1"' _ {} \;
+ 1103  cd /MEDICALAPP/NEEPPRODAPP/HR_M
+ 1104  source venv/bin/activate
+ 1105  find . -name "*.py" -type f -exec sed -i 's/\x96/-/g; s/\x93/"/g; s/\x94/"/g; s/\x91/'"'"'/g; s/\x92/'"'"'/g; s/\x97/-/g; s/\xef\xbf\xbd/?/g' {} \;
+ 1106  find . -name "*.py" -type f -exec sh -c 'iconv -f ISO-8859-1 -t UTF-8 "$1" > /tmp/tempfile && mv /tmp/tempfile "$1"' _ {} \;
+ 1107  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1108  deactivate
+ 1109  rm -rf venv
+ 1110  python3 -m venv venv
+ 1111  source venv/bin/activate
+ 1112  sudo apt install python3-venv -y
+ 1113  python3 -m venv venv
+ 1114  source venv/bin/activate
+ 1115  pip install -r requirements.txt
+ 1116  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1117  find . -path ./venv -prune -o -name "*.py" -type f -exec sed -i 's/Ã¢Â�"/-/g; s/Ã¢Â�œ/"/g; s/Ã¢Â�/"/g' {} \;
+ 1118  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1119  find . -path ./venv -prune -o -name "*.py" -type f -exec perl -i -pe 's/[^\x00-\x7F]/ /g' {} \;
+ 1120  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1121  cd /MEDICALAPP/NEEPPRODAPP/HR_M
+ 1122  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1123  cd /MEDICALAPP/NEEPPRODAPP/HR_M
+ 1124  source venv/bin/activate
+ 1125  unicorn main:app --host 0.0.0.0 --port 8000
+ 1126  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1127  source venv/bin/activate
+ 1128  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1129  cd /MEDICALAPP/NEEPPRODAPP/HR_M
+ 1130  source venv/bin/activate
+ 1131  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1132  sed -i 's/\x96/-/g' /MEDICALAPP/NEEPPRODAPP/HR_M/app/core/oracle_database.py
+ 1133  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1134  cd /MEDICALAPP/NEEPPRODAPP/HR_M
+ 1135  uvicorn main:app --host 0.0.0.0 --port 8000 --log-level debug 2>&1 | tee server_error.log
+ 1136  cd /MEDICALAPP/NEEPPRODAPP/HR_M
+ 1137  source venv/bin/activate
+ 1138  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1139  python3 -m py_compile main.py
+ 1140  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1141  pip install pydantic-settings
+ 1142  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1143  (venv) tgnpdcl@medical:/MEDICALAPP/NEEPPRODAPP/HR_M$ uvicorn main:app --host 0.0.0.0 --port 8000
+ 1144  Traceback (most recent call last):
+ 1145  python3 -m py_compile position_based_leave_api.py
+ 1146  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1147  grep -n '\"\"\"\"' /MEDICALAPP/NEEPPRODAPP/HR_M/position_based_leave_api.py
+ 1148  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1149  python3 -m py_compile position_based_leave_api.py
+ 1150  grep -n 'logger.info(f"' -n position_based_leave_api.py
+ 1151  sed -i '1287s/^/# /' position_based_leave_api.py
+ 1152  python3 -m py_compile position_based_leave_api.py
+ 1153  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1154  find . -path ./venv -prune -o -name "*.py" -type f -exec sed -i '/logger\.info(f"/s/^/# /' {} \;
+ 1155  python3 -m py_compile position_based_leave_service.py
+ 1156  python3 -m py_compile position_based_leave_api.py
+ 1157  python3 -m py_compile main.py
+ 1158  python3 -m py_compile position_based_leave_service.py
+ 1159  sed -n '1530,1550p' position_based_leave_service.py
+ 1160  find . -path ./venv -prune -o -name "*.py" -type f -exec perl -0777 -i -pe '
+ 1161  s/(\n([ \t]+)if [^\n]+:\n)((?:\2[ \t]*#.*\n)+)/$1$3$2    pass\n/gs
+ 1162  ' {} \;
+ 1163  python3 -m py_compile position_based_leave_service.py
+ 1164  find . -path ./venv -prune -o -name "*.py" -type f -exec perl -0777 -i -pe '
+ 1165  s/(\n([ \t]+)if [^\n]+:\n)(\2[ \t]*#.*\n)/$1$3$2    pass\n/g
+ 1166  ' {} \;
+ 1167  cd /MEDICALAPP/NEEPPRODAPP/HR_M
+ 1168  find . -path ./venv -prune -o -name "*.py" -type f -exec perl -0777 -i -pe '
+ 1169  s/(\n([ \t]+)if [^\n]+:\n)(\2[ \t]*#.*\n)/$1$3$2    pass\n/g
+ 1170  ' {} \;
+ 1171  python3 -m py_compile position_based_leave_service.py
+ 1172  python3 -m py_compile position_based_leave_api.py
+ 1173  python3 -m py_compile main.py
+ 1174  source venv/bin/activate
+ 1175  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1176  cd /MEDICALAPP/NEEPPRODAPP/HR_M
+ 1177  source venv/bin/activate
+ 1178  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1179  python3 -X dev -m uvicorn main:app
+ 1180  /MEDICALAPP/NEEPPRODAPP/HR_M/venv
+ 1181  pip install requests
+ 1182  python3 -c "import requests; print(requests.__version__)"
+ 1183  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1184  pip install reportlab
+ 1185  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1186  sed -i 's/print("    "   DEBUG:/print("DEBUG:/g' /MEDICALAPP/NEEPPRODAPP/HR_M/optional_holiday_service.py
+ 1187  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1188  sed -i 's/^[[:space:]]\+pass$/pass/g' /MEDICALAPP/NEEPPRODAPP/HR_M/enhanced_multi_level_leave_service.py
+ 1189  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1190  sed -i '/^[[:space:]]*if .*:$/{
+ 1191  n
+ 1192  /^[[:space:]]*$/a\    pass
+ 1193  }' /MEDICALAPP/NEEPPRODAPP/HR_M/enhanced_multi_level_leave_service.py
+ 1194  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1195  python3 -m py_compile /MEDICALAPP/NEEPPRODAPP/HR_M/enhanced_multi_level_leave_service.py
+ 1196  [200~cd /MEDICALAPP/NEEPPRODAPP/HR_M~
+ 1197  cd /MEDICALAPP/NEEPPRODAPP/HR_M
+ 1198  source venv/bin/activate
+ 1199  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1200  git status
+ 1201  ls -la /MEDICALAPP/NEEPPRODAPP/
+ 1202  ls -la /MEDICALAPP/
+ 1203  find / -name "HR_M" -type d 2>/dev/null
+ 1204  cd /MEDICALAPP/NEEPPRODAPP/HR_M
+ 1205  source venv/bin/activate
+ 1206  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1207  #!/usr/bin/env python3
+ 1208  """
+ 1209  Enhanced Multi-Level Leave Service
+ 1210  Handles EL/ML/PL with net days calculation and multi-level approvals
+ 1211  """
+ 1212  from app.core.oracle_database import OracleDatabase
+ 1213  from enhanced_leave_calculation_service import EnhancedLeaveCalculationService
+ 1214  from datetime import datetime, date
+ 1215  from typing import Dict, List, Optional, Any
+ 1216  import logging
+ 1217  logger = logging.getLogger(__name__)
+ 1218  class EnhancedMultiLevelLeaveService:
+ 1219  cd /MEDICALAPP/NEEPPRODAPP/HR_M
+ 1220  source venv/bin/activate
+ 1221  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1222  cd/MEDICALAPP/NEEPPRODAPP/HR_M
+ 1223  cd /MEDICALAPP/NEEPPRODAPP/HR_M
+ 1224  source venv/bin/activate
+ 1225  cd /MEDICALAPP/NEEPPRODAPP/HR_M
+ 1226  source venv/bin/activate
+ 1227  rm -rf venv
+ 1228  python3 -m venv venv
+ 1229  source venv/bin/activate
+ 1230  pip install --upgrade pip
+ 1231  pip install -r requirements.txt
+ 1232  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1233  pip install pydantic-settings
+ 1234  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1235  sudo apt update
+ 1236  sudo apt install -y libaio1 unzip
+ 1237  sudo mkdir -p /opt/oracle
+ 1238  cd /opt/oracle
+ 1239  sudo unzip instantclient-basic-linux.x64-19*.zip
+ 1240  sudo unzip instantclient-devel-linux.x64-19*.zip
+ 1241  ls /opt/oracle
+ 1242  cd /MEDICALAPP/NEEPPRODAPP/HR_M
+ 1243  source venv/bin/activate
+ 1244  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1245  pip install requests
+ 1246  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1247  cd /MEDICALAPP
+ 1248  unzip instantclient-basic-linux.x64-*.zip
+ 1249  cd /MEDICALAPP/NEEPPRODAPP/HR_M
+ 1250  ls instantclient-basic-linux*.zip
+ 1251  unzip instantclient-basic-linux.x64-21.12.0.0.0dbru.zip
+ 1252  unzip instantclient-basic-linux.x64-21.12.0.0.0dbru.el9.zip
+ 1253  ls
+ 1254  ls instantclient_21_12/libclntsh.so*
+ 1255  export ORACLE_HOME=/MEDICALAPP/NEEPPRODAPP/HR_M/instantclient_21_12
+ 1256  export LD_LIBRARY_PATH=$ORACLE_HOME
+ 1257  export PATH=$ORACLE_HOME:$PATH
+ 1258  echo $ORACLE_HOME
+ 1259  echo $LD_LIBRARY_PATH
+ 1260  grep -R "init_oracle_client"
+ 1261  grep -R "Oracle client initialized" .
+ 1262  python - <<EOF
+ 1263  import oracledb
+ 1264  oracledb.init_oracle_client(lib_dir="/MEDICALAPP/NEEPPRODAPP/HR_M/instantclient_21_12")
+ 1265  print("Oracle client loaded successfully")
+ 1266  EOF
+ 1267  export ORACLE_HOME=/MEDICALAPP/NEEPPRODAPP/HR_M/instantclient_21_12
+ 1268  export LD_LIBRARY_PATH=$ORACLE_HOME
+ 1269  export PATH=$ORACLE_HOME:$PATH
+ 1270  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1271  find app -name "__pycache__" -type d -exec rm -rf {} +
+ 1272  grep -R "Oracle client initialized" .
+ 1273  python - <<EOF
+ 1274  import oracledb
+ 1275  oracledb.init_oracle_client(lib_dir="/MEDICALAPP/NEEPPRODAPP/HR_M/instantclient_21_12")
+ 1276  print("Oracle client loaded successfully")
+ 1277  EOF
+ 1278  export ORACLE_HOME=/MEDICALAPP/NEEPPRODAPP/HR_M/instantclient_21_12
+ 1279  export LD_LIBRARY_PATH=$ORACLE_HOME
+ 1280  export PATH=$ORACLE_HOME:$PATH
+ 1281  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1282  pip install reportlab
+ 1283  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1284  cd /MEDICALAPP/NEEPPRODAPP/HR_M
+ 1285  source venv/bin/activate
+ 1286  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1287  cd /MEDICALAPP/NEEPPRODAPP/HR_M
+ 1288  source venv/bin/activate
+ 1289  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1290  export ORACLE_HOME=/MEDICALAPP/NEEPPRODAPP/HR_M/instantclient_21_12
+ 1291  export LD_LIBRARY_PATH=$ORACLE_HOME
+ 1292  export PATH=$ORACLE_HOME:$PATH
+ 1293  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1294  df -h
+ 1295  cd /MEDICALAPP
+ 1296  ls -ltr
+ 1297  cd NEEPMEDBILL
+ 1298  ls -ltr
+ 1299  cd /
+ 1300  exit
+ 1301  ls
+ 1302  cd \
+ 1303  cd /
+ 1304  ls
+ 1305  cd MEDICALAPP/
+ 1306  ls
+ 1307  cd NEEPMEDBILL/
+ 1308  ls
+ 1309  cd soumya_final_production/
+ 1310  l
+ 1311  ls
+ 1312  git branch 
+ 1313  git pull
+ 1314  cd /MEDICALAPP/NEEPPRODAPP/HR_M
+ 1315  source venv/bin/activate
+ 1316  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1317  export ORACLE_HOME=/MEDICALAPP/NEEPPRODAPP/HR_M/instantclient_21_12
+ 1318  export LD_LIBRARY_PATH=$ORACLE_HOME
+ 1319  export PATH=$ORACLE_HOME:$PATH
+ 1320  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1321  cd \
+ 1322  cd /
+ 1323  la
+ 1324  sls
+ 1325  ls
+ 1326  cd MEDICALAPP/
+ 1327  ls
+ 1328  cd NEEPMEDBILL/
+ 1329  ls
+ 1330  clear
+ 1331  cd soumya_final_production/
+ 1332  git pull
+ 1333  cd /MEDICALAPP/NEEPPRODAPP/HR_M
+ 1334  source venv/bin/activate
+ 1335  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1336  export ORACLE_HOME=/MEDICALAPP/NEEPPRODAPP/HR_M/instantclient_21_12
+ 1337  export LD_LIBRARY_PATH=$ORACLE_HOME
+ 1338  export PATH=$ORACLE_HOME:$PATH
+ 1339  uvicorn main:app --host 0.0.0.0 --port 8000
+ 1340  [200~cd /MEDICALAPP/NEEPMEDBILL/soumya_final_production
+ 1341  chmod -R 755 instantclient_21_12
+ 1342  clear
+ 1343  [200~cd /MEDICALAPP/NEEPMEDBILL/soumya_final_production
+ 1344  cd /MEDICALAPP/NEEPMEDBILL/soumya_final_production
+ 1345  ls
+ 1346  chmod -R 755 instantclient_21_12
+ 1347  export ORACLE_HOME=/MEDICALAPP/NEEPMEDBILL/soumya_final_production/instantclient_21_12
+ 1348  export LD_LIBRARY_PATH=$ORACLE_HOME:$LD_LIBRARY_PATH
+ 1349  export PATH=$ORACLE_HOME:$PATH
+ 1350  echo $ORACLE_HOME
+ 1351  ls $ORACLE_HOME
+ 1352  source venv/bin/activate
+ 1353  source /MEDICALAPP/NEEPMEDBILL/venv/bin/activate
+ 1354  which python
+ 1355  pip install cx_Oracle
+ 1356  sudo apt update
+ 1357  sudo apt install -y build-essential python3-dev
+ 1358  cd /MEDICALAPP/NEEPMEDBILL
+ 1359  source venv/bin/activate
+ 1360  cd soumya_final_production
+ 1361  pip install cx_Oracle
+ 1362  python -c "import cx_Oracle; print(cx_Oracle.clientversion())"
+ 1363  export ORACLE_USER=your_db_user
+ 1364  export ORACLE_PASSWORD=your_db_password
+ 1365  export ORACLE_HOST=10.48.49.26
+ 1366  export ORACLE_PORT=1521
+ 1367  export ORACLE_SERVICE_NAME=ORCL
+ 1368  env | grep ORACLE
+ 1369  python - <<EOF
+ 1370  import cx_Oracle
+ 1371  dsn = cx_Oracle.makedsn(
+ 1372      host="10.48.49.26",
+ 1373      port=1521,
+ 1374      service_name="ORCL"
+ 1375  )
+ 1376  conn = cx_Oracle.connect(
+ 1377      user="your_db_user",
+ 1378      password="your_db_password",
+ 1379      dsn=dsn
+ 1380  )
+ 1381  print("✅ Oracle DB connection successful")
+ 1382  conn.close()
+ 1383  EOF
+ 1384  nc -zv 10.48.49.26 1521
+ 1385  lsnrctl status
+ 1386  python - <<EOF
+ 1387  import cx_Oracle
+ 1388  dsn = cx_Oracle.makedsn(
+ 1389      host="10.48.49.105",
+ 1390      port=1521,
+ 1391      sid="NPDCLDB112"
+ 1392  )
+ 1393  conn = cx_Oracle.connect(
+ 1394      user="NEEPMEDBILL",
+ 1395      password="NEEPMEDBILL",
+ 1396      dsn=dsn
+ 1397  )
+ 1398  print("✅ Oracle DB connection successful (SID based)")
+ 1399  conn.close()
+ 1400  EOF
+ 1401  export ORACLE_USER=NEEPMEDBILL
+ 1402  export ORACLE_PASSWORD=NEEPMEDBILL
+ 1403  export ORACLE_HOST=10.48.49.105
+ 1404  export ORACLE_PORT=1521
+ 1405  export ORACLE_SID=NPDCLDB112
+ 1406  env | grep ORACLE
+ 1407  python manage.py shell
+ 1408  df -h
+ 1409  exit
+ 1410  cd /MEDICALAPP/NEEPMEDBILL
+ 1411  ls -a
+ 1412  cd soumya_final_production
+ 1413  ls -a
+ 1414  mv .env env
+ 1415  ls -a
+ 1416  mv .env env
+ 1417  source venv/bin/activate
+ 1418  cd ..
+ 1419  source venv/bin/activate
+ 1420  python manage.py runserver 0.0.0.0:8000
+ 1421  [200~cd so
+ 1422  cd soumya_final_production
+ 1423  python manage.py runserver 0.0.0.0:8000
+ 1424  clear
+ 1425  python manage.py runserver 0.0.0.0:8000
+ 1426  cd /MEDICALAPP/NEEPMEDBILL
+ 1427  source venv/bin/activate
+ 1428  cd soumya_final_production
+ 1429  python manage.py shell
+ 1430  nano /MEDICALAPP/NEEPMEDBILL/venv/bin/activate
+ 1431  export ORACLE_USER=NEEPMEDBILL
+ 1432  export ORACLE_PASSWORD=NEEPMEDBILL
+ 1433  export ORACLE_HOST=10.48.49.105
+ 1434  export ORACLE_PORT=1521
+ 1435  export ORACLE_SID=NPDCLDB112
+ 1436  deactivate
+ 1437  source /MEDICALAPP/NEEPMEDBILL/venv/bin/activate
+ 1438  cd /MEDICALAPP/NEEPMEDBILL/soumya_final_production
+ 1439  env | grep ORACLE
+ 1440  python manage.py shell
+ 1441  python manage.py migrate
+ 1442  git status
+ 1443  git branch
+ 1444  cd checkout main 
+ 1445  git checkout main
+ 1446  git add .
+ 1447  git commit 
+ 1448  git commit -m "instandtclient"
+ 1449  git checkout main 
+ 1450  git pull 
+ 1451  git fetch
+ 1452  git fetc -a
+ 1453  git fetch -a
+ 1454  git branches
+ 1455  git branch -a
+ 1456  git pull origin main 
+ 1457  git branch
+ 1458  git list remote origin 
+ 1459  git  remote origin 
+ 1460  git  remote show
+ 1461  git  remote origib show
+ 1462  git  remote origin
+ 1463  git  remote show --verbose
+ 1464  git  remote --verbose show
+ 1465  df -h
+ 1466  source venv/bin/activate
+ 1467  cd soumya_final_production
+ 1468  python -m django --version
+ 1469  pip uninstall django
+ 1470  pip install Django==3.2.25
+ 1471  python manage.py runserver 0.0.0.0:8000
+ 1472  ls
+ 1473  git status
+ 1474  git pull 
+ 1475  git pull
+ 1476  python manage.py migrate
+ 1477  . ../venv/bin/activate.ps1
+ 1478  . ../venv/bin/activate
+ 1479  clear
+ 1480  python manage.py migrate
+ 1481  python manage.py collectstatic --noinput
+ 1482  sudo systemctl restart gunicorn
+ 1483* sudo systemctl 
+ 1484  python manage.py migrate
+ 1485* sudo journalctl 
+ 1486  git pull
+ 1487  python manage.py runserver 8001
+ 1488  sudo systemctl restart gunicorn-medicalapp.service 
+ 1489  sudo systemctl restart nginx
+ 1490  sudo systemctl status nginx
+ 1491  sudo systemctl status gunicorn-medicalapp.service 
+ 1492  sudo systemctl daemon-reload
+ 1493  history
+ 1494  history>history.txt

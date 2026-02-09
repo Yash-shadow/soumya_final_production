@@ -4,14 +4,50 @@ Django settings for TGNPDCL Monolithic Application.
 from pathlib import Path
 import os
 import dj_database_url
-# from dotenv import load_dotenv
-# load_dotenv()
+from dotenv import load_dotenv
+
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# # Load .env file - try multiple locations
+# env_path = BASE_DIR / '.env'
+# env_path_str = str(env_path)
+
+# # Try multiple paths
+# env_paths = [
+#     env_path_str,  # Project root
+#     '/MEDICALAPP/NEEPMEDBILL/soumya_final_production/.env',  # Absolute Linux path
+#     os.path.join(os.getcwd(), '.env'),  # Current directory
+# ]
+
+# env_loaded = False
+# for path in env_paths:
+#     if os.path.exists(path):
+#         load_dotenv(dotenv_path=path, override=True)
+#         if os.environ.get('ORACLE_USER'):
+#             print(f"✅ Loaded .env file from: {path}")
+#             env_loaded = True
+#             break
+
+# if not env_loaded:
+#     # Try default load_dotenv (searches current dir and parents)
+#     load_dotenv(override=True)
+#     if os.environ.get('ORACLE_USER'):
+#         print(f"✅ Loaded .env file (auto-detected)")
+#         env_loaded = True
+#     else:
+#         print(f"⚠️  Warning: .env file not found!")
+#         print(f"   Searched in:")
+#         for path in env_paths:
+#             print(f"     - {path}")
+#         print(f"   Current directory: {os.getcwd()}")
+#         print(f"   BASE_DIR: {BASE_DIR}")
+#         print(f"   Please create .env file with Oracle credentials.")
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-dev-key-change-in-production')
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1,hospital.localhost').split(',')
-CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS','http://localhost:8000,http://127.0.0.1:8000,http://0.0.0.0:8000').split(',')
+ALLOWED_HOSTS = [host.strip() for host in os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1,hospital.localhost').split(',')]
+CSRF_TRUSTED_ORIGINS = [origin.strip().strip('"').strip("'") for origin in os.environ.get('CSRF_TRUSTED_ORIGINS','http://localhost:8000,http://127.0.0.1:8000,http://0.0.0.0:8000').split(',')]
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -60,40 +96,39 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'project.wsgi.application'
 
+# Apply Oracle 11g compatibility patch before database configuration
+try:
+    from .oracle11g_patch import *
+except ImportError:
+    print("⚠️  Warning: Oracle 11g patch not found, migrations may fail on Oracle 11g")
+
 # Database
-# Prefer Oracle if connection details are provided, otherwise fallback to DATABASE_URL or SQLite
 ORACLE_USER = os.environ.get('ORACLE_USER')
 ORACLE_PASSWORD = os.environ.get('ORACLE_PASSWORD')
 ORACLE_HOST = os.environ.get('ORACLE_HOST')
 ORACLE_PORT = os.environ.get('ORACLE_PORT', '1521')
-ORACLE_SERVICE_NAME = os.environ.get('ORACLE_SERVICE_NAME')
+ORACLE_SID = os.environ.get('ORACLE_SID')
 
-POSTGRES_USER           =   os.environ.get('POSTGRES_USER') 
-POSTGRES_PASSWORD       =   os.environ.get('POSTGRES_PASSWORD') 
-POSTGRES_HOST           =   os.environ.get('POSTGRES_HOST') 
-POSTGRES_PORT           =   os.environ.get('POSTGRES_PORT') 
-POSTGRES_DATABASE       =   os.environ.get('POSTGRES_DATABASE') 
+# Debug: Print database configuration
+print(f"🔍 Database Config Check:")
+print(f"   ORACLE_USER: {'✓ Set' if ORACLE_USER else '✗ Not Set'}")
+print(f"   ORACLE_PASSWORD: {'✓ Set' if ORACLE_PASSWORD else '✗ Not Set'}")
+print(f"   ORACLE_HOST: {ORACLE_HOST if ORACLE_HOST else '✗ Not Set'}")
+print(f"   ORACLE_SID: {ORACLE_SID if ORACLE_SID else '✗ Not Set'}")
+print(f"   Using: {'Oracle' if (ORACLE_USER and ORACLE_PASSWORD and ORACLE_HOST and ORACLE_SID) else 'SQLite (fallback)'}")
 
-if ORACLE_USER and ORACLE_PASSWORD and ORACLE_HOST and ORACLE_SERVICE_NAME:
+if ORACLE_USER and ORACLE_PASSWORD and ORACLE_HOST and ORACLE_SID:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.oracle',
-            'NAME': f"{ORACLE_HOST}:{ORACLE_PORT}/{ORACLE_SERVICE_NAME}",
+            'NAME': ORACLE_SID,
             'USER': ORACLE_USER,
             'PASSWORD': ORACLE_PASSWORD,
+            'HOST': ORACLE_HOST,
+            'PORT': ORACLE_PORT,
         }
     }
-elif (POSTGRES_USER and POSTGRES_PASSWORD and POSTGRES_HOST and POSTGRES_DATABASE):
-    DATABASES = { 
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': f'{POSTGRES_DATABASE}',
-            'USER': f'{POSTGRES_USER}',
-            'PASSWORD': f'{POSTGRES_PASSWORD}',
-            'HOST': f'{POSTGRES_HOST}',
-            'PORT': f'{POSTGRES_PORT}',
-        }
-    }
+
 
 else:
     DATABASES = {
@@ -102,7 +137,6 @@ else:
             conn_max_age=600
         )
     }
-
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
@@ -163,6 +197,14 @@ else:
 
 
 
+# Logging configuration
+import logging.config
+import os
+
+log_file_path = BASE_DIR / 'django_errors.log'
+# Ensure log directory exists
+log_file_path.parent.mkdir(parents=True, exist_ok=True)
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -170,7 +212,7 @@ LOGGING = {
         'file': {
             'level': 'ERROR',
             'class': 'logging.FileHandler',
-            'filename': '/MEDICALAPP/NEEPMEDBILL/soumya_final_production/django_errors.log',
+            'filename': str(log_file_path),
         },
         'console': {
             'class': 'logging.StreamHandler',
@@ -186,6 +228,11 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': False,
         },
+        'django.db.backends': {
+            'handlers': ['console'],
+            'level': 'DEBUG' if DEBUG else 'ERROR',
+            'propagate': False,
+        },
     },
 }
 
@@ -197,6 +244,12 @@ LOGOUT_REDIRECT_URL = '/login/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Session Configuration
+# Temporarily use file-based sessions to avoid Oracle 11g session query issues
+# TODO: Fix database session queries and switch back to 'django.contrib.sessions.backends.db'
+SESSION_ENGINE = 'django.contrib.sessions.backends.file'
+SESSION_FILE_PATH = BASE_DIR / 'sessions'  # Directory for session files
+SESSION_FILE_PATH.mkdir(exist_ok=True)  # Create directory if it doesn't exist
 
 # SECURE_SSL_REDIRECT = os.environ.get('SECURE_SSL_REDIRECT')
 # SESSION_COOKIE_SECURE = os.environ.get('SESSION_COOKIE_SECURE')
