@@ -14,15 +14,7 @@ try:
     # Try multiple common Oracle Instant Client paths on Linux
     oracle_paths = [
         "/MEDICALAPP/NEEPMEDBILL/soumya_final_production/instantclient_21_12",  # Project-specific location
-        "/opt/oracle/instantclient_21_12",
-        "/opt/oracle/instantclient_19_8",
-        "/opt/oracle/instantclient_19_3",
-        "/opt/oracle/instantclient_18_5",
-        "/usr/lib/oracle/21/client64/lib",
-        "/usr/lib/oracle/19/client64/lib",
-        "/usr/lib/oracle/18/client64/lib",
-        "/opt/oracle/instantclient",
-        os.environ.get("ORACLE_HOME", ""),
+                os.environ.get("ORACLE_HOME", ""),
         os.environ.get("LD_LIBRARY_PATH", "").split(":")[0] if os.environ.get("LD_LIBRARY_PATH") else "",
     ]
     

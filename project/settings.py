@@ -43,11 +43,30 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 #         print(f"   BASE_DIR: {BASE_DIR}")
 #         print(f"   Please create .env file with Oracle credentials.")
 
+# SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-dev-key-change-in-production')
+# DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+# # Include host with and without port so Django accepts requests when run behind integrated app (Host: 10.48.49.26:8000)
+# _default_hosts = 'localhost,127.0.0.1,hospital.localhost,10.48.49.26,10.48.49.26:8000'
+# ALLOWED_HOSTS = [h.strip() for h in os.environ.get('ALLOWED_HOSTS', _default_hosts).split(',') if h.strip()]
+# # Ensure host:port is allowed when host is in list (e.g. 10.48.49.26 -> also allow 10.48.49.26:8000)
+# for h in list(ALLOWED_HOSTS):
+#     if h and ':' not in h and h not in ('*', '.'):
+#         for port in ('8000', '80', '443'):
+#             candidate = f'{h}:{port}'
+#             if candidate not in ALLOWED_HOSTS:
+#                 ALLOWED_HOSTS.append(candidate)
+# CSRF_TRUSTED_ORIGINS = [origin.strip().strip('"').strip("'") for origin in os.environ.get('CSRF_TRUSTED_ORIGINS','http://localhost:8000,http://127.0.0.1:8000,http://0.0.0.0:8000,http://10.48.49.26:8000,http://10.48.49.26').split(',')]
+
+# # When run under integrated portal (Medical at /medical), set FORCE_SCRIPT_NAME=/medical
+# # so Django generates correct URLs (e.g. /medical/admin/, /medical/static/).
+# FORCE_SCRIPT_NAME = os.environ.get("FORCE_SCRIPT_NAME", "") or None
+
+
+
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-dev-key-change-in-production')
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 ALLOWED_HOSTS = [host.strip() for host in os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1,hospital.localhost').split(',')]
 CSRF_TRUSTED_ORIGINS = [origin.strip().strip('"').strip("'") for origin in os.environ.get('CSRF_TRUSTED_ORIGINS','http://localhost:8000,http://127.0.0.1:8000,http://0.0.0.0:8000').split(',')]
-
 
 INSTALLED_APPS = [
     'django.contrib.admin',
