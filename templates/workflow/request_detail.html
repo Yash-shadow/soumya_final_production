@@ -1,7 +1,7 @@
 {% comment %} {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Review Request - SR-{{ sanction_request.id }}{% endblock %}
+{% block title %}Review Request - {{ sanction_request.bill.claim_id }}{% endblock %}
 
 {% block content %}
 <div class="dashboard">
@@ -33,7 +33,8 @@
         <div class="page-header"
             style="background: rgba(31, 41, 55, 0.4); padding: 1.5rem; border-radius: var(--radius-lg); margin-bottom: 2rem; border-bottom: 2px solid var(--primary-600);">
             <div>
-                <h1 class="page-title" style="margin-bottom: 0.25rem;">Review Request: SR-{{ sanction_request.id }}</h1>
+                <h1 class="page-title" style="margin-bottom: 0.25rem;">Review Request: {{ sanction_request.bill.claim_id
+                    }}</h1>
                 <p class="text-muted">Currently with: <strong>{{ sanction_request.current_step.name }}</strong></p>
             </div>
             <div style="text-align: right;">
@@ -262,7 +263,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Review Request SR-{{ sanction_request.id }} - NPDCL</title>
+    <title>Review Request {{ sanction_request.bill.claim_id }} - NPDCL</title>
     <style>
         * {
             margin: 0;
@@ -809,7 +810,8 @@
                     <div class="form-value">{{ sanction_request.bill.bill_date|date:"d-m-Y"|default:"-" }}</div>
                 </div>
 
-                <form method="post" action="{% url 'workflow:process_request' sanction_request.id %}" id="approvalForm">
+                <form method="post" action="{% url 'workflow:process_request' sanction_request.id %}" id="approvalForm"
+                    enctype="multipart/form-data">
                     {% csrf_token %}
                     <table class="claim-table">
                         <thead>
@@ -879,23 +881,20 @@
                                 <td colspan="5" class="text-right"></td>
                                 <td class="text-right">
                                     <strong>Gross Total:</strong><br>
-                                    <strong>₹{{ total_claimed_amount|floatformat:2 }}</strong>
+                                    <strong>₹{{ total_claimed_amount|floatformat:2 }}</strong><br>
+
                                 </td>
                                 <td>
-                                    {% if bill_documents %}
-                                    <strong>Bill Attachments:</strong><br>
                                     {% for doc in bill_documents %}
-                                    <div style="margin-bottom: 2px;">
-                                        <a href="{{ doc.file.url }}" target="_blank"
-                                            title="{{ doc.get_document_type_display }}"
-                                            style="color: #0066cc; text-decoration: none; font-size: 0.8rem;">
-                                            📎 {{ doc.get_document_type_display }}
+                                    {% if doc.document_type == 'OTHER' or doc.document_type == 'FINAL_BILL' %}
+                                    <div style="margin-bottom: 4px;">
+                                        <a href="{{ doc.file.url }}" target="_blank" title="View Bill Attachment"
+                                            style="color: #0066cc; text-decoration: none; font-weight: bold; font-size: 0.85rem;">
+                                            📎 <span style="text-decoration: underline;">View Bill</span>
                                         </a>
                                     </div>
-                                    {% endfor %}
-                                    {% else %}
-                                    <span class="text-muted">-</span>
                                     {% endif %}
+                                    {% endfor %}
                                 </td>
                                 <td></td>
                                 <td></td>
@@ -918,7 +917,7 @@
                             <div class="action-field">
                                 <label for="comments">Comments / Remarks: <span style="color: red;">*</span></label>
                                 <textarea id="comments" name="comments" placeholder="Enter your comments or remarks..."
-                                    required></textarea>
+                                    required rows="2"></textarea>
                             </div>
 
                             <div class="action-field">

@@ -127,7 +127,8 @@
     <h1 class="page-title">Medical Bill Claim Details - {{ bill.claim_id }}</h1>
 
     <!-- Status Banner -->
-    <div class="status-banner {% if bill.status == 'APPROVED' %}approved{% elif bill.status == 'REJECTED' %}rejected{% endif %}">
+    <div
+        class="status-banner {% if bill.status == 'APPROVED' %}approved{% elif bill.status == 'REJECTED' %}rejected{% endif %}">
         <div class="status-info">
             <strong>Current Status: {{ bill.get_status_display }}</strong>
             {% if bill.submitted_at %}
@@ -136,11 +137,11 @@
         </div>
         <div>
             {% if bill.status == 'APPROVED' %}
-                <span style="font-size: 48px; color: #28a745;">✓</span>
+            <span style="font-size: 48px; color: #28a745;">✓</span>
             {% elif bill.status == 'REJECTED' %}
-                <span style="font-size: 48px; color: #dc3545;">✗</span>
+            <span style="font-size: 48px; color: #dc3545;">✗</span>
             {% else %}
-                <span style="font-size: 48px; color: #ffc107;">⏳</span>
+            <span style="font-size: 48px; color: #ffc107;">⏳</span>
             {% endif %}
         </div>
     </div>
@@ -214,8 +215,7 @@
         <div class="info-grid">
             <div class="info-label">Claim ID</div>
             <div class="info-value">{{ bill.claim_id }}</div>
-            <div class="info-label">Scheme</div>
-            <div class="info-value">{{ bill.scheme.name }}</div>
+
 
             <div class="info-label">Bill/Invoice Number</div>
             <div class="info-value">{{ bill.bill_number|default:"Not Provided" }}</div>
@@ -262,7 +262,8 @@
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="9" style="text-align: center; padding: 20px; color: #999;">No items found for this claim.</td>
+                        <td colspan="9" style="text-align: center; padding: 20px; color: #999;">No items found for this
+                            claim.</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -287,9 +288,9 @@
                 <div class="document-icon">📄</div>
                 <div class="document-title">Employee/Pensioner ID Card</div>
                 {% if bill.id_card_file %}
-                    <a href="{{ bill.id_card_file.url }}" target="_blank" class="document-link">View Document</a>
+                <a href="{{ bill.id_card_file.url }}" target="_blank" class="document-link">View Document</a>
                 {% else %}
-                    <div class="no-document">{{ bill.id_card_detail|default:"Not uploaded" }}</div>
+                <div class="no-document">{{ bill.id_card_detail|default:"Not uploaded" }}</div>
                 {% endif %}
             </div>
 
@@ -298,9 +299,9 @@
                 <div class="document-icon">💳</div>
                 <div class="document-title">Approved CC Card</div>
                 {% if bill.cc_card_file %}
-                    <a href="{{ bill.cc_card_file.url }}" target="_blank" class="document-link">View Document</a>
+                <a href="{{ bill.cc_card_file.url }}" target="_blank" class="document-link">View Document</a>
                 {% else %}
-                    <div class="no-document">{{ bill.cc_card_detail|default:"Not uploaded" }}</div>
+                <div class="no-document">{{ bill.cc_card_detail|default:"Not uploaded" }}</div>
                 {% endif %}
             </div>
 
@@ -309,9 +310,9 @@
                 <div class="document-icon">🏥</div>
                 <div class="document-title">Discharge Summary</div>
                 {% if bill.discharge_summary_file %}
-                    <a href="{{ bill.discharge_summary_file.url }}" target="_blank" class="document-link">View Document</a>
+                <a href="{{ bill.discharge_summary_file.url }}" target="_blank" class="document-link">View Document</a>
                 {% else %}
-                    <div class="no-document">{{ bill.discharge_summary_detail|default:"Not uploaded" }}</div>
+                <div class="no-document">{{ bill.discharge_summary_detail|default:"Not uploaded" }}</div>
                 {% endif %}
             </div>
 

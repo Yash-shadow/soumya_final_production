@@ -13,7 +13,6 @@ class BillForm(forms.ModelForm):
     class Meta:
         model = Bill
         fields = [
-            'scheme',
             'patient_name',
             'designation',
             'employee_id',
@@ -39,7 +38,6 @@ class BillForm(forms.ModelForm):
         ]
 
         widgets = {
-            'scheme': forms.Select(attrs={'class': 'form-control'}),
             'patient_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Patient Name'}),
             'designation': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Designation'}),
             'employee_id': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Employee ID'}),
@@ -62,6 +60,7 @@ class BillForm(forms.ModelForm):
             'cc_card_detail': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter CC Card details'}),
             'discharge_summary_detail': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Discharge Summary details'}),
         }
+
         labels = {
             'id_card_file': 'Attach ID',
             'cc_card_file': 'Attach Approval CC Card',
@@ -69,8 +68,22 @@ class BillForm(forms.ModelForm):
             'id_card_detail': 'ID Details',
             'cc_card_detail': 'CC Card Details',
             'discharge_summary_detail': 'Discharge Summary Details',
-
         }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        admission_date = cleaned_data.get('admission_date')
+        discharge_date = cleaned_data.get('discharge_date')
+
+        if admission_date and discharge_date:
+            if discharge_date < admission_date:
+                raise forms.ValidationError("Date of Discharge cannot be earlier than Date of Admission")
+        
+        return cleaned_data
+
+
+
+
 
 
 class BillDocumentForm(forms.ModelForm):

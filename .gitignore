@@ -8,6 +8,8 @@ venv/
 instantclient_21_12/
 instantclient*/
 *.zip
+<<<<<<< HEAD
+=======
 *.env
 
 
@@ -24,11 +26,17 @@ django_errors*
 *.log
 
 
+>>>>>>> a87855e0946ed2a23d8f7d8e08e659fe6bc2281e
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
 *$py.class
 
+<<<<<<< HEAD
+# C extensions
+*.so
+
+=======
 
 
 
@@ -36,6 +44,7 @@ __pycache__/
 *.so
 
 
+>>>>>>> a87855e0946ed2a23d8f7d8e08e659fe6bc2281e
 # Distribution / packaging
 .Python
 build/

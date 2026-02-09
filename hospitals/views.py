@@ -48,8 +48,28 @@ def submit_bill(request):
         formset = BillItemFormSet(request.POST, request.FILES, queryset=BillItem.objects.none())
         
         if bill_form.is_valid() and formset.is_valid():
+            if 'bill_attachment' not in request.FILES:
+                messages.error(request, 'Please upload the supporting document for Gross Total (mandatory).')
+                return render(request, 'hospitals/submit_bill.html', {
+                    'bill_form': bill_form,
+                    'formset': formset,
+                    'services': services,
+                })
+
             bill = bill_form.save(commit=False)
             bill.hospital = hospital
+            
+             # Assign default scheme as field is hidden
+            default_scheme = Scheme.objects.order_by('id').first()
+            if not default_scheme:
+                 # Create a default scheme if none exists to avoid error
+                 default_scheme, _ = Scheme.objects.get_or_create(
+                     name="General Scheme",
+                     code="GEN01", 
+                     defaults={'description': 'Default Scheme'}
+                 )
+            bill.scheme = default_scheme
+            
             bill.created_by = request.user
             bill.status = 'SUBMITTED'
             bill.save()
@@ -83,6 +103,14 @@ def submit_bill(request):
             bill.gross_claimed_amount = total_amount
             bill.save()
             
+            # Handle Bill Attachment (under Gross Total)
+            if 'bill_attachment' in request.FILES:
+                BillDocument.objects.create(
+                    bill=bill,
+                    document_type='OTHER', # Using OTHER as a generic type for now
+                    file=request.FILES['bill_attachment']
+                )
+            
             # Create SanctionRequest to enter workflow
             first_step = WorkflowStep.objects.order_by('order').first()
             SanctionRequest.objects.create(
@@ -100,7 +128,7 @@ def submit_bill(request):
             messages.error(request, 'Please correct the errors below.')
     else:
         bill_form = BillForm()
-        bill_form.fields['scheme'].queryset = Scheme.objects.filter(is_active=True)
+        # bill_form.fields['scheme'].queryset = Scheme.objects.filter(is_active=True)
         formset = BillItemFormSet(queryset=BillItem.objects.none())
         
     return render(request, 'hospitals/submit_bill.html', {
