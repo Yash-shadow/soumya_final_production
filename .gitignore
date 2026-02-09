@@ -1,18 +1,50 @@
+
 __pycache__/
 *.pyc
 db.sqlite3
 media/
 staticfiles/
 venv/
+instantclient_21_12/
+instantclient*/
 *.zip
+<<<<<<< HEAD
+=======
+*.env
+
+
+.env
+.*env
+.env.*
+
+
+sessions/
+
+django_session_*
+django_cache_*
+django_errors*
+*.log
+
+
+>>>>>>> a87855e0946ed2a23d8f7d8e08e659fe6bc2281e
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
 *$py.class
 
+<<<<<<< HEAD
 # C extensions
 *.so
 
+=======
+
+
+
+# C extensions
+*.so
+
+
+>>>>>>> a87855e0946ed2a23d8f7d8e08e659fe6bc2281e
 # Distribution / packaging
 .Python
 build/

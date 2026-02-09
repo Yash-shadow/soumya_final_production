@@ -14,15 +14,7 @@ try:
     # Try multiple common Oracle Instant Client paths on Linux
     oracle_paths = [
         "/MEDICALAPP/NEEPMEDBILL/soumya_final_production/instantclient_21_12",  # Project-specific location
-        "/opt/oracle/instantclient_21_12",
-        "/opt/oracle/instantclient_19_8",
-        "/opt/oracle/instantclient_19_3",
-        "/opt/oracle/instantclient_18_5",
-        "/usr/lib/oracle/21/client64/lib",
-        "/usr/lib/oracle/19/client64/lib",
-        "/usr/lib/oracle/18/client64/lib",
-        "/opt/oracle/instantclient",
-        os.environ.get("ORACLE_HOME", ""),
+                os.environ.get("ORACLE_HOME", ""),
         os.environ.get("LD_LIBRARY_PATH", "").split(":")[0] if os.environ.get("LD_LIBRARY_PATH") else "",
     ]
     
@@ -43,21 +35,26 @@ try:
             continue
     
     if not oracle_initialized:
-        print("⚠ Warning: Could not initialize Oracle thick mode with any known path")
-        print("   Searched paths:")
-        for path in oracle_paths:
-            if path:
-                exists = "✓" if os.path.exists(path) else "✗"
-                print(f"     {exists} {path}")
-        print("   Oracle 11g requires thick mode - please install Oracle Instant Client")
-        print("   or set ORACLE_HOME environment variable")
-        raise Exception("Oracle thick mode initialization failed - Oracle 11g requires thick mode")
+        # Only raise error if we are expecting to use Oracle
+        if os.environ.get('ORACLE_USER'):
+            print("⚠ Warning: Could not initialize Oracle thick mode with any known path")
+            print("   Searched paths:")
+            for path in oracle_paths:
+                if path:
+                    exists = "✓" if os.path.exists(path) else "✗"
+                    print(f"     {exists} {path}")
+            print("   Oracle 11g requires thick mode - please install Oracle Instant Client")
+            print("   or set ORACLE_HOME environment variable")
+            raise Exception("Oracle thick mode initialization failed - Oracle 11g requires thick mode")
+        else:
+             print("⚠️  Oracle client not found, but ORACLE_USER not set. assuming SQLite fallback.")
         
 except ImportError:
     print("⚠ Warning: oracledb not available, will try to continue...")
 except Exception as e:
     print(f"❌ Error: {e}")
-    raise
+    if os.environ.get('ORACLE_USER'):
+        raise
 
 # Add project root to path
 sys.path.append(os.getcwd())
