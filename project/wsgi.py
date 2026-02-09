@@ -47,17 +47,23 @@ if not hasattr(oracledb, 'Time'):
 print("✓ Missing oracledb attributes added")
 
 # 3. INITIALIZE THICK MODE (REQUIRED for Oracle 11g)
+# 3. INITIALIZE THICK MODE (REQUIRED for Oracle 11g)
 try:
     lib_dir = "/opt/oracle/instantclient_11_2"
     if os.path.exists(lib_dir):
         oracledb.init_oracle_client(lib_dir=lib_dir)
         print(f"✓ Oracle Thick Mode enabled using {lib_dir}")
     else:
-        print(f"❌ CRITICAL: {lib_dir} not found!")
-        raise Exception(f"Oracle Instant Client not found at {lib_dir}")
+        # Only raise error if we are expecting to use Oracle
+        if os.environ.get('ORACLE_USER'):
+            print(f"❌ CRITICAL: {lib_dir} not found!")
+            raise Exception(f"Oracle Instant Client not found at {lib_dir}")
+        else:
+            print(f"⚠️  Oracle client not found at {lib_dir}, but ORACLE_USER not set. assuming SQLite fallback.")
 except Exception as e:
     print(f"❌ Oracle Client Init Error: {e}")
-    raise
+    if os.environ.get('ORACLE_USER'):
+        raise
 
 # 4. PATCH DJANGO ORACLE BACKEND
 from django.db.backends.oracle import base, operations, schema
